@@ -1,2 +1,4 @@
 node_modules/
 dist/
+.claude/plugins/agent-reachout/
+.claude/skills/humanizer-zh/
