@@ -5,6 +5,7 @@ import Ajv from 'ajv';
 
 export interface PersonaMeta {
   id: string;
+  city: string;
   name: string;
   description: string;
   assumptions: string[];
@@ -96,18 +97,20 @@ export function loadConfig(dataDir: string): Map<string, PersonaConfig> {
     }
 
     const persona = data as PersonaConfig;
-    if (result.has(persona.persona.id)) {
+    const key = `${persona.persona.city}:${persona.persona.id}`;
+    if (result.has(key)) {
       throw new ConfigValidationError(
-        `Duplicate persona id: ${persona.persona.id}`,
+        `Duplicate persona key: ${key}`,
         filePath,
         []
       );
     }
 
-    result.set(persona.persona.id, persona);
+    result.set(key, persona);
   }
 
   cache.set(resolvedDir, result);
-  console.log(`[ConfigLoader] Loaded ${result.size} persona configs`);
+  const cities = new Set([...result.values()].map(p => p.persona.city));
+  console.log(`[ConfigLoader] Loaded ${result.size} persona configs across ${cities.size} cities: ${[...cities].join(', ')}`);
   return result;
 }

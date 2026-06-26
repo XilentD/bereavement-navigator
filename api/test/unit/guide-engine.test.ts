@@ -6,7 +6,7 @@ describe('GuideEngine', () => {
   const config = loadConfig('../data');
 
   it('should return timeline for retired worker with basic answers', () => {
-    const result = matchGuide(config, 'retired_worker', {
+    const result = matchGuide(config, 'hangzhou', 'retired_worker', {
       death_location: 'at_hospital',
       has_real_estate: false,
       has_commercial_insurance: false,
@@ -26,7 +26,7 @@ describe('GuideEngine', () => {
   });
 
   it('should include conditional procedures when answers are true', () => {
-    const result = matchGuide(config, 'retired_worker', {
+    const result = matchGuide(config, 'hangzhou', 'retired_worker', {
       death_location: 'at_home',
       has_real_estate: true,
       has_commercial_insurance: true,
@@ -41,7 +41,7 @@ describe('GuideEngine', () => {
   });
 
   it('should resolve depends-type where correctly', () => {
-    const result = matchGuide(config, 'retired_worker', {
+    const result = matchGuide(config, 'hangzhou', 'retired_worker', {
       death_location: 'at_hospital',
       has_real_estate: false,
       has_commercial_insurance: false,
@@ -58,12 +58,12 @@ describe('GuideEngine', () => {
 
   it('should throw for unknown persona_id', () => {
     expect(() =>
-      matchGuide(config, 'nonexistent_persona', {})
+      matchGuide(config, 'hangzhou', 'nonexistent_persona', {})
     ).toThrow('Unknown persona');
   });
 
   it('should return summary statistics', () => {
-    const result = matchGuide(config, 'retired_worker', {
+    const result = matchGuide(config, 'hangzhou', 'retired_worker', {
       death_location: 'at_hospital',
       has_real_estate: false,
       has_commercial_insurance: false,

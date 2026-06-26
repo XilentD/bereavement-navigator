@@ -3,6 +3,7 @@ import type { PersonaConfig, Procedure, TimelinePhase, DependsWhere } from '../c
 export interface GuideResult {
   persona: {
     id: string;
+    city: string;
     name: string;
     description: string;
     assumptions: string[];
@@ -33,13 +34,18 @@ type ResolvedWhere =
 
 export function matchGuide(
   config: Map<string, PersonaConfig>,
+  city: string,
   personaId: string,
   answers: Record<string, string | boolean>
 ): GuideResult {
-  const persona = config.get(personaId);
+  const key = `${city}:${personaId}`;
+  const persona = config.get(key);
   if (!persona) {
+    const available = [...config.keys()]
+      .filter(k => k.startsWith(`${city}:`))
+      .map(k => k.split(':')[1]);
     throw new Error(
-      `Unknown persona: ${personaId}. Available: ${[...config.keys()].join(', ')}`
+      `Unknown persona: ${personaId} in city ${city}. Available in ${city}: ${available.join(', ') || 'none'}`
     );
   }
 
@@ -118,6 +124,7 @@ export function matchGuide(
   return {
     persona: {
       id: persona.persona.id,
+      city: persona.persona.city,
       name: persona.persona.name,
       description: persona.persona.description,
       assumptions: persona.persona.assumptions,

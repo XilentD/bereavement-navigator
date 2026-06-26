@@ -7,23 +7,24 @@ export async function pdfRoutes(app: FastifyInstance, config: Map<string, Person
   app.post('/api/pdf/delegation-letter', async (request, reply) => {
     const body = request.body as any;
     const { principalName, principalId, agentName, agentId, relationship,
-            deceasedName, deceasedId, deathDate, persona_id, answers } = body;
+            deceasedName, deceasedId, deathDate, persona_id, city = 'hangzhou', answers } = body;
 
     if (!persona_id || !answers) {
       return reply.status(400).send({
         error: 'Missing required fields',
-        message: 'persona_id and answers are required',
+        message: 'persona_id, city, and answers are required',
       });
     }
 
-    if (!config.has(persona_id)) {
+    const dlKey = `${city}:${persona_id}`;
+    if (!config.has(dlKey)) {
       return reply.status(400).send({
         error: 'Unknown persona',
-        message: `"${persona_id}" is not supported. Available: ${[...config.keys()].join(', ')}`,
+        message: `"${persona_id}" is not supported in ${city}. Available: ${[...config.keys()].join(', ')}`,
       });
     }
 
-    const guide = matchGuide(config, persona_id, answers);
+    const guide = matchGuide(config, city, persona_id, answers);
     const items = guide.timeline.flatMap(p =>
       p.procedures.map(proc => proc.name)
     );
@@ -45,25 +46,26 @@ export async function pdfRoutes(app: FastifyInstance, config: Map<string, Person
 
   app.post('/api/pdf/checklist', async (request, reply) => {
     const body = request.body as any;
-    const { persona_id, answers } = body;
+    const { persona_id, city = 'hangzhou', answers } = body;
 
     if (!persona_id || !answers) {
       return reply.status(400).send({
         error: 'Missing required fields',
-        message: 'persona_id and answers are required',
+        message: 'persona_id, city, and answers are required',
       });
     }
 
-    if (!config.has(persona_id)) {
+    const clKey = `${city}:${persona_id}`;
+    if (!config.has(clKey)) {
       return reply.status(400).send({
         error: 'Unknown persona',
-        message: `"${persona_id}" is not supported. Available: ${[...config.keys()].join(', ')}`,
+        message: `"${persona_id}" is not supported in ${city}. Available: ${[...config.keys()].join(', ')}`,
       });
     }
 
-    const guide = matchGuide(config, persona_id, answers);
+    const guide = matchGuide(config, city, persona_id, answers);
 
-    const key = `cl-${persona_id}-${JSON.stringify(answers)}`;
+    const key = `cl-${city}-${persona_id}-${JSON.stringify(answers)}`;
     const pdf = await cachePdf(key, () => generateChecklist(guide));
 
     reply.header('Content-Type', 'application/pdf');

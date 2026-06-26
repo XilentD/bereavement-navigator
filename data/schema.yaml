@@ -8,12 +8,16 @@ additionalProperties: false
 properties:
   persona:
     type: object
-    required: [id, name, description, assumptions]
+    required: [id, city, name, description, assumptions]
     additionalProperties: false
     properties:
       id:
         type: string
         pattern: "^[a-z_]+$"
+      city:
+        type: string
+        pattern: "^[a-z]+$"
+        description: "City slug — e.g. hangzhou, beijing, shanghai, guangzhou"
       name:
         type: string
         minLength: 2

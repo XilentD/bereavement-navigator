@@ -1,14 +1,15 @@
 persona:
-  id: civil_servant
-  name: 公务员
-  description: 在杭州市机关事业单位工作的在编公务员
+  id: military
+  city: hangzhou
+  name: 军人（现役/退役军人）
+  description: 在杭州市居住的现役军人或退役军人
   assumptions:
-    - 逝者为杭州市在编公务员
+    - 逝者为现役军人或已退役的退伍军人
     - 逝者有配偶或一名成年子女可代办
 
 timeline:
   - phase: 24h
-    title: 立即办理（24小时内）
+    title: 立即办理
     procedures:
       - id: death_cert
         name: 开具《死亡医学证明》
@@ -42,19 +43,23 @@ timeline:
             - {doc: 死亡医学证明, count: 2}
         output: 火化预约确认单
 
-      - id: employer_notify
-        name: 报告所在单位组织人事部门
+      - id: military_notify
+        name: 报告退役军人事务局/部队政治部
         urgency: high
         where:
-          type: fixed
-          name: 逝者所在单位
-          address: 联系逝者单位人事部门
-          phone: "0571-12345"
+          type: depends
+          branches:
+            - when: active_duty
+              name: 所在部队政治部门
+            - when: retired
+              name: 杭州市退役军人事务局
+              address: 杭州市上城区机场路271号
+              phone: "0571-85280000"
         need:
-          originals: [死亡医学证明]
+          originals: [死亡医学证明, 逝者身份证]
           copies: []
-        output: 单位知晓确认
-        notes: 单位会派遣专人协助家属处理后事及抚恤金申领
+        output: 备案确认
+        notes: 现役军人死亡由部队主导善后，退役军人由退役军人事务局协调
 
   - phase: 3d
     title: 遗体告别与火化（1-3天）
@@ -128,42 +133,46 @@ timeline:
           has_real_estate: true
 
   - phase: 30d
-    title: 公务员待遇结算
+    title: 军人待遇结算
     procedures:
-      - id: civil_funeral_allowance
-        name: 公务员丧葬费申领
+      - id: military_funeral
+        name: 军人丧葬补助 + 抚恤金申领
         urgency: high
         where:
-          type: fixed
-          name: 逝者所在单位财务部门
-          address: 联系逝者单位
-          phone: "0571-12345"
+          type: depends
+          branches:
+            - when: active_duty
+              name: 所在部队后勤部门
+            - when: retired
+              name: 杭州市退役军人事务局
+              address: 杭州市上城区机场路271号
+              phone: "0571-85280000"
         need:
-          originals: [死亡医学证明, 火化证明, 户口注销证明, 代办人身份证, 代办人银行卡]
+          originals: [死亡医学证明, 火化证明, 户口注销证明, 军人证件, 代办人身份证, 代办人银行卡, 关系证明]
           copies:
-            - {doc: 死亡医学证明, count: 1}
+            - {doc: 死亡医学证明, count: 2}
             - {doc: 火化证明, count: 1}
             - {doc: 户口注销证明, count: 1}
-        output: 丧葬费领取凭证
-        notes: 公务员丧葬费标准由各地人社部门确定，杭州约为 4000-8000 元
+            - {doc: 军人证件, count: 1}
+        output: 抚恤金申领受理回执
+        notes: 军人抚恤金标准高于普通职工，具体标准咨询主管部门
 
-      - id: civil_pension
-        name: 一次性抚恤金 + 职业年金清算
-        urgency: high
+      - id: martyr_honor
+        name: 烈士评定申请（如符合条件）
+        urgency: normal
         where:
           type: fixed
-          name: 杭州市社会保险管理服务中心 + 逝者单位
-          address: 杭州市上城区清吟街123号
-          phone: "0571-12333"
+          name: 杭州市退役军人事务局优抚褒扬处
+          address: 杭州市上城区机场路271号
+          phone: "0571-85280000"
         need:
-          originals: [死亡医学证明, 火化证明, 户口注销证明, 代办人身份证, 代办人银行卡, 关系证明]
+          originals: [死亡医学证明, 相关事迹证明材料, 军人证件]
           copies:
-            - {doc: 死亡医学证明, count: 1}
-            - {doc: 火化证明, count: 1}
-            - {doc: 户口注销证明, count: 1}
-            - {doc: 关系证明, count: 1}
-        output: 抚恤金及年金领取凭证
-        notes: 公务员一次性抚恤金标准为上年度全国城镇居民人均可支配收入的20倍 + 本人生前40个月基本工资
+            - {doc: 死亡医学证明, count: 2}
+        output: 烈士评定受理回执
+        notes: 烈士评定需符合《烈士褒扬条例》规定条件，由省级政府批准
+        when:
+          is_martyr_case: true
 
   - phase: 90d
     title: 资产处理（30-90天）

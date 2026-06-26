@@ -5,14 +5,14 @@ describe('ConfigLoader', () => {
   it('should load all YAML files from the data directory', () => {
     const config = loadConfig('../data');
     expect(config.size).toBeGreaterThanOrEqual(5);
-    expect(config.has('retired_worker')).toBe(true);
-    expect(config.has('active_worker')).toBe(true);
+    expect(config.has('hangzhou:retired_worker')).toBe(true);
+    expect(config.has('hangzhou:active_worker')).toBe(true);
   });
 
   it('should validate each loaded persona has required fields', () => {
     const config = loadConfig('../data');
-    for (const [id, persona] of config) {
-      expect(persona.persona.id).toBe(id);
+    for (const [key, persona] of config) {
+      expect(key).toBe(`${persona.persona.city}:${persona.persona.id}`);
       expect(persona.persona.name).toBeTruthy();
       expect(persona.timeline.length).toBeGreaterThan(0);
       for (const phase of persona.timeline) {

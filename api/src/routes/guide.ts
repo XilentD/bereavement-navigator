@@ -24,17 +24,21 @@ export async function guideRoutes(app: FastifyInstance, config: Map<string, Pers
       },
     },
     async (request, reply) => {
-      const { persona_id, answers } = request.body;
+      const { persona_id, city = 'hangzhou', answers } = request.body;
 
-      if (!config.has(persona_id)) {
+      const key = `${city}:${persona_id}`;
+      if (!config.has(key)) {
+        const cityPersonas = [...config.keys()]
+          .filter(k => k.startsWith(`${city}:`))
+          .map(k => k.split(':')[1]);
         return reply.status(400).send({
           error: 'Unknown persona',
-          message: `"${persona_id}" is not supported. Available: ${[...config.keys()].join(', ')}`,
+          message: `"${persona_id}" is not supported in ${city}. Available in ${city}: ${cityPersonas.join(', ') || 'none'}`,
         });
       }
 
       try {
-        const result = matchGuide(config, persona_id, answers);
+        const result = matchGuide(config, city, persona_id, answers);
         return result;
       } catch (err) {
         return reply.status(500).send({
