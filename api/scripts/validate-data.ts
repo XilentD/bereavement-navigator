@@ -31,7 +31,8 @@ try {
 
 // 2. Phone format validation
 console.log('\n[2/4] Validating phone numbers...');
-const phonePattern = /^[\d]{3,4}-[\d]{7,8}$/;
+// Accept 5-digit hotlines (12333, 12345) and 7-8 digit local numbers
+const phonePattern = /^[\d]{3,4}-[\d]{5,8}$/;
 const files = readdirSync(PROCEDURES_DIR).filter(f => f.endsWith('.yaml'));
 
 for (const file of files) {
@@ -39,7 +40,7 @@ for (const file of files) {
   const phones = content.match(/"[\d-]{10,15}"/g) || [];
   for (const phone of phones) {
     const clean = phone.replace(/"/g, '');
-    if (!phonePattern.test(clean) && clean !== '0571-12345' && clean !== '0571-12333') {
+    if (!phonePattern.test(clean)) {
       console.error(`  FAIL: ${file} — invalid phone format: ${clean}`);
       errors++;
     }
