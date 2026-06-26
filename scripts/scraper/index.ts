@@ -22,7 +22,17 @@ import { CITY_REGISTRY } from './venues.js';
 import { writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-const CACHE_DIR = join(process.cwd(), '.cache', 'scraper');
+// CACHE_DIR must match the path used by fetcher.ts
+// fetcher uses __dirname/../../.cache/scraper → project root .cache/scraper
+function resolveCacheDir(): string {
+  const cwd = process.cwd();
+  // If running from api/ (via npm script), cache is at ../.cache/scraper
+  if (cwd.endsWith('api') || cwd.endsWith('api/') || cwd.endsWith('api\\')) {
+    return join(cwd, '..', '.cache', 'scraper');
+  }
+  return join(cwd, '.cache', 'scraper');
+}
+const CACHE_DIR = resolveCacheDir();
 
 async function main() {
   const args = process.argv.slice(2);
@@ -115,6 +125,8 @@ async function cmdFetch(registry: typeof CITY_REGISTRY[string], force: boolean) 
   console.log(`\n=== Fetch complete: ${successCount}/${results.length} successful ===\n`);
 
   // Write AI extraction prompt file for manual review if needed
+  const { mkdirSync } = require('node:fs');
+  mkdirSync(CACHE_DIR, { recursive: true });
   const promptPath = join(CACHE_DIR, `${registry.city}-extraction-prompt.md`);
   const prompt = buildExtractionPrompt(registry.city, registry.province, results);
   writeFileSync(promptPath, prompt, 'utf-8');
@@ -125,21 +137,23 @@ async function cmdFetch(registry: typeof CITY_REGISTRY[string], force: boolean) 
 async function cmdExtract(city: string, cityName: string) {
   console.log(`\n=== AI Extraction for ${cityName} ===\n`);
 
-  // Load cached fetch results
-  const cacheFiles = require('node:fs').readdirSync(CACHE_DIR)
-    .filter((f: string) => f.startsWith('http') && f.endsWith('.json'));
-
-  if (cacheFiles.length === 0) {
-    console.log('No cached fetch results found. Run "fetch" first.');
+  // Read ALL cached fetch results — filter by URL later
+  const { readdirSync: rd, readFileSync: rf, existsSync: ex } = require('node:fs');
+  if (!ex(CACHE_DIR)) {
+    console.log(`Cache directory not found: ${CACHE_DIR}. Run "fetch" first.`);
     return;
   }
 
+  const allFiles = rd(CACHE_DIR).filter((f: string) => f.endsWith('.json'));
   const results: FetchResult[] = [];
-  for (const f of cacheFiles) {
-    const data = JSON.parse(require('node:fs').readFileSync(join(CACHE_DIR, f), 'utf-8'));
-    if (data.url && data.textContent) {
-      results.push(data as FetchResult);
-    }
+  for (const f of allFiles) {
+    try {
+      const data = JSON.parse(rf(join(CACHE_DIR, f), 'utf-8'));
+      // Only include fetch results that have actual content
+      if (data.url && data.status && data.textContent && data.textContent.length > 10) {
+        results.push(data as FetchResult);
+      }
+    } catch { /* skip non-fetch JSON files */ }
   }
 
   if (results.length === 0) {

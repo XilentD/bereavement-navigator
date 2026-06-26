@@ -8,8 +8,16 @@ import { join } from 'node:path';
 import { stringify } from 'yaml';
 import type { ExtractedVenue, ExtractedAllowance } from './extractor.js';
 
-const PROCEDURES_DIR = join(process.cwd(), 'data', 'procedures');
-const TEMPLATE_DIR = join(PROCEDURES_DIR); // Use hangzhou files as templates
+// Process cwd is api/ when run via npm script; resolve to project root
+function resolveDataDir(): string {
+  const cwd = process.cwd();
+  // If running from api/, go up one level
+  if (cwd.endsWith('api') || cwd.endsWith('api/') || cwd.endsWith('api\\')) {
+    return join(cwd, '..', 'data', 'procedures');
+  }
+  return join(cwd, 'data', 'procedures');
+}
+const PROCEDURES_DIR = resolveDataDir();
 
 interface GenerationReport {
   city: string;

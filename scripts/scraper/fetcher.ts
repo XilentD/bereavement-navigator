@@ -44,6 +44,9 @@ export async function fetchUrl(
 ): Promise<FetchResult> {
   const { timeout = 30_000, retries = 3, useBrowser = false, contentSelector, encoding: hintEncoding } = options;
 
+  // Force browser for .gov.cn sites — they all use JavaScript redirects
+  const needsBrowser = useBrowser || url.includes('.gov.cn');
+
   // Check cache
   const cacheKey = Buffer.from(url).toString('base64').replace(/[/+=]/g, '_');
   const cachePath = join(CACHE_DIR, `${cacheKey}.json`);
@@ -61,7 +64,7 @@ export async function fetchUrl(
   let lastError: Error | null = null;
   for (let attempt = 0; attempt < retries; attempt++) {
     try {
-      const result = useBrowser
+      const result = needsBrowser
         ? await fetchWithBrowser(url, timeout, contentSelector)
         : await fetchWithNode(url, timeout, hintEncoding, contentSelector);
 
@@ -288,8 +291,8 @@ function extractKeyValuePairs(text: string): Record<string, string> {
     ['bizHours', /(?:办公|办理|服务)时间[：:]\s*(.+?)(?:\n|$)/g],
     ['name', /(?:名称|单位)[：:]\s*(.+?)(?:\n|$)/g],
     ['allowance', /(?:丧葬补助|丧葬费|抚恤金).*?(\d{2,6})\s*[-—至~]\s*(\d{2,6})\s*元/g],
-    ['requiredDocs', /(?:所需材料|携带材料|需要携带)[：:]\s*(.+?)(?:\n\n|\n(?!\s)|$)/s],
-    ['process', /(?:办理流程|办事流程)[：:]\s*(.+?)(?:\n\n|\n(?!\s)|$)/s],
+    ['requiredDocs', /(?:所需材料|携带材料|需要携带)[：:]\s*(.+?)(?:\n\n|\n(?!\s)|$)/gs],
+    ['process', /(?:办理流程|办事流程)[：:]\s*(.+?)(?:\n\n|\n(?!\s)|$)/gs],
     ['deadline', /(?:办理时限|截止时间)[：:]\s*(.+?)(?:\n|$)/g],
   ];
 

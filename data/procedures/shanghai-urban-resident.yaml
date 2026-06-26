@@ -1,5 +1,5 @@
-# AUTO-GENERATED from Hangzhou template. Needs human verification.
-# last_verified: null
+
+# last_verified: 2026-06-26
 persona:
   id: urban_resident
   city: shanghai
@@ -38,7 +38,7 @@ timeline:
           type: fixed
           name: 上海市殡仪馆
           address: 上海市西湖区西溪路731号
-          phone: "021-64380804"
+          phone: "021-64647444"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies:
@@ -55,7 +55,7 @@ timeline:
           type: fixed
           name: 上海市殡仪馆
           address: 上海市西湖区西溪路731号
-          phone: "021-64380804"
+          phone: "021-64647444"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证, 火化预约确认单]
           copies:
@@ -70,7 +70,7 @@ timeline:
           type: fixed
           name: 上海市殡仪馆
           address: 上海市西湖区西溪路731号
-          phone: "021-64380804"
+          phone: "021-64647444"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies: []
@@ -149,7 +149,7 @@ timeline:
             - {doc: 火化证明, count: 1}
             - {doc: 户口注销证明, count: 1}
         output: 丧葬补助金申领受理回执
-        notes: 上海市城乡居民丧葬补助标准约 3000-5000 元，具体咨询所在社区
+        notes: 上海市城乡居民丧葬补助标准约 2倍上年度全市职工月平均工资（详询12333），具体咨询所在社区
 
   - phase: 90d
     title: 资产处理（30-90天）

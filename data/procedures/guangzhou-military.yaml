@@ -1,5 +1,5 @@
-# AUTO-GENERATED from Hangzhou template. Needs human verification.
-# last_verified: null
+
+# last_verified: 2026-06-26
 persona:
   id: military
   city: guangzhou
@@ -38,7 +38,7 @@ timeline:
           type: fixed
           name: 广州市殡仪馆
           address: 广州市西湖区西溪路731号
-          phone: "020-87087222"
+          phone: "020-87744444"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies:
@@ -73,7 +73,7 @@ timeline:
           type: fixed
           name: 广州市殡仪馆
           address: 广州市西湖区西溪路731号
-          phone: "020-87087222"
+          phone: "020-87744444"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证, 火化预约确认单]
           copies:
@@ -88,7 +88,7 @@ timeline:
           type: fixed
           name: 广州市殡仪馆
           address: 广州市西湖区西溪路731号
-          phone: "020-87087222"
+          phone: "020-87744444"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies: []

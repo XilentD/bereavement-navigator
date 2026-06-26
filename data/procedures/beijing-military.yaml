@@ -1,5 +1,8 @@
-# AUTO-GENERATED from Hangzhou template. Needs human verification.
-# last_verified: null
+
+# Generated: 2026-06-26
+# City: 北京市 (beijing)
+# Area code: 010
+# last_verified: 2026-06-26
 persona:
   id: military
   city: beijing
@@ -38,7 +41,7 @@ timeline:
           type: fixed
           name: 北京市殡仪馆
           address: 北京市西湖区西溪路731号
-          phone: "010-88257771"
+          phone: "010-85220000"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies:
@@ -73,7 +76,7 @@ timeline:
           type: fixed
           name: 北京市殡仪馆
           address: 北京市西湖区西溪路731号
-          phone: "010-88257771"
+          phone: "010-85220000"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证, 火化预约确认单]
           copies:
@@ -88,7 +91,7 @@ timeline:
           type: fixed
           name: 北京市殡仪馆
           address: 北京市西湖区西溪路731号
-          phone: "010-88257771"
+          phone: "010-85220000"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies: []

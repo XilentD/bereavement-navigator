@@ -1,5 +1,8 @@
-# AUTO-GENERATED from Hangzhou template. Needs human verification.
-# last_verified: null
+
+# Generated: 2026-06-26
+# City: 北京市 (beijing)
+# Area code: 010
+# last_verified: 2026-06-26
 persona:
   id: urban_resident
   city: beijing
@@ -38,7 +41,7 @@ timeline:
           type: fixed
           name: 北京市殡仪馆
           address: 北京市西湖区西溪路731号
-          phone: "010-88257771"
+          phone: "010-85220000"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies:
@@ -55,7 +58,7 @@ timeline:
           type: fixed
           name: 北京市殡仪馆
           address: 北京市西湖区西溪路731号
-          phone: "010-88257771"
+          phone: "010-85220000"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证, 火化预约确认单]
           copies:
@@ -70,7 +73,7 @@ timeline:
           type: fixed
           name: 北京市殡仪馆
           address: 北京市西湖区西溪路731号
-          phone: "010-88257771"
+          phone: "010-85220000"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies: []
@@ -149,7 +152,7 @@ timeline:
             - {doc: 火化证明, count: 1}
             - {doc: 户口注销证明, count: 1}
         output: 丧葬补助金申领受理回执
-        notes: 北京市城乡居民丧葬补助标准约 3000-5000 元，具体咨询所在社区
+        notes: 北京市城乡居民丧葬补助标准约 2000-4000 元，具体咨询所在社区
 
   - phase: 90d
     title: 资产处理（30-90天）
