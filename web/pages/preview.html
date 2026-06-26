@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>丧亲行政事务导航 - 小程序预览</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system,"PingFang SC","Microsoft YaHei",sans-serif; background:#e8e0d5; display:flex; justify-content:center; align-items:center; min-height:100vh; }
+.phone { width:390px; height:844px; background:#f5f0eb; border-radius:36px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.3); position:relative; display:flex; flex-direction:column; }
+.status-bar { height:44px; background:#f5f0eb; display:flex; align-items:center; justify-content:center; font-size:13px; color:#333; flex-shrink:0; }
+.nav-bar { height:44px; background:#f5f0eb; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:bold; border-bottom:1px solid #e8e0d5; flex-shrink:0; }
+.content { flex:1; overflow-y:auto; padding:0; -webkit-overflow-scrolling:touch; }
+.page { display:none; min-height:100%; }
+.page.active { display:block; }
+
+/* Home */
+.home { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:60px 32px; text-align:center; min-height:100%; }
+.home .emoji { font-size:64px; margin-bottom:32px; }
+.home .hero { font-size:17px; line-height:2; color:#555; white-space:pre-line; margin-bottom:48px; }
+.home .btn { width:240px; height:48px; line-height:48px; background:#8b7e6a; color:#fff; border-radius:24px; font-size:17px; border:none; text-align:center; cursor:pointer; }
+.home .resume { margin-top:16px; color:#8b7e6a; font-size:14px; text-decoration:underline; cursor:pointer; }
+.home .footer { position:absolute; bottom:24px; left:0; right:0; color:#bbb; font-size:12px; text-align:center; }
+
+/* Persona */
+.persona-page { padding:24px 20px; }
+.persona-page .title { font-size:20px; font-weight:bold; margin-bottom:4px; }
+.persona-page .subtitle { font-size:14px; color:#999; margin-bottom:24px; }
+.persona-card { background:#fff; border-radius:12px; padding:20px; margin-bottom:12px; border:2px solid #e8e0d5; cursor:pointer; }
+.persona-card:hover { border-color:#8b7e6a; }
+.persona-card .name { font-size:17px; font-weight:bold; }
+.persona-card .desc { font-size:13px; color:#888; margin-top:4px; }
+
+/* Quiz */
+.quiz-page { padding:32px 20px; display:flex; flex-direction:column; min-height:100%; }
+.progress { height:4px; background:#e0d8cc; border-radius:2px; margin-bottom:8px; }
+.progress-fill { height:100%; background:#8b7e6a; border-radius:2px; transition:width .3s; }
+.progress-text { font-size:12px; color:#999; text-align:center; margin-bottom:40px; }
+.question { font-size:19px; line-height:1.8; margin-bottom:32px; }
+.option { background:#fff; border:2px solid #ddd; border-radius:10px; padding:18px; font-size:16px; text-align:center; margin-bottom:12px; cursor:pointer; }
+.option.selected { border-color:#8b7e6a; background:#f5f0eb; color:#8b7e6a; }
+.next-btn { margin-top:auto; width:100%; height:48px; line-height:48px; background:#8b7e6a; color:#fff; border-radius:24px; font-size:16px; border:none; cursor:pointer; }
+.next-btn:disabled { background:#ccc; cursor:not-allowed; }
+
+/* Timeline */
+.timeline-page { padding:16px; }
+.timeline-header { padding:20px 12px; }
+.timeline-header .pname { font-size:20px; font-weight:bold; }
+.timeline-header .psummary { font-size:14px; color:#888; margin-top:4px; }
+.phase { margin-bottom:16px; }
+.phase-head { display:flex; align-items:center; gap:10px; padding:8px 4px; }
+.phase-icon { font-size:28px; }
+.phase-title { font-size:16px; font-weight:bold; }
+.phase-time { font-size:12px; color:#999; }
+.proc-card { display:flex; justify-content:space-between; align-items:center; padding:14px; background:#fff; border-radius:10px; margin-bottom:8px; border-left:4px solid #ccc; cursor:pointer; }
+.proc-card.done { opacity:.5; }
+.proc-card .urgency { width:8px; height:8px; border-radius:50%; margin-right:10px; flex-shrink:0; }
+.proc-card .urgency.critical { background:#e74c3c; }
+.proc-card .urgency.high { background:#f39c12; }
+.proc-card .urgency.normal { background:#95a5a6; }
+.proc-info { flex:1; }
+.proc-name { font-size:15px; }
+.proc-where { font-size:12px; color:#999; margin-top:2px; }
+.proc-check { font-size:24px; color:#8b7e6a; }
+
+/* Detail */
+.detail-page { padding:20px; }
+.detail-name { font-size:22px; font-weight:bold; margin-bottom:4px; }
+.badge { display:inline-block; font-size:12px; padding:2px 12px; border-radius:10px; margin-bottom:16px; }
+.badge.critical { background:#fde8e8; color:#e74c3c; }
+.badge.high { background:#fef3e2; color:#f39c12; }
+.badge.normal { background:#e8e8e8; color:#888; }
+.section { margin-bottom:20px; }
+.section-title { font-size:15px; font-weight:bold; margin-bottom:8px; }
+.section-text { font-size:15px; line-height:1.8; }
+.section-sub { font-size:13px; color:#888; margin-top:2px; }
+.material { font-size:14px; padding:4px 0; }
+.material.original { font-weight:bold; }
+.btn-row { display:flex; flex-direction:column; gap:10px; margin-top:24px; }
+.btn-primary { height:44px; line-height:44px; background:#8b7e6a; color:#fff; border-radius:22px; font-size:15px; border:none; text-align:center; cursor:pointer; }
+.btn-outline { height:44px; line-height:44px; background:#fff; color:#8b7e6a; border:2px solid #8b7e6a; border-radius:22px; font-size:15px; text-align:center; cursor:pointer; }
+.btn-done { height:44px; line-height:44px; background:#27ae60; color:#fff; border-radius:22px; font-size:15px; border:none; text-align:center; cursor:pointer; }
+
+.loading { text-align:center; padding:60px; color:#999; }
+.error { text-align:center; padding:60px; color:#e74c3c; }
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="status-bar">9:41</div>
+  <div class="nav-bar" id="navTitle">丧亲行政事务导航</div>
+  <div class="content" id="content">
+
+    <!-- Page 0: Home -->
+    <div class="page active" id="page-home">
+      <div class="home">
+        <div class="emoji">🕯️</div>
+        <div class="hero">我们知道这会是一段艰难的时光。
+接下来你需要跑很多手续，
+我们来帮你逐个理清。</div>
+        <button class="btn" onclick="goPersona()">开始办理</button>
+        <div class="footer">本服务完全免费 · 信息仅供参考</div>
+      </div>
+    </div>
+
+    <!-- Page 1: Persona -->
+    <div class="page" id="page-persona">
+      <div class="persona-page">
+        <div class="title">请选择逝者身份类型</div>
+        <div class="subtitle">选错没关系，可以重新选择</div>
+        <div id="personaList"></div>
+      </div>
+    </div>
+
+    <!-- Page 2: Quiz -->
+    <div class="page" id="page-quiz">
+      <div class="quiz-page" id="quizContent"></div>
+    </div>
+
+    <!-- Page 3: Timeline -->
+    <div class="page" id="page-timeline">
+      <div class="timeline-page" id="timelineContent"></div>
+    </div>
+
+    <!-- Page 4: Detail -->
+    <div class="page" id="page-detail">
+      <div class="detail-page" id="detailContent"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const API = 'http://localhost:3000';
+let personas = [];
+let selectedPersona = '';
+let answers = {};
+let currentQuiz = 0;
+let questions = [];
+let guideResult = null;
+let completed = new Set();
+
+// Question sets
+const questionSets = {
+  retired_worker: [
+    {key:'death_location', text:'逝者是在哪里离世的？', options:[
+      {label:'医院',value:'at_hospital'},{label:'家中',value:'at_home'},{label:'意外/其他地点',value:'accident'}
+    ]},
+    {key:'has_real_estate', text:'逝者名下是否有房产？', options:[{label:'有',value:true},{label:'没有',value:false}]},
+    {key:'has_commercial_insurance', text:'逝者是否购买了商业保险？', options:[{label:'有',value:true},{label:'没有',value:false}]},
+    {key:'has_will', text:'逝者是否留有遗嘱？', options:[{label:'有',value:true},{label:'没有',value:false}]},
+    {key:'has_social_security', text:'逝者是否在杭州缴纳社保？', options:[{label:'是',value:true},{label:'否',value:false}]},
+  ],
+  active_worker: [
+    {key:'death_location', text:'逝者是在哪里离世的？', options:[
+      {label:'医院',value:'at_hospital'},{label:'家中',value:'at_home'},{label:'意外/其他地点',value:'accident'}
+    ]},
+    {key:'has_work_injury', text:'是否因工作原因导致死亡？', options:[{label:'是（工亡）',value:true},{label:'否',value:false}]},
+    {key:'has_real_estate', text:'逝者名下是否有房产？', options:[{label:'有',value:true},{label:'没有',value:false}]},
+    {key:'has_commercial_insurance', text:'逝者是否购买了商业保险？', options:[{label:'有',value:true},{label:'没有',value:false}]},
+    {key:'has_will', text:'逝者是否留有遗嘱？', options:[{label:'有',value:true},{label:'没有',value:false}]},
+  ],
+  urban_resident: [
+    {key:'death_location', text:'逝者是在哪里离世的？', options:[
+      {label:'医院',value:'at_hospital'},{label:'家中',value:'at_home'},{label:'意外/其他地点',value:'accident'}
+    ]},
+    {key:'has_rural_house', text:'逝者是否有农村宅基地及房屋？', options:[{label:'有',value:true},{label:'没有',value:false}]},
+    {key:'has_real_estate', text:'逝者名下是否有城镇房产？', options:[{label:'有',value:true},{label:'没有',value:false}]},
+    {key:'has_commercial_insurance', text:'逝者是否购买了商业保险？', options:[{label:'有',value:true},{label:'没有',value:false}]},
+    {key:'has_will', text:'逝者是否留有遗嘱？', options:[{label:'有',value:true},{label:'没有',value:false}]},
+  ],
+  civil_servant: [
+    {key:'death_location', text:'逝者是在哪里离世的？', options:[
+      {label:'医院',value:'at_hospital'},{label:'家中',value:'at_home'},{label:'意外/其他地点',value:'accident'}
+    ]},
+    {key:'has_real_estate', text:'逝者名下是否有房产？', options:[{label:'有',value:true},{label:'没有',value:false}]},
+    {key:'has_commercial_insurance', text:'逝者是否购买了商业保险？', options:[{label:'有',value:true},{label:'没有',value:false}]},
+    {key:'has_will', text:'逝者是否留有遗嘱？', options:[{label:'有',value:true},{label:'没有',value:false}]},
+  ],
+  military: [
+    {key:'death_location', text:'逝者是在哪里离世的？', options:[
+      {label:'医院',value:'at_hospital'},{label:'家中',value:'at_home'},{label:'意外/其他地点',value:'accident'}
+    ]},
+    {key:'military_type', text:'逝者服役状态？', options:[{label:'现役军人',value:'active_duty'},{label:'退役军人',value:'retired'}]},
+    {key:'is_martyr_case', text:'是否涉及烈士评定？', options:[{label:'是',value:true},{label:'否',value:false}]},
+    {key:'has_real_estate', text:'逝者名下是否有房产？', options:[{label:'有',value:true},{label:'没有',value:false}]},
+    {key:'has_commercial_insurance', text:'逝者是否购买了商业保险？', options:[{label:'有',value:true},{label:'没有',value:false}]},
+    {key:'has_will', text:'逝者是否留有遗嘱？', options:[{label:'有',value:true},{label:'没有',value:false}]},
+  ],
+};
+
+function showPage(id, title) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.getElementById('navTitle').textContent = title || '丧亲行政事务导航';
+}
+
+async function goPersona() {
+  showPage('persona', '选择逝者身份');
+  try {
+    const res = await fetch(API+'/api/personas?city=hangzhou');
+    const data = await res.json();
+    personas = data.personas;
+    document.getElementById('personaList').innerHTML = personas.map(p => {
+      let extra = '';
+      if (p.id === 'urban_resident') extra = '<div style="font-size:12px;color:#e67e22;margin-top:4px;">⚠️ 农民/务农人员请选此项（城乡居民养老保险）</div>';
+      if (p.id === 'active_worker') extra = '<div style="font-size:12px;color:#e67e22;margin-top:4px;">⚠️ 含农民工/企业职工/灵活就业参保人员</div>';
+      if (p.id === 'military') extra = '<div style="font-size:12px;color:#888;margin-top:4px;">含现役军人、退役军人、军队离退休人员</div>';
+      return `<div class="persona-card" onclick="startQuiz('${p.id}')">
+        <div class="name">${p.name}</div>
+        <div class="desc">${p.description}</div>${extra}
+      </div>`;
+    }).join('');
+  } catch(e) {
+    document.getElementById('personaList').innerHTML = '<div class="error">加载失败，请确保API已启动</div>';
+  }
+}
+
+function startQuiz(personaId) {
+  selectedPersona = personaId;
+  answers = {};
+  currentQuiz = 0;
+  questions = questionSets[personaId] || questionSets.retired_worker;
+  showPage('quiz', '情况确认');
+  renderQuiz();
+}
+
+function renderQuiz() {
+  const q = questions[currentQuiz];
+  const isLast = currentQuiz >= questions.length - 1;
+  document.getElementById('quizContent').innerHTML = `
+    <div class="progress"><div class="progress-fill" style="width:${((currentQuiz+1)/questions.length*100)}%"></div></div>
+    <div class="progress-text">第 ${currentQuiz+1} / ${questions.length} 题</div>
+    <div class="question">${q.text}</div>
+    ${q.options.map((o,i) => `<div class="option${answers[q.key]===o.value?' selected':''}" data-key="${q.key}" data-val="${encodeURIComponent(JSON.stringify(o.value))}" data-idx="${i}" onclick="pickAnswer(this)">${o.label}</div>`).join('')}
+    <button class="next-btn" ${answers[q.key]===undefined?'disabled':''} onclick="${isLast ? 'submitQuiz()' : 'nextQuiz()'}">${isLast ? '生成清单' : '下一题'}</button>
+  `;
+}
+
+function pickAnswer(el) {
+  const key = el.dataset.key;
+  const value = JSON.parse(decodeURIComponent(el.dataset.val));
+  answers[key] = value;
+  el.parentElement.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  const nextBtn = document.querySelector('.next-btn');
+  if (nextBtn) nextBtn.disabled = false;
+}
+
+function nextQuiz() {
+  currentQuiz++;
+  renderQuiz();
+}
+
+async function submitQuiz() {
+  document.getElementById('quizContent').innerHTML = '<div class="loading">正在生成清单...</div>';
+  try {
+    const res = await fetch(API+'/api/guide', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({persona_id:selectedPersona, city:'hangzhou', answers})
+    });
+    guideResult = await res.json();
+    showPage('timeline', '办理清单');
+    renderTimeline();
+  } catch(e) {
+    document.getElementById('quizContent').innerHTML = '<div class="error">网络错误，请重试</div>';
+  }
+}
+
+function renderTimeline() {
+  const g = guideResult;
+  const icons = { '24h':'⚠️', '3d':'🕯️', '7d':'📋', '30d':'💰', '90d':'🏠', 'long':'📝' };
+  const labels = { '24h':'24小时内', '3d':'1-3天', '7d':'3-7天', '30d':'7-30天', '90d':'30-90天', 'long':'长期' };
+  document.getElementById('timelineContent').innerHTML = `
+    <div class="timeline-header">
+      <div class="pname">${g.persona.name}</div>
+      <div class="psummary">共 ${g.summary.total_procedures} 项 · ${g.summary.critical_count} 项紧急 · 预计 ${g.summary.estimated_days_min} 天</div>
+    </div>
+    ${g.timeline.map(phase => `
+      <div class="phase">
+        <div class="phase-head">
+          <span class="phase-icon">${icons[phase.phase]||'📌'}</span>
+          <div>
+            <div class="phase-title">${phase.title}</div>
+            <div class="phase-time">${labels[phase.phase]||phase.phase}</div>
+          </div>
+        </div>
+        ${phase.procedures.map(p => `
+          <div class="proc-card${completed.has(p.id)?' done':''}" onclick="openDetail('${p.id}')">
+            <span class="urgency ${p.urgency}"></span>
+            <div class="proc-info">
+              <div class="proc-name">${completed.has(p.id)?'✅ ':''}${p.name}</div>
+              <div class="proc-where">📍 ${p.where.resolved||p.where.name}</div>
+            </div>
+            <span class="proc-check">${completed.has(p.id)?'✅':'○'}</span>
+          </div>
+        `).join('')}
+      </div>
+    `).join('')}
+  `;
+}
+
+function openDetail(procId) {
+  let proc = null;
+  for (const phase of guideResult.timeline) {
+    const found = phase.procedures.find(p => p.id === procId);
+    if (found) { proc = found; break; }
+  }
+  if (!proc) return;
+  showPage('detail', '事项详情');
+  const w = proc.where;
+  document.getElementById('detailContent').innerHTML = `
+    <div class="detail-name">${proc.name}</div>
+    <span class="badge ${proc.urgency}">${proc.urgency==='critical'?'紧急':proc.urgency==='high'?'重要':'正常'}</span>
+
+    <div class="section">
+      <div class="section-title">📍 办理地点</div>
+      <div class="section-text">${w.resolved||w.name}</div>
+      ${w.address?`<div class="section-sub">${w.address}</div>`:''}
+      ${w.phone?`<div class="section-sub">📞 ${w.phone}</div>`:''}
+    </div>
+
+    <div class="section">
+      <div class="section-title">📋 需要携带的材料</div>
+      ${proc.need.originals.map(o => `<div class="material original">□ ${o}（原件）</div>`).join('')}
+      ${(proc.need.copies||[]).map(c => `<div class="material">□ ${c.doc} 复印件×${c.count}</div>`).join('')}
+    </div>
+
+    ${proc.output ? `
+    <div class="section">
+      <div class="section-title">📤 办完后会得到</div>
+      <div class="section-text" style="color:#27ae60">${proc.output}</div>
+    </div>`:''}
+
+    ${proc.notes ? `
+    <div class="section">
+      <div class="section-title">⚠️ 注意事项</div>
+      <div class="section-text" style="color:#e67e22;font-size:14px;">${proc.notes}</div>
+    </div>`:''}
+
+    <div class="btn-row">
+      <button class="btn-done" onclick="toggleDone('${proc.id}')">${completed.has(proc.id) ? '撤销完成' : '标记为已完成'}</button>
+      <button class="btn-outline" onclick="showPage('timeline','办理清单');renderTimeline();">返回清单</button>
+      <button class="btn-primary" onclick="alert('小程序中可生成授权委托书PDF\n\n当前为模拟预览，此功能需微信环境')">生成授权委托书</button>
+    </div>
+  `;
+}
+
+function toggleDone(id) {
+  if (completed.has(id)) completed.delete(id); else completed.add(id);
+  openDetail(id);
+}
+</script>
+</body>
+</html>
