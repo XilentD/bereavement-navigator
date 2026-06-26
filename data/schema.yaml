@@ -16,8 +16,8 @@ properties:
         pattern: "^[a-z_]+$"
       city:
         type: string
-        pattern: "^[a-z]+$"
-        description: "City slug — e.g. hangzhou, beijing, shanghai, guangzhou"
+        pattern: "^[a-z][a-z0-9_]*$"
+        description: "City slug — e.g. hangzhou, beijing, fuzhou_jx (province disambiguation)"
       name:
         type: string
         minLength: 2

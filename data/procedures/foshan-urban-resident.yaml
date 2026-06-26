@@ -1,0 +1,273 @@
+# ============================================================
+# 丧亲行政事务导航 — 佛山市（foshan）
+# ============================================================
+# 数据来源: 省会话模板 — 从 guangzhou 复制
+# 最后核验: null (template-unverified)
+# 核验方式: template-unverified
+# ============================================================
+persona:
+  id: urban_resident
+  city: foshan
+  name: 城乡居民
+  description: 在广州市参加城乡居民养老保险或未参加职工养老保险的城乡居民
+  assumptions:
+    - 逝者未参加城镇职工养老保险（或仅参加居民养老保险）
+    - 逝者有配偶或一名成年子女可代办
+
+timeline:
+  - phase: 24h
+    title: 立即办理（24小时内）
+    procedures:
+      - id: death_cert
+        name: 开具《死亡医学证明》
+        urgency: critical
+        where:
+          type: depends
+          branches:
+            - when: at_home
+              name: 社区卫生服务中心
+            - when: at_hospital
+              name: 接诊医院
+            - when: accident
+              name: 公安派出所 + 120急救中心
+        need:
+          originals: [逝者身份证, 代办人身份证]
+          copies: []
+        output: 死亡医学证明（三联单）
+        notes: 如为意外死亡需先报警，公安出具《非正常死亡证明》后医院才可开具
+
+      - id: funeral_home
+        name: 联系殡仪馆预约火化
+        urgency: critical
+        where:
+          type: fixed
+          name: 广州市殡仪馆
+          address: 广州市西湖区西溪路731号
+          phone: "0757-87744444"
+        need:
+          originals: [死亡医学证明, 逝者身份证, 代办人身份证]
+          copies:
+            - {doc: 死亡医学证明, count: 2}
+        output: 火化预约确认单
+
+  - phase: 3d
+    title: 遗体告别与火化（1-3天）
+    procedures:
+      - id: cremation
+        name: 遗体火化
+        urgency: critical
+        where:
+          type: fixed
+          name: 广州市殡仪馆
+          address: 广州市西湖区西溪路731号
+          phone: "0757-87744444"
+        need:
+          originals: [死亡医学证明, 逝者身份证, 代办人身份证, 火化预约确认单]
+          copies:
+            - {doc: 死亡医学证明, count: 2}
+        output: 火化完成凭证
+        notes: 火化前需办理遗体告别仪式（可选），殡仪馆提供一条龙服务
+
+      - id: cremation_cert
+        name: 领取《火化证明》
+        urgency: critical
+        where:
+          type: fixed
+          name: 广州市殡仪馆
+          address: 广州市西湖区西溪路731号
+          phone: "0757-87744444"
+        need:
+          originals: [死亡医学证明, 逝者身份证, 代办人身份证]
+          copies: []
+        output: 火化证明（多份）
+        notes: 建议领取5-8份原件，后续多项手续均需使用
+
+  - phase: 7d
+    title: 户籍注销（3-7天内）
+    procedures:
+      - id: hukou_cancel
+        name: 注销户口
+        urgency: high
+        where:
+          type: fixed
+          name: 逝者户籍所在地派出所
+          address: 请联系逝者户籍地派出所确认
+          phone: "0757-12345"
+        need:
+          originals: [死亡医学证明, 火化证明, 逝者户口本, 逝者身份证, 代办人身份证]
+          copies:
+            - {doc: 死亡医学证明, count: 2}
+            - {doc: 火化证明, count: 2}
+            - {doc: 代办人身份证, count: 1}
+        output: 户口注销证明
+        notes: 户口注销后身份证会被收回销毁，建议注销前复印逝者身份证 5-10 份备用
+
+      - id: death_cert_notary
+        name: 办理死亡公证（如需）
+        urgency: normal
+        where:
+          type: fixed
+          name: 广州市各公证处
+          address: 广州市上城区望江东路332号（广州市国立公证处）
+          phone: "0757-85020513"
+        need:
+          originals: [死亡医学证明, 火化证明, 户口注销证明, 代办人身份证]
+          copies:
+            - {doc: 死亡医学证明, count: 1}
+            - {doc: 火化证明, count: 1}
+            - {doc: 户口注销证明, count: 1}
+        output: 死亡公证书
+        notes: 如需处理房产继承、银行存款取出等，公证处出具的公证书效力最强
+        when:
+          has_real_estate: true
+
+  - phase: 30d
+    title: 居民社保与丧葬补助（7-30天）
+    procedures:
+      - id: resident_insurance_stop
+        name: 城乡居民医保停保
+        urgency: normal
+        where:
+          type: fixed
+          name: 所在社区/街道便民服务中心
+          address: 联系逝者户籍所在社区
+          phone: "0757-12345"
+        need:
+          originals: [死亡医学证明, 火化证明, 逝者身份证, 户口注销证明]
+          copies:
+            - {doc: 死亡医学证明, count: 1}
+            - {doc: 火化证明, count: 1}
+        output: 医保停保确认书
+
+      - id: resident_funeral_allowance
+        name: 城乡居民丧葬补助金申领
+        urgency: high
+        where:
+          type: fixed
+          name: 所在社区/街道便民服务中心
+          address: 联系逝者户籍所在社区
+          phone: "0757-12345"
+        need:
+          originals: [死亡医学证明, 火化证明, 户口注销证明, 代办人身份证, 代办人银行卡]
+          copies:
+            - {doc: 死亡医学证明, count: 1}
+            - {doc: 火化证明, count: 1}
+            - {doc: 户口注销证明, count: 1}
+        output: 丧葬补助金申领受理回执
+        notes: 广州市城乡居民丧葬补助标准详询12345（城乡居民标准），具体咨询所在社区
+
+  - phase: 90d
+    title: 资产处理（30-90天）
+    procedures:
+      - id: rural_house_transfer
+        name: 农村宅基地及房屋继承
+        urgency: normal
+        where:
+          type: fixed
+          name: 所在村集体经济组织/乡镇自然资源所
+          address: 联系逝者户籍所在村
+          phone: "0757-12345"
+        need:
+          originals: [死亡医学证明, 火化证明, 户口注销证明, 宅基地使用证, 房产证, 继承人身份证, 户口本]
+          copies:
+            - {doc: 死亡医学证明, count: 1}
+            - {doc: 火化证明, count: 1}
+            - {doc: 户口注销证明, count: 1}
+            - {doc: 宅基地使用证, count: 1}
+        output: 宅基地使用权变更登记证明
+        notes: 宅基地继承需经村集体同意，一户多宅情况需核实政策
+        when:
+          has_rural_house: true
+
+      - id: property_transfer
+        name: 房产继承过户
+        urgency: normal
+        where:
+          type: fixed
+          name: 广州市不动产登记中心
+          address: 广州市上城区解放东路18号市民中心H楼
+          phone: "0757-87008100"
+        need:
+          originals: [死亡公证书, 户口注销证明, 房产证, 继承人身份证, 户口本]
+          copies:
+            - {doc: 死亡公证书, count: 2}
+            - {doc: 户口注销证明, count: 1}
+            - {doc: 房产证, count: 1}
+            - {doc: 继承人身份证, count: 2}
+        output: 不动产权证书（继承后）
+        notes: 如有遗嘱按遗嘱分配，无遗嘱按法定继承顺序。需先办理死亡公证。契税免征（直系亲属继承）
+        when:
+          has_real_estate: true
+
+      - id: bank_account
+        name: 银行存款/理财取出
+        urgency: normal
+        where:
+          type: fixed
+          name: 各银行网点
+          address: 联系逝者开户银行预约办理
+          phone: "0757-12345"
+        need:
+          originals: [死亡公证书, 户口注销证明, 逝者银行卡/存折, 继承人身份证, 户口本, 关系证明]
+          copies:
+            - {doc: 死亡公证书, count: 1}
+            - {doc: 户口注销证明, count: 1}
+            - {doc: 继承人身份证, count: 1}
+        output: 银行账户清算凭证
+        notes: 各银行要求略有不同，建议先致电客服预约，避免白跑一趟。5万以下通常可直接在柜台办理
+
+      - id: insurance_claim
+        name: 商业保险理赔申请
+        urgency: normal
+        where:
+          type: fixed
+          name: 保险公司理赔部
+          address: 联系逝者投保的保险公司客服
+          phone: "0757-12345"
+        need:
+          originals: [死亡医学证明, 火化证明, 户口注销证明, 保险合同/保单, 受益人身份证, 受益人银行卡]
+          copies:
+            - {doc: 死亡医学证明, count: 2}
+            - {doc: 火化证明, count: 1}
+            - {doc: 户口注销证明, count: 1}
+            - {doc: 保险合同, count: 1}
+        output: 理赔受理通知书
+        notes: 务必在保险事故发生后尽快报案（一般30天内），不同险种理赔时效不同
+        when:
+          has_commercial_insurance: true
+
+  - phase: long
+    title: 后续事项（长期）
+    procedures:
+      - id: will_execution
+        name: 遗嘱执行与公证
+        urgency: normal
+        where:
+          type: fixed
+          name: 广州市各公证处
+          address: 广州市上城区望江东路332号
+          phone: "0757-85020513"
+        need:
+          originals: [遗嘱原件, 死亡医学证明, 户口注销证明, 继承人身份证, 户口本]
+          copies:
+            - {doc: 死亡医学证明, count: 1}
+            - {doc: 户口注销证明, count: 1}
+        output: 遗嘱公证文书
+        notes: 自书遗嘱需经公证处确认效力，有争议需法院裁决
+        when:
+          has_will: true
+
+      - id: other_cleanup
+        name: 其他账户注销与处理
+        urgency: normal
+        where:
+          type: fixed
+          name: 各相关机构
+          address: 根据逝者持有账户联系对应机构
+          phone: "0757-12345"
+        need:
+          originals: [户口注销证明, 代办人身份证]
+          copies:
+            - {doc: 户口注销证明, count: 5}
+        output: 各类注销/变更凭证
+        notes: 包括但不限于：手机号注销、驾照注销、各类会员卡/积分处理、快递地址变更等
