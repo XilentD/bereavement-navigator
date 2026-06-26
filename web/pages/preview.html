@@ -346,7 +346,7 @@ function renderQuiz() {
     <div class="question">${typeof q.text==='function' ? q.text() : q.text}</div>
     ${q.options.map((o,i) => `<div class="option${answers[q.key]===o.value?' selected':''}" data-key="${q.key}" data-val="${encodeURIComponent(JSON.stringify(o.value))}" data-idx="${i}" onclick="pickAnswer(this)">${o.label}</div>`).join('')}
     <div style="display:flex;gap:10px;">
-      ${currentQuiz > 0 ? `<button class="option" style="flex:1;padding:14px;font-size:15px;background:#fff;border:2px solid #ddd;border-radius:10px;cursor:pointer" onclick="prevQuiz()">← 上一题</button>` : ''}
+      ${currentQuiz > 0 ? `<button class="next-btn" style="flex:1;background:#fff;color:#8b7e6a;border:2px solid #8b7e6a;" onclick="prevQuiz()">← 上一题</button>` : ''}
       <button class="next-btn" ${answers[q.key]===undefined?'disabled':''} onclick="${isLast ? 'submitQuiz()' : 'nextQuiz()'}" style="${currentQuiz>0?'flex:1':''}">${isLast ? '生成清单' : '下一题 →'}</button>
     </div>
   `;

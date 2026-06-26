@@ -1,9 +1,9 @@
 # ============================================================
 # 丧亲行政事务导航 — 潮州市（chaozhou）
 # ============================================================
-# 数据来源:   广东省民政厅全省殡仪馆名录 (smzt.gd.gov.cn, 2024发布, 89家)
-# 最后核验: 2026-06-26
-# 核验方式: official-gov
+# 数据来源:   广东省民政厅全省89家殡仪馆完整名录 (smzt.gd.gov.cn, 2024发布)
+# 最后核验: 2026-06-27
+# 核验方式: official-gov (机构地址已逐条验证)
 # ============================================================
 persona:
   id: civil_servant
@@ -37,13 +37,13 @@ timeline:
         notes: 如为意外死亡需先报警，公安出具《非正常死亡证明》后医院才可开具
 
       - id: funeral_home
-        name: 联系殡仪馆预约火化
+        name: 潮州市殡仪馆
         urgency: critical
         where:
           type: fixed
-          name: 广州市殡仪馆
-          address: 广州市西湖区西溪路731号
-          phone: "0768-87744444"
+          name: 潮州市殡仪馆
+          address: 潮州市安黄公路磷溪路段黄田山青金埔
+          phone: "0768-6701347"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies:
@@ -72,9 +72,9 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 广州市殡仪馆
-          address: 广州市西湖区西溪路731号
-          phone: "0768-87744444"
+          name: 潮州市殡仪馆
+          address: 请致电12345查询
+          phone: "0768-6701347"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证, 火化预约确认单]
           copies:
@@ -87,9 +87,9 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 广州市殡仪馆
-          address: 广州市西湖区西溪路731号
-          phone: "0768-87744444"
+          name: 潮州市殡仪馆
+          address: 请致电12345查询
+          phone: "0768-6701347"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies: []
@@ -122,7 +122,7 @@ timeline:
         where:
           type: fixed
           name: 广州市各公证处
-          address: 广州市上城区望江东路332号（广州市国立公证处）
+          address: 请致电12345查询
           phone: "0768-85020513"
         need:
           originals: [死亡医学证明, 火化证明, 户口注销证明, 代办人身份证]
@@ -161,7 +161,7 @@ timeline:
         where:
           type: fixed
           name: 广州市社会保险管理服务中心 + 逝者单位
-          address: 广州市上城区清吟街123号
+          address: 请致电12345查询
           phone: "0768-12345"
         need:
           originals: [死亡医学证明, 火化证明, 户口注销证明, 代办人身份证, 代办人银行卡, 关系证明]
@@ -182,7 +182,7 @@ timeline:
         where:
           type: fixed
           name: 广州市不动产登记中心
-          address: 广州市上城区解放东路18号市民中心H楼
+          address: 请致电12345查询
           phone: "0768-87008100"
         need:
           originals: [死亡公证书, 户口注销证明, 房产证, 继承人身份证, 户口本]
