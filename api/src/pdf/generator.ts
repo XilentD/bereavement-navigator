@@ -3,6 +3,7 @@ import { renderFile } from 'ejs';
 import { join } from 'node:path';
 import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from 'node:fs';
 import crypto from 'node:crypto';
+import type { GuideResult } from '../engine/guide.js';
 
 const templatesDir = join(import.meta.dirname, 'templates');
 
@@ -27,7 +28,7 @@ export async function generateDelegationLetter(
   return htmlToPdf(html);
 }
 
-export async function generateChecklist(guideResult: any): Promise<Buffer> {
+export async function generateChecklist(guideResult: GuideResult): Promise<Buffer> {
   const templatePath = join(templatesDir, 'checklist.ejs');
   const html = await renderFile(templatePath, {
     personaName: guideResult.persona.name,
