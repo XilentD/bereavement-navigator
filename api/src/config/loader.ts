@@ -28,7 +28,7 @@ interface FixedWhere {
   phone: string;
 }
 
-interface DependsWhere {
+export interface DependsWhere {
   type: 'depends';
   branches: { when: string; name: string; address?: string; phone?: string }[];
 }

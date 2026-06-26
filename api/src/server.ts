@@ -2,6 +2,7 @@ import Fastify from 'fastify';
 import { loadConfig } from './config/loader.js';
 import { guideRoutes } from './routes/guide.js';
 import { personasRoutes } from './routes/personas.js';
+import { pdfRoutes } from './routes/pdf.js';
 
 export async function buildApp(opts = {}) {
   const app = Fastify({ logger: true, ...opts });
@@ -11,6 +12,7 @@ export async function buildApp(opts = {}) {
 
   await app.register(guideRoutes, config);
   await app.register(personasRoutes, config);
+  await app.register(pdfRoutes, config);
 
   return app;
 }

@@ -1,4 +1,4 @@
-import type { PersonaConfig, Procedure, TimelinePhase } from '../config/loader.js';
+import type { PersonaConfig, Procedure, TimelinePhase, DependsWhere } from '../config/loader.js';
 
 export interface GuideResult {
   persona: {
@@ -76,13 +76,14 @@ export function matchGuide(
         };
       } else {
         // depends type — resolve from answers
+        const where = proc.where as DependsWhere;
         // Find which answer key maps to this depends field
         const answerKey = Object.keys(answers).find(k =>
-          proc.where.branches.some(b => b.when === answers[k])
+          where.branches.some(b => b.when === answers[k])
         );
         const matchedBranch = answerKey
-          ? proc.where.branches.find(b => b.when === answers[answerKey])
-          : proc.where.branches[0];
+          ? where.branches.find(b => b.when === answers[answerKey])
+          : where.branches[0];
 
         resolvedWhere = {
           type: 'depends',

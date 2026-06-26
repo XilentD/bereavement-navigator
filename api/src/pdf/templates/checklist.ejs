@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<style>
+  body { font-family: "SimSun", serif; font-size: 12pt; margin: 40px; }
+  h1 { text-align: center; font-size: 16pt; }
+  h2 { font-size: 14pt; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
+  .item { margin: 12px 0; padding: 8px; border-left: 3px solid #333; }
+  .item-name { font-weight: bold; font-size: 13pt; }
+  .checklist { list-style: none; padding: 0; }
+  .checklist li { padding: 3px 0; }
+  .output { color: #555; }
+</style>
+</head>
+<body>
+<h1>材料准备清单</h1>
+<p>逝者：<%= personaName %></p>
+<p>生成日期：<%= date %></p>
+
+<% timeline.forEach(function(phase) { %>
+<h2><%= phase.title %>（<%= phase.phase %>）</h2>
+<% phase.procedures.forEach(function(proc) { %>
+<div class="item">
+  <div class="item-name"><%= proc.name %></div>
+  <div>📍 <%= proc.where.resolved || proc.where.name %></div>
+  <div>📞 <%= proc.where.phone || "致电12345查询" %></div>
+  <div>
+    需要携带：
+    <ul class="checklist">
+      <% proc.need.originals.forEach(function(o) { %>
+        <li>☐ <strong><%= o %></strong>（原件）</li>
+      <% }) %>
+      <% proc.need.copies.forEach(function(c) { %>
+        <li>☐ <%= c.doc %> 复印件×<%= c.count %></li>
+      <% }) %>
+    </ul>
+  </div>
+  <div class="output">办完后得到：<%= proc.output %></div>
+  <% if (proc.notes) { %>
+    <div style="color: #888; font-size: 10pt;">⚠️ <%= proc.notes %></div>
+  <% } %>
+</div>
+<% }) %>
+<% }) %>
+
+<p style="margin-top: 30px; color: #999; font-size: 10pt;">
+以上信息仅供参考，建议办理前致电确认。如有出入请反馈给我们。
+</p>
+</body>
+</html>

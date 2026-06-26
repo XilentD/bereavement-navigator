@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<style>
+  body { font-family: "SimSun", serif; font-size: 14pt; line-height: 2; margin: 60px; }
+  h1 { text-align: center; font-size: 18pt; margin-bottom: 40px; }
+  .field { margin: 20px 0; }
+  .field-label { font-weight: bold; }
+  .signature { margin-top: 80px; text-align: right; }
+</style>
+</head>
+<body>
+<h1>授权委托书</h1>
+
+<p>委托人：<%= principalName %>（身份证号：<%= principalId %>）</p>
+<p>受托人：<%= agentName %>（身份证号：<%= agentId %>）</p>
+<p>委托人与受托人关系：<%= relationship %></p>
+
+<p>因<%= deceasedName %>（身份证号：<%= deceasedId %>）于<%= deathDate %>不幸离世，
+委托人因故不能亲自办理相关行政手续，现全权委托受托人代为办理以下事项：</p>
+
+<ol>
+<% items.forEach(function(item) { %>
+  <li><%= item %></li>
+<% }) %>
+</ol>
+
+<p>受托人在办理上述事项过程中所签署的相关文件、作出的陈述，委托人均予以承认，
+由此产生的一切法律后果由委托人承担。</p>
+
+<p>委托期限：自签署之日起至上述事项办结之日止。</p>
+
+<p class="signature">
+  委托人（签字）：_______________<br><br>
+  日期：<%= date %>
+</p>
+</body>
+</html>
