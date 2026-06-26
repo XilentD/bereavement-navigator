@@ -1,0 +1,6 @@
+persona:
+  id: 12345
+  name: "A"
+  description: "short"
+  assumptions: []
+timeline: []
