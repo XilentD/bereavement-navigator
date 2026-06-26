@@ -98,16 +98,28 @@ body { font-family: -apple-system,"PingFang SC","Microsoft YaHei",sans-serif; ba
         <div class="hero">我们知道这会是一段艰难的时光。
 接下来你需要跑很多手续，
 我们来帮你逐个理清。</div>
-        <button class="btn" onclick="goPersona()">开始办理</button>
+        <button class="btn" onclick="goCity()">开始办理</button>
         <div class="footer">本服务完全免费 · 信息仅供参考</div>
       </div>
     </div>
 
-    <!-- Page 1: Persona -->
+    <!-- Page 1: City Selection -->
+    <div class="page" id="page-city">
+      <div class="persona-page">
+        <div class="title">选择所在城市</div>
+        <div class="subtitle" id="cityDetect">正在根据IP自动定位...</div>
+        <div style="margin-bottom:16px;">
+          <input id="citySearch" type="text" placeholder="搜索城市（如：杭州、北京、广州）" style="width:100%;padding:14px;font-size:16px;border:2px solid #e8e0d5;border-radius:10px;background:#fff;outline:none" oninput="filterCities()">
+        </div>
+        <div id="cityList" style="max-height:400px;overflow-y:auto;"></div>
+      </div>
+    </div>
+
+    <!-- Page 2: Persona -->
     <div class="page" id="page-persona">
       <div class="persona-page">
         <div class="title">请选择逝者身份类型</div>
-        <div class="subtitle">选错没关系，可以重新选择</div>
+        <div class="subtitle" id="personaCity"></div>
         <div id="personaList"></div>
       </div>
     </div>
@@ -133,12 +145,108 @@ body { font-family: -apple-system,"PingFang SC","Microsoft YaHei",sans-serif; ba
 <script>
 const API = 'http://localhost:3000';
 let personas = [];
+let selectedCity = 'hangzhou';
 let selectedPersona = '';
 let answers = {};
 let currentQuiz = 0;
 let questions = [];
 let guideResult = null;
 let completed = new Set();
+let allCities = [];
+
+// Load cities from API + auto-detect from IP
+async function goCity() {
+  showPage('city', '选择城市');
+  try {
+    const res = await fetch(API+'/api/personas');
+    const data = await res.json();
+    allCities = data.cities || [];
+    renderCityList(allCities);
+    // Auto-detect from IP
+    detectCity();
+  } catch(e) {
+    document.getElementById('cityList').innerHTML = '<div class="error">加载城市列表失败</div>';
+  }
+}
+
+async function detectCity() {
+  try {
+    const res = await fetch('https://ipapi.co/json/');
+    const d = await res.json();
+    if (d.city) {
+      // Map English city name to our slugs
+      const cityMap = {
+        'Hangzhou':'hangzhou','Beijing':'beijing','Shanghai':'shanghai','Guangzhou':'guangzhou',
+        'Shenzhen':'shenzhen','Chengdu':'chengdu','Wuhan':'wuhan','Nanjing':'nanjing',
+        'Tianjin':'tianjin','Chongqing':'chongqing',"Xi'an":'xian','Suzhou':'suzhou',
+        'Zhengzhou':'zhengzhou','Changsha':'changsha','Jinan':'jinan','Qingdao':'qingdao',
+        'Dalian':'dalian','Xiamen':'xiamen','Hefei':'hefei','Shenyang':'shenyang',
+        'Harbin':'harbin','Changchun':'changchun','Taiyuan':'taiyuan','Shijiazhuang':'shijiazhuang',
+        'Fuzhou':'fuzhou','Nanchang':'nanchang','Kunming':'kunming','Guiyang':'guiyang',
+        'Nanning':'nanning','Hohhot':'hohhot','Lanzhou':'lanzhou','Yinchuan':'yinchuan',
+        'Xining':'xining','Urumqi':'urumqi',
+      };
+      const slug = cityMap[d.city] || d.city.toLowerCase().replace(/\s/g,'');
+      if (allCities.includes(slug)) {
+        selectedCity = slug;
+        document.getElementById('cityDetect').textContent = `📍 已定位：${d.city}（点击列表可切换）`;
+      } else if (allCities.includes(d.region?.toLowerCase())) {
+        selectedCity = d.region.toLowerCase();
+        document.getElementById('cityDetect').textContent = `📍 已定位：${d.region}（点击列表可切换）`;
+      } else {
+        document.getElementById('cityDetect').textContent = '未能自动定位，请手动选择城市';
+      }
+    } else {
+      document.getElementById('cityDetect').textContent = '未能自动定位，请手动选择城市';
+    }
+  } catch(e) {
+    document.getElementById('cityDetect').textContent = '未能自动定位（需联网），请手动选择城市';
+  }
+}
+
+function renderCityList(cities) {
+  const highlighted = cities.slice(0,10); // Top cities first
+  document.getElementById('cityList').innerHTML = `
+    <div style="font-size:13px;color:#999;margin-bottom:8px;">热门城市</div>
+    ${['beijing','shanghai','guangzhou','shenzhen','chengdu','hangzhou','wuhan','chongqing','nanjing','tianjin'].map(c => {
+      if (!cities.includes(c)) return '';
+      return `<div class="persona-card" style="padding:12px 16px;${selectedCity===c?'border-color:#8b7e6a;background:#f5f0eb;':''}" onclick="selectCity('${c}')">${cityLabel(c)}${selectedCity===c?' ✓':''}</div>`;
+    }).join('')}
+    <div style="font-size:13px;color:#999;margin:16px 0 8px;">全部城市（${cities.length}个）</div>
+    <div id="allCityList">${cities.map(c => `<div class="persona-card filterable" data-city="${c}" style="padding:10px 16px;${selectedCity===c?'border-color:#8b7e6a;background:#f5f0eb;':''}" onclick="selectCity('${c}')">${cityLabel(c)}${selectedCity===c?' ✓':''}</div>`).join('')}</div>
+  `;
+}
+
+function cityLabel(slug) {
+  const m = {
+    beijing:'北京',shanghai:'上海',guangzhou:'广州',shenzhen:'深圳',chengdu:'成都',
+    hangzhou:'杭州',wuhan:'武汉',chongqing:'重庆',nanjing:'南京',tianjin:'天津',
+    suzhou:'苏州',xiamen:'厦门',qingdao:'青岛',dalian:'大连',jinan:'济南',zhengzhou:'郑州',
+    changsha:'长沙',hefei:'合肥',fuzhou:'福州',nanchang:'南昌',kunming:'昆明',guiyang:'贵阳',
+    haikou:'海口',sanya:'三亚',lhasa:'拉萨',xian:'西安',lanzhou:'兰州',yinchuan:'银川',
+    xining:'西宁',urumqi:'乌鲁木齐',shenyang:'沈阳',changchun:'长春',harbin:'哈尔滨',
+    taiyuan:'太原',shijiazhuang:'石家庄',hohhot:'呼和浩特',nanning:'南宁',
+  };
+  return m[slug] || slug;
+}
+
+function selectCity(slug) {
+  selectedCity = slug;
+  document.getElementById('cityDetect').textContent = `📍 已选择：${cityLabel(slug)}`;
+  renderCityList(allCities);
+  // Auto-proceed after short delay
+  setTimeout(() => goPersona(), 300);
+}
+
+function filterCities() {
+  const q = document.getElementById('citySearch').value.toLowerCase();
+  document.querySelectorAll('#allCityList .filterable').forEach(el => {
+    el.style.display = (!q || el.dataset.city.includes(q) || (cityLabel(el.dataset.city)||'').includes(q)) ? '' : 'none';
+  });
+  // Also filter the top cities row
+  const topSection = document.querySelectorAll('.persona-card.filterable');
+  // Actually the top cities aren't filterable by class. Let me just handle allCityList.
+}
 
 // Question sets
 const questionSets = {
@@ -149,7 +257,7 @@ const questionSets = {
     {key:'has_real_estate', text:'逝者名下是否有房产？', options:[{label:'有',value:true},{label:'没有',value:false}]},
     {key:'has_commercial_insurance', text:'逝者是否购买了商业保险？', options:[{label:'有',value:true},{label:'没有',value:false}]},
     {key:'has_will', text:'逝者是否留有遗嘱？', options:[{label:'有',value:true},{label:'没有',value:false}]},
-    {key:'has_social_security', text:'逝者是否在杭州缴纳社保？', options:[{label:'是',value:true},{label:'否',value:false}]},
+    {key:'has_social_security', text:()=>`逝者是否在${cityLabel(selectedCity)}缴纳社保？`, options:[{label:'是',value:true},{label:'否',value:false}]},
   ],
   active_worker: [
     {key:'death_location', text:'逝者是在哪里离世的？', options:[
@@ -198,7 +306,8 @@ function showPage(id, title) {
 async function goPersona() {
   showPage('persona', '选择逝者身份');
   try {
-    const res = await fetch(API+'/api/personas?city=hangzhou');
+    document.getElementById('personaCity').textContent = `📍 ${cityLabel(selectedCity)}`;
+    const res = await fetch(API+'/api/personas?city='+selectedCity);
     const data = await res.json();
     personas = data.personas;
     document.getElementById('personaList').innerHTML = personas.map(p => {
@@ -231,7 +340,7 @@ function renderQuiz() {
   document.getElementById('quizContent').innerHTML = `
     <div class="progress"><div class="progress-fill" style="width:${((currentQuiz+1)/questions.length*100)}%"></div></div>
     <div class="progress-text">第 ${currentQuiz+1} / ${questions.length} 题</div>
-    <div class="question">${q.text}</div>
+    <div class="question">${typeof q.text==='function' ? q.text() : q.text}</div>
     ${q.options.map((o,i) => `<div class="option${answers[q.key]===o.value?' selected':''}" data-key="${q.key}" data-val="${encodeURIComponent(JSON.stringify(o.value))}" data-idx="${i}" onclick="pickAnswer(this)">${o.label}</div>`).join('')}
     <button class="next-btn" ${answers[q.key]===undefined?'disabled':''} onclick="${isLast ? 'submitQuiz()' : 'nextQuiz()'}">${isLast ? '生成清单' : '下一题'}</button>
   `;
@@ -258,7 +367,7 @@ async function submitQuiz() {
     const res = await fetch(API+'/api/guide', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({persona_id:selectedPersona, city:'hangzhou', answers})
+      body:JSON.stringify({persona_id:selectedPersona, city:selectedCity, answers})
     });
     guideResult = await res.json();
     showPage('timeline', '办理清单');
