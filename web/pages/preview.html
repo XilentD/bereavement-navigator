@@ -205,17 +205,38 @@ async function detectCity() {
   }
 }
 
+const HOT_CITIES = ['beijing','shanghai','guangzhou','shenzhen','chengdu','hangzhou','wuhan','chongqing','nanjing','tianjin'];
+
 function renderCityList(cities) {
-  const highlighted = cities.slice(0,10); // Top cities first
-  document.getElementById('cityList').innerHTML = `
-    <div style="font-size:13px;color:#999;margin-bottom:8px;">热门城市</div>
-    ${['beijing','shanghai','guangzhou','shenzhen','chengdu','hangzhou','wuhan','chongqing','nanjing','tianjin'].map(c => {
-      if (!cities.includes(c)) return '';
-      return `<div class="persona-card" style="padding:12px 16px;${selectedCity===c?'border-color:#8b7e6a;background:#f5f0eb;':''}" onclick="selectCity('${c}')">${cityLabel(c)}${selectedCity===c?' ✓':''}</div>`;
-    }).join('')}
-    <div style="font-size:13px;color:#999;margin:16px 0 8px;">全部城市（${cities.length}个）</div>
-    <div id="allCityList">${cities.map(c => `<div class="persona-card filterable" data-city="${c}" style="padding:10px 16px;${selectedCity===c?'border-color:#8b7e6a;background:#f5f0eb;':''}" onclick="selectCity('${c}')">${cityLabel(c)}${selectedCity===c?' ✓':''}</div>`).join('')}</div>
-  `;
+  const q = (document.getElementById('citySearch').value || '').toLowerCase().trim();
+  const filtered = q ? cities.filter(c => c.includes(q) || (cityLabel(c)||'').includes(q)) : [];
+
+  if (q) {
+    // Search mode: only show matching results, sorted by relevance
+    const sorted = filtered.sort((a,b) => {
+      const aExact = a === q; const bExact = b === q;
+      if (aExact !== bExact) return aExact ? -1 : 1;
+      const aStart = a.startsWith(q); const bStart = b.startsWith(q);
+      if (aStart !== bStart) return aStart ? -1 : 1;
+      return a.localeCompare(b);
+    });
+    document.getElementById('cityList').innerHTML = `
+      <div style="font-size:13px;color:#999;margin-bottom:8px;">搜索结果（${sorted.length}个）</div>
+      ${sorted.length === 0 ? '<div style="text-align:center;padding:40px;color:#999;">未找到匹配城市</div>' : ''}
+      ${sorted.map(c => `<div class="persona-card" style="padding:10px 16px;${selectedCity===c?'border-color:#8b7e6a;background:#f5f0eb;':''}" onclick="selectCity('${c}')">${cityLabel(c)}${selectedCity===c?' ✓':''}</div>`).join('')}
+    `;
+  } else {
+    // Default: hot cities first, then all
+    document.getElementById('cityList').innerHTML = `
+      <div style="font-size:13px;color:#999;margin-bottom:8px;">热门城市</div>
+      ${HOT_CITIES.map(c => {
+        if (!cities.includes(c)) return '';
+        return `<div class="persona-card" style="padding:12px 16px;${selectedCity===c?'border-color:#8b7e6a;background:#f5f0eb;':''}" onclick="selectCity('${c}')">${cityLabel(c)}${selectedCity===c?' ✓':''}</div>`;
+      }).join('')}
+      <div style="font-size:13px;color:#999;margin:16px 0 8px;">全部城市（${cities.length}个）</div>
+      ${cities.map(c => `<div class="persona-card" style="padding:10px 16px;${selectedCity===c?'border-color:#8b7e6a;background:#f5f0eb;':''}" onclick="selectCity('${c}')">${cityLabel(c)}${selectedCity===c?' ✓':''}</div>`).join('')}
+    `;
+  }
 }
 
 function cityLabel(slug) { return CITY_LABELS[slug] || slug; }
@@ -228,15 +249,7 @@ function selectCity(slug) {
   setTimeout(() => goPersona(), 300);
 }
 
-function filterCities() {
-  const q = document.getElementById('citySearch').value.toLowerCase();
-  document.querySelectorAll('#allCityList .filterable').forEach(el => {
-    el.style.display = (!q || el.dataset.city.includes(q) || (cityLabel(el.dataset.city)||'').includes(q)) ? '' : 'none';
-  });
-  // Also filter the top cities row
-  const topSection = document.querySelectorAll('.persona-card.filterable');
-  // Actually the top cities aren't filterable by class. Let me just handle allCityList.
-}
+function filterCities() { renderCityList(allCities); }
 
 // Question sets
 const questionSets = {
