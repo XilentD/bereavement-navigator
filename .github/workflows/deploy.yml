@@ -1,0 +1,92 @@
+name: CD — Deploy API
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'api/**'
+      - 'data/**'
+      - 'web/**'
+
+jobs:
+  build-and-deploy:
+    name: Build & Deploy to Server
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: cd api && npm ci
+
+      - name: Validate YAML data
+        run: cd api && npm run validate:data
+
+      - name: Run tests
+        run: cd api && npm test
+
+      - name: Build TypeScript
+        run: cd api && npx tsc
+
+      # Step 1: Copy files to server first
+      - name: Rsync API dist to server
+        uses: burnett01/rsync-deployments@7.0.2
+        with:
+          switches: -avzr --delete
+          path: api/dist/
+          remote_path: /opt/bereavement-api/dist/
+          remote_host: ${{ secrets.DEPLOY_HOST }}
+          remote_user: ${{ secrets.DEPLOY_USER }}
+          remote_key: ${{ secrets.DEPLOY_SSH_KEY }}
+
+      - name: Rsync data to server
+        uses: burnett01/rsync-deployments@7.0.2
+        with:
+          switches: -avzr
+          path: data/
+          remote_path: /opt/bereavement-api/data/
+          remote_host: ${{ secrets.DEPLOY_HOST }}
+          remote_user: ${{ secrets.DEPLOY_USER }}
+          remote_key: ${{ secrets.DEPLOY_SSH_KEY }}
+
+      - name: Rsync web to server
+        uses: burnett01/rsync-deployments@7.0.2
+        with:
+          switches: -avzr
+          path: web/
+          remote_path: /opt/bereavement-api/web/
+          remote_host: ${{ secrets.DEPLOY_HOST }}
+          remote_user: ${{ secrets.DEPLOY_USER }}
+          remote_key: ${{ secrets.DEPLOY_SSH_KEY }}
+
+      # Step 2: Restart service + health check
+      - name: Restart and verify
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            set -e
+            cd /opt/bereavement-api
+
+            # Install production deps if needed
+            npm ci --omit=dev 2>/dev/null || true
+
+            # Restart the service
+            pm2 reload bereavement-api 2>/dev/null || pm2 start dist/server.js --name bereavement-api
+
+            # Health check
+            sleep 3
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/api/personas)
+            if [ "$STATUS" != "200" ]; then
+              echo "Health check failed (HTTP $STATUS)"
+              pm2 logs bereavement-api --lines 20
+              exit 1
+            fi
+
+            echo "✓ Deploy successful — health check passed"

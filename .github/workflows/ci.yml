@@ -1,0 +1,48 @@
+name: CI — Test & Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-data:
+    name: Data Validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install deps
+        run: cd api && npm ci
+      - name: Validate YAML data
+        run: cd api && npm run validate:data
+
+  test:
+    name: API Tests (22 suites)
+    needs: validate-data
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install deps
+        run: cd api && npm ci
+      - name: Run tests
+        run: cd api && npm test
+
+  typecheck:
+    name: TypeScript Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install deps
+        run: cd api && npm ci
+      - name: TypeScript type check
+        run: cd api && npx tsc --noEmit

@@ -7,6 +7,7 @@ import { pdfRoutes } from './routes/pdf.js';
 export async function buildApp(opts = {}) {
   const app = Fastify({ logger: true, ...opts });
 
+  // DATA_DIR: ../data (dev from api/) or ./data (production after build)
   const dataDir = process.env.DATA_DIR || '../data';
   const config = loadConfig(dataDir);
 

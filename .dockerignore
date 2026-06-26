@@ -1,0 +1,13 @@
+node_modules
+dist
+.git
+.gitignore
+.cache
+.superpowers
+.claude
+docs
+miniprogram
+scripts
+api/test
+api/node_modules
+**/*.test.ts
