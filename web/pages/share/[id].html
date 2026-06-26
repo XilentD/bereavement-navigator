@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>办理清单 - 丧亲行政事务导航</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", sans-serif; background: #f5f0eb; color: #333; padding: 20px; }
+  .header { text-align: center; padding: 40px 0 30px; }
+  .header h1 { font-size: 24px; margin-bottom: 8px; }
+  .header p { color: #888; font-size: 14px; }
+  .phase { margin-bottom: 20px; }
+  .phase-title { font-size: 18px; font-weight: bold; margin-bottom: 10px; padding: 10px 0; border-bottom: 1px solid #ddd; }
+  .item { background: #fff; border-radius: 10px; padding: 16px; margin-bottom: 10px; border-left: 4px solid #8b7e6a; }
+  .item-name { font-size: 16px; font-weight: bold; margin-bottom: 6px; }
+  .item-where { font-size: 14px; color: #666; }
+  .item-need { font-size: 13px; color: #888; margin-top: 8px; }
+  .footer { text-align: center; padding: 30px 0; color: #bbb; font-size: 12px; }
+  .footer a { color: #8b7e6a; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <h1 id="personaName">丧亲行政事务办理清单</h1>
+    <p>生成时间：<span id="date"></span> · 共 <span id="total"></span> 项</p>
+  </div>
+  <div id="timeline"></div>
+  <div class="footer">
+    本清单仅供参考，办理前建议致电确认。<br>
+    如有出入请<a href="#">反馈给我们</a>。
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const dataB64 = params.get('d');
+    if (dataB64) {
+      try {
+        const guide = JSON.parse(atob(decodeURIComponent(dataB64)));
+        document.getElementById('personaName').textContent = guide.persona.name + ' · 办理清单';
+        document.getElementById('date').textContent = new Date().toISOString().split('T')[0];
+        document.getElementById('total').textContent = guide.summary.total_procedures;
+
+        const timelineEl = document.getElementById('timeline');
+        for (const phase of guide.timeline) {
+          const phaseDiv = document.createElement('div');
+          phaseDiv.className = 'phase';
+          phaseDiv.innerHTML = `<div class="phase-title">${phase.title}</div>`;
+          for (const proc of phase.procedures) {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'item';
+            const where = proc.where.resolved || proc.where.name;
+            const originals = proc.need.originals.join('、');
+            itemDiv.innerHTML = `
+              <div class="item-name">${proc.name}</div>
+              <div class="item-where">📍 ${where}</div>
+              <div class="item-need">需要：${originals}</div>
+            `;
+            phaseDiv.appendChild(itemDiv);
+          }
+          timelineEl.appendChild(phaseDiv);
+        }
+      } catch (e) {
+        document.body.innerHTML = '<p style="text-align:center;padding:60px;">清单数据无效或已过期</p>';
+      }
+    } else {
+      document.body.innerHTML = '<p style="text-align:center;padding:60px;">清单数据无效或已过期</p>';
+    }
+  </script>
+</body>
+</html>
