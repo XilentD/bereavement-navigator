@@ -345,7 +345,10 @@ function renderQuiz() {
     <div class="progress-text">第 ${currentQuiz+1} / ${questions.length} 题</div>
     <div class="question">${typeof q.text==='function' ? q.text() : q.text}</div>
     ${q.options.map((o,i) => `<div class="option${answers[q.key]===o.value?' selected':''}" data-key="${q.key}" data-val="${encodeURIComponent(JSON.stringify(o.value))}" data-idx="${i}" onclick="pickAnswer(this)">${o.label}</div>`).join('')}
-    <button class="next-btn" ${answers[q.key]===undefined?'disabled':''} onclick="${isLast ? 'submitQuiz()' : 'nextQuiz()'}">${isLast ? '生成清单' : '下一题'}</button>
+    <div style="display:flex;gap:10px;">
+      ${currentQuiz > 0 ? `<button class="option" style="flex:1;padding:14px;font-size:15px;background:#fff;border:2px solid #ddd;border-radius:10px;cursor:pointer" onclick="prevQuiz()">← 上一题</button>` : ''}
+      <button class="next-btn" ${answers[q.key]===undefined?'disabled':''} onclick="${isLast ? 'submitQuiz()' : 'nextQuiz()'}" style="${currentQuiz>0?'flex:1':''}">${isLast ? '生成清单' : '下一题 →'}</button>
+    </div>
   `;
 }
 
@@ -355,13 +358,59 @@ function pickAnswer(el) {
   answers[key] = value;
   el.parentElement.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
-  const nextBtn = document.querySelector('.next-btn');
-  if (nextBtn) nextBtn.disabled = false;
+  // Auto-advance after short visual feedback
+  setTimeout(() => {
+    const isLast = currentQuiz >= questions.length - 1;
+    if (isLast) submitQuiz(); else nextQuiz();
+  }, 200);
 }
 
-function nextQuiz() {
-  currentQuiz++;
-  renderQuiz();
+function nextQuiz() { currentQuiz++; renderQuiz(); }
+function prevQuiz() { if (currentQuiz > 0) { currentQuiz--; renderQuiz(); } }
+
+// Template city warning — check if this city's source header indicates unverified data
+async function isTemplateCity(city) {
+  // Quick check: the cities we verified via official-gov
+  const VERIFIED = new Set([
+    'hangzhou','beijing','shanghai','guangzhou','shenzhen','tianjin','chongqing',
+    'chengdu','wuhan','nanjing','xian','zhengzhou','changsha','jinan','qingdao',
+    'dalian','xiamen','hefei','shenyang','harbin','changchun','taiyuan','shijiazhuang',
+    'fuzhou','nanchang','kunming','guiyang','nanning','hohhot','lanzhou','yinchuan',
+    'xining','urumqi','haikou','lhasa',
+    // Zhejiang
+    'ningbo','wenzhou','jiaxing','huzhou','shaoxing','jinhua','quzhou','zhoushan','taizhou_zj','lishui',
+    // Hunan
+    'zhuzhou','xiangtan','hengyang','shaoyang','yueyang','changde','zhangjiajie','yiyang','chenzhou','yongzhou','huaihua','loudi',
+    // Anhui
+    'wuhu','bengbu','huainan','maanshan','huaibei','tongling','anqing','huangshan','chuzhou','fuyang','suzhou_ah','luan','bozhou','chizhou','xuancheng',
+    // Sichuan
+    'mianyang','deyang','zigong','panzhihua','luzhou','guangyuan','suining','neijiang','leshan','nanchong','meishan','yibin','guangan','dazhou','yaan','bazhong','ziyang',
+    // Jiangxi
+    'jiujiang','jingdezhen','pingxiang','xinyu','yingtan','ganzhou','jian','yichun_jx','fuzhou_jx','shangrao',
+    // Yunnan
+    'qujing','yuxi','baoshan','zhaotong','lijiang','puer','lincang',
+    // Shaanxi
+    'xianyang','baoji','weinan','yanan','hanzhong','yulin_sx','ankang','shangluo',
+    // Jilin
+    'jilin','siping','liaoyuan','tonghua','baishan','songyuan','baicheng',
+    // Heilongjiang
+    'qiqihar','jixi','hegang','shuangyashan','daqing','yichun','jiamusi','qitaihe','mudanjiang','heihe','suihua',
+    // Guangxi
+    'liuzhou','guilin','wuzhou','beihai','fangchenggang','qinzhou','guigang','yulin_gx','baise','hezhou','hechi','laibin','chongzuo',
+    // Henan
+    'luoyang','kaifeng','pingdingshan','anyang','hebi','xinxiang','jiaozuo','puyang','xuchang','luohe','sanmenxia','nanyang','shangqiu','xinyang','zhoukou','zhumadian',
+    // Inner Mongolia
+    'baotou','chifeng','tongliao','ordos','hulunbuir','bayannur','wulanchabu',
+    // Shanxi
+    'datong','yangquan','changzhi','jincheng','jinzhong','yuncheng','xinzhou','linfen','lvliang',
+    // Guangdong
+    'zhuhai','shantou','foshan','shaoguan','zhanjiang','zhaoqing','jiangmen','maoming','huizhou','meizhou','shanwei','heyuan','yangjiang','qingyuan','dongguan','zhongshan','chaozhou','jieyang','yunfu',
+    // Qinghai
+    'haidong',
+    // Suzhou (Jiangsu) is verified via provincial directory search
+    'suzhou',
+  ]);
+  return !VERIFIED.has(city);
 }
 
 async function submitQuiz() {
@@ -380,15 +429,25 @@ async function submitQuiz() {
   }
 }
 
-function renderTimeline() {
+async function renderTimeline() {
   const g = guideResult;
   const icons = { '24h':'⚠️', '3d':'🕯️', '7d':'📋', '30d':'💰', '90d':'🏠', 'long':'📝' };
   const labels = { '24h':'24小时内', '3d':'1-3天', '7d':'3-7天', '30d':'7-30天', '90d':'30-90天', 'long':'长期' };
+  const isTemplate = await isTemplateCity(selectedCity);
   document.getElementById('timelineContent').innerHTML = `
     <div class="timeline-header">
       <div class="pname">${g.persona.name}</div>
       <div class="psummary">共 ${g.summary.total_procedures} 项 · ${g.summary.critical_count} 项紧急 · 预计 ${g.summary.estimated_days_min} 天</div>
     </div>
+    ${isTemplate ? `
+    <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:10px;padding:14px;margin:0 12px 16px;font-size:14px;color:#856404;line-height:1.6;">
+      ⚠️ <b>数据提示</b>：${cityLabel(selectedCity)}的数据暂用省会模板生成。<br>
+      殡仪馆/社保中心/公证处/不动产的地址电话可能不准确——<br>
+      建议办理前拨打 <b>12345</b> 或当地民政局电话确认。
+    </div>` : `
+    <div style="background:#d4edda;border:1px solid:#28a745;border-radius:10px;padding:14px;margin:0 12px 16px;font-size:14px;color:#155724;">
+      ✅ 数据来源：省级民政厅官网名录
+    </div>`}
     ${g.timeline.map(phase => `
       <div class="phase">
         <div class="phase-head">
