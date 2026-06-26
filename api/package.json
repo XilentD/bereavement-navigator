@@ -1,0 +1,30 @@
+{
+  "name": "bereavement-navigator-api",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "validate:data": "tsx scripts/validate-data.ts"
+  },
+  "dependencies": {
+    "ajv": "^8.17.0",
+    "better-sqlite3": "^11.10.0",
+    "ejs": "^3.1.10",
+    "fastify": "^5.0.0",
+    "puppeteer": "^23.0.0",
+    "uuid": "^10.0.0",
+    "yaml": "^2.6.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/ejs": "^3.1.5",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}
