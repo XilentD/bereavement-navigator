@@ -8,7 +8,12 @@
     "start": "node dist/server.js",
     "test": "vitest run",
     "test:watch": "vitest",
-    "validate:data": "tsx scripts/validate-data.ts"
+    "validate:data": "tsx scripts/validate-data.ts",
+    "scrape:list": "tsx ../scripts/scraper/index.ts list",
+    "scrape:fetch": "tsx ../scripts/scraper/index.ts fetch",
+    "scrape:extract": "tsx ../scripts/scraper/index.ts extract",
+    "scrape:generate": "tsx ../scripts/scraper/index.ts generate",
+    "scrape:full": "tsx ../scripts/scraper/index.ts full"
   },
   "dependencies": {
     "ajv": "^8.17.0",
