@@ -1,0 +1,109 @@
+# JSON Schema for bereavement procedure definitions
+# Validates every persona YAML file in procedures/
+
+$schema: "http://json-schema.org/draft-07/schema#"
+type: object
+required: [persona, timeline]
+additionalProperties: false
+properties:
+  persona:
+    type: object
+    required: [id, name, description, assumptions]
+    additionalProperties: false
+    properties:
+      id:
+        type: string
+        pattern: "^[a-z_]+$"
+      name:
+        type: string
+        minLength: 2
+      description:
+        type: string
+        minLength: 10
+      assumptions:
+        type: array
+        minItems: 1
+        items:
+          type: string
+          minLength: 5
+
+  timeline:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      required: [phase, title, procedures]
+      additionalProperties: false
+      properties:
+        phase:
+          type: string
+          enum: ["24h", "3d", "7d", "30d", "90d", "long"]
+        title:
+          type: string
+          minLength: 2
+        procedures:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required: [id, name, urgency, where, need, output]
+            additionalProperties: false
+            properties:
+              id:
+                type: string
+                pattern: "^[a-z_]+$"
+              name:
+                type: string
+                minLength: 2
+              urgency:
+                type: string
+                enum: ["critical", "high", "normal"]
+              where:
+                oneOf:
+                  - type: object
+                    required: [type, name, address, phone]
+                    properties:
+                      type: { const: fixed }
+                      name: { type: string, minLength: 2 }
+                      address: { type: string, minLength: 5 }
+                      phone: { type: string, pattern: "^[0-9\\-]+$" }
+                  - type: object
+                    required: [type, branches]
+                    properties:
+                      type: { const: depends }
+                      branches:
+                        type: array
+                        minItems: 1
+                        items:
+                          type: object
+                          required: [when, name]
+                          properties:
+                            when: { type: string }
+                            name: { type: string, minLength: 2 }
+                            address: { type: string }
+                            phone: { type: string }
+              need:
+                type: object
+                required: [originals, copies]
+                properties:
+                  originals:
+                    type: array
+                    minItems: 1
+                    items: { type: string, minLength: 2 }
+                  copies:
+                    type: array
+                    items:
+                      type: object
+                      required: [doc, count]
+                      properties:
+                        doc: { type: string, minLength: 2 }
+                        count: { type: integer, minimum: 1 }
+              output:
+                type: string
+                minLength: 2
+              notes:
+                type: string
+              when:
+                type: object
+                additionalProperties:
+                  type: boolean
