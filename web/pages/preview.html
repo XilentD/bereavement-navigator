@@ -142,6 +142,7 @@ body { font-family: -apple-system,"PingFang SC","Microsoft YaHei",sans-serif; ba
   </div>
 </div>
 
+<script src="city-labels.js"></script>
 <script>
 const API = 'http://localhost:3000';
 let personas = [];
@@ -217,18 +218,7 @@ function renderCityList(cities) {
   `;
 }
 
-function cityLabel(slug) {
-  const m = {
-    beijing:'北京',shanghai:'上海',guangzhou:'广州',shenzhen:'深圳',chengdu:'成都',
-    hangzhou:'杭州',wuhan:'武汉',chongqing:'重庆',nanjing:'南京',tianjin:'天津',
-    suzhou:'苏州',xiamen:'厦门',qingdao:'青岛',dalian:'大连',jinan:'济南',zhengzhou:'郑州',
-    changsha:'长沙',hefei:'合肥',fuzhou:'福州',nanchang:'南昌',kunming:'昆明',guiyang:'贵阳',
-    haikou:'海口',sanya:'三亚',lhasa:'拉萨',xian:'西安',lanzhou:'兰州',yinchuan:'银川',
-    xining:'西宁',urumqi:'乌鲁木齐',shenyang:'沈阳',changchun:'长春',harbin:'哈尔滨',
-    taiyuan:'太原',shijiazhuang:'石家庄',hohhot:'呼和浩特',nanning:'南宁',
-  };
-  return m[slug] || slug;
-}
+function cityLabel(slug) { return CITY_LABELS[slug] || slug; }
 
 function selectCity(slug) {
   selectedCity = slug;
