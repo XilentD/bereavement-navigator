@@ -15,8 +15,9 @@ Page({
     this.setData({ city: app.globalData.selectedCity || 'hangzhou' })
   },
   startQuiz(e) {
-    app.globalData.selectedPersona = e.currentTarget.dataset.id
+    const id = e.currentTarget.dataset.id
+    app.globalData.selectedPersona = id
     app.globalData.answers = {}
-    wx.navigateTo({ url: '/pages/quiz/quiz' })
+    wx.navigateTo({ url: '/pages/quiz/quiz?pid=' + id })
   }
 })

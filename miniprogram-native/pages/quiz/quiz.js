@@ -41,18 +41,17 @@ const QS = {
 
 Page({
   data: { questions: [], qidx: 0, question: null, answers: {}, isLast: false },
-  onLoad() {
-    const pid = app.globalData.selectedPersona || 'retired-worker'
+  onLoad(options) {
+    const pid = options.pid || app.globalData.selectedPersona || 'retired-worker'
     let questions = QS[pid]
     if (!questions) {
-      // Fallback: try without hyphen, or default to retired-worker
       questions = QS['retired-worker']
     }
     if (!questions || !questions[0]) {
       wx.showToast({ title: '题目加载失败', icon: 'none' })
       return
     }
-    this.setData({ questions, qidx: 0, question: questions[0], isLast: questions.length === 1, answers: {} })
+    this.setData({ questions, qidx: 0, question: questions[0], isLast: questions.length === 1, answers: app.globalData.answers || {} })
   },
   pick(e) {
     const key = e.currentTarget.dataset.key
