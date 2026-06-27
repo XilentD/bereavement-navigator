@@ -1,6 +1,1 @@
-<view class="qp">
-  <view>测试: {{qtext}}</view>
-  <view>题目数: {{total}}</view>
-  <view wx:for="{{options}}" wx:key="label">{{item.label}}</view>
-  <button bindtap="next">下一题</button>
-</view>
+<view>{{qtext}}</view>
