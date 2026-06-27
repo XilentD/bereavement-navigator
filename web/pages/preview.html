@@ -5,71 +5,71 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>丧亲行政事务导航</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#e8e0d5;display:flex;justify-content:center;align-items:center;min-height:100vh}
-.phone{width:390px;height:844px;background:#f5f0eb;border-radius:36px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3);position:relative;display:flex;flex-direction:column}
-.status-bar{height:44px;background:#f5f0eb;display:flex;align-items:center;justify-content:center;font-size:13px;color:#333;flex-shrink:0}
-.nav-bar{height:44px;background:#f5f0eb;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:bold;border-bottom:1px solid #e8e0d5;flex-shrink:0}
-.content{flex:1;overflow-y:auto;padding:0;-webkit-overflow-scrolling:touch}
-.page{display:none;min-height:100%}
-.page.active{display:block}
-.home{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 32px;text-align:center;min-height:100%}
-.home .emoji{font-size:64px;margin-bottom:32px}
-.home .hero{font-size:17px;line-height:2;color:#555;white-space:pre-line;margin-bottom:48px}
-.home .btn{width:240px;height:48px;line-height:48px;background:#8b7e6a;color:#fff;border-radius:24px;font-size:17px;border:none;text-align:center;cursor:pointer}
-.persona-page{padding:24px 20px}
-.persona-page .title{font-size:20px;font-weight:bold;margin-bottom:4px}
-.persona-page .subtitle{font-size:14px;color:#999;margin-bottom:24px}
-.persona-card{background:#fff;border-radius:12px;padding:16px 20px;margin-bottom:10px;border:2px solid #e8e0d5;cursor:pointer}
-.persona-card:hover{border-color:#8b7e6a}
-.persona-card .name{font-size:17px;font-weight:bold}
-.persona-card .desc{font-size:13px;color:#888;margin-top:4px}
-.quiz-page{padding:32px 20px;display:flex;flex-direction:column;min-height:100%}
-.progress{height:4px;background:#e0d8cc;border-radius:2px;margin-bottom:8px}
-.progress-fill{height:100%;background:#8b7e6a;border-radius:2px;transition:width .3s}
-.progress-text{font-size:12px;color:#999;text-align:center;margin-bottom:40px}
-.question{font-size:19px;line-height:1.8;margin-bottom:32px}
-.option{background:#fff;border:2px solid #ddd;border-radius:10px;padding:18px;font-size:16px;text-align:center;margin-bottom:12px;cursor:pointer}
-.option.selected{border-color:#8b7e6a;background:#f5f0eb;color:#8b7e6a}
-.next-btn{margin-top:auto;width:100%;height:48px;line-height:48px;background:#8b7e6a;color:#fff;border-radius:24px;font-size:16px;border:none;cursor:pointer}
-.next-btn:disabled{background:#ccc;cursor:not-allowed}
-.timeline-page{padding:16px}
-.timeline-header{padding:20px 12px}
-.timeline-header .pname{font-size:20px;font-weight:bold}
-.timeline-header .psummary{font-size:14px;color:#888;margin-top:4px}
-.phase{margin-bottom:16px}
-.phase-head{display:flex;align-items:center;gap:10px;padding:8px 4px}
-.phase-icon{font-size:28px}
-.phase-title{font-size:16px;font-weight:bold}
-.phase-time{font-size:12px;color:#999}
-.proc-card{display:flex;justify-content:space-between;align-items:center;padding:14px;background:#fff;border-radius:10px;margin-bottom:8px;border-left:4px solid #ccc;cursor:pointer}
-.proc-card.done{opacity:.5}
-.proc-card .urgency{width:8px;height:8px;border-radius:50%;margin-right:10px;flex-shrink:0}
-.proc-card .urgency.critical{background:#e74c3c}
-.proc-card .urgency.high{background:#f39c12}
-.proc-card .urgency.normal{background:#95a5a6}
-.proc-info{flex:1}
-.proc-name{font-size:15px}
-.proc-where{font-size:12px;color:#999;margin-top:2px}
-.proc-check{font-size:24px;color:#8b7e6a}
-.detail-page{padding:20px}
-.detail-name{font-size:22px;font-weight:bold;margin-bottom:4px}
-.badge{display:inline-block;font-size:12px;padding:2px 12px;border-radius:10px;margin-bottom:16px}
-.badge.critical{background:#fde8e8;color:#e74c3c}
-.badge.high{background:#fef3e2;color:#f39c12}
-.badge.normal{background:#e8e8e8;color:#888}
-.section{margin-bottom:20px}
-.section-title{font-size:15px;font-weight:bold;margin-bottom:8px}
-.section-text{font-size:15px;line-height:1.8}
-.section-sub{font-size:13px;color:#888;margin-top:2px}
-.material{font-size:14px;padding:4px 0}
-.material.original{font-weight:bold}
-.btn-row{display:flex;flex-direction:column;gap:10px;margin-top:24px}
-.btn-primary{height:44px;line-height:44px;background:#8b7e6a;color:#fff;border-radius:22px;font-size:15px;border:none;text-align:center;cursor:pointer}
-.btn-outline{height:44px;line-height:44px;background:#fff;color:#8b7e6a;border:2px solid #8b7e6a;border-radius:22px;font-size:15px;text-align:center;cursor:pointer}
-.btn-done{height:44px;line-height:44px;background:#27ae60;color:#fff;border-radius:22px;font-size:15px;border:none;text-align:center;cursor:pointer}
-.loading{text-align:center;padding:60px;color:#999}
-.error{text-align:center;padding:60px;color:#e74c3c}
+*{{margin:0;padding:0;box-sizing:border-box}}
+body{{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#e8e0d5;display:flex;justify-content:center;align-items:center;min-height:100vh}}
+.phone{{width:390px;height:844px;background:#f5f0eb;border-radius:36px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3);position:relative;display:flex;flex-direction:column}}
+.status-bar{{height:44px;background:#f5f0eb;display:flex;align-items:center;justify-content:center;font-size:13px;color:#333;flex-shrink:0}}
+.nav-bar{{height:44px;background:#f5f0eb;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:bold;border-bottom:1px solid #e8e0d5;flex-shrink:0}}
+.content{{flex:1;overflow-y:auto;padding:0;-webkit-overflow-scrolling:touch}}
+.page{{display:none;min-height:100%}}
+.page.active{{display:block}}
+.home{{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 32px;text-align:center;min-height:100%}}
+.home .emoji{{font-size:64px;margin-bottom:32px}}
+.home .hero{{font-size:17px;line-height:2;color:#555;white-space:pre-line;margin-bottom:48px}}
+.home .btn{{width:240px;height:48px;line-height:48px;background:#8b7e6a;color:#fff;border-radius:24px;font-size:17px;border:none;text-align:center;cursor:pointer}}
+.persona-page{{padding:24px 20px}}
+.persona-page .title{{font-size:20px;font-weight:bold;margin-bottom:4px}}
+.persona-page .subtitle{{font-size:14px;color:#999;margin-bottom:24px}}
+.persona-card{{background:#fff;border-radius:12px;padding:16px 20px;margin-bottom:10px;border:2px solid #e8e0d5;cursor:pointer}}
+.persona-card:hover{{border-color:#8b7e6a}}
+.persona-card .name{{font-size:17px;font-weight:bold}}
+.persona-card .desc{{font-size:13px;color:#888;margin-top:4px}}
+.quiz-page{{padding:32px 20px;display:flex;flex-direction:column;min-height:100%}}
+.progress{{height:4px;background:#e0d8cc;border-radius:2px;margin-bottom:8px}}
+.progress-fill{{height:100%;background:#8b7e6a;border-radius:2px;transition:width .3s}}
+.progress-text{{font-size:12px;color:#999;text-align:center;margin-bottom:40px}}
+.question{{font-size:19px;line-height:1.8;margin-bottom:32px}}
+.option{{background:#fff;border:2px solid #ddd;border-radius:10px;padding:18px;font-size:16px;text-align:center;margin-bottom:12px;cursor:pointer}}
+.option.selected{{border-color:#8b7e6a;background:#f5f0eb;color:#8b7e6a}}
+.next-btn{{margin-top:auto;width:100%;height:48px;line-height:48px;background:#8b7e6a;color:#fff;border-radius:24px;font-size:16px;border:none;cursor:pointer}}
+.next-btn:disabled{{background:#ccc;cursor:not-allowed}}
+.timeline-page{{padding:16px}}
+.timeline-header{{padding:20px 12px}}
+.timeline-header .pname{{font-size:20px;font-weight:bold}}
+.timeline-header .psummary{{font-size:14px;color:#888;margin-top:4px}}
+.phase{{margin-bottom:16px}}
+.phase-head{{display:flex;align-items:center;gap:10px;padding:8px 4px}}
+.phase-icon{{font-size:28px}}
+.phase-title{{font-size:16px;font-weight:bold}}
+.phase-time{{font-size:12px;color:#999}}
+.proc-card{{display:flex;justify-content:space-between;align-items:center;padding:14px;background:#fff;border-radius:10px;margin-bottom:8px;border-left:4px solid #ccc;cursor:pointer}}
+.proc-card.done{{opacity:.5}}
+.proc-card .urgency{{width:8px;height:8px;border-radius:50%;margin-right:10px;flex-shrink:0}}
+.proc-card .urgency.critical{{background:#e74c3c}}
+.proc-card .urgency.high{{background:#f39c12}}
+.proc-card .urgency.normal{{background:#95a5a6}}
+.proc-info{{flex:1}}
+.proc-name{{font-size:15px}}
+.proc-where{{font-size:12px;color:#999;margin-top:2px}}
+.proc-check{{font-size:24px;color:#8b7e6a}}
+.detail-page{{padding:20px}}
+.detail-name{{font-size:22px;font-weight:bold;margin-bottom:4px}}
+.badge{{display:inline-block;font-size:12px;padding:2px 12px;border-radius:10px;margin-bottom:16px}}
+.badge.critical{{background:#fde8e8;color:#e74c3c}}
+.badge.high{{background:#fef3e2;color:#f39c12}}
+.badge.normal{{background:#e8e8e8;color:#888}}
+.section{{margin-bottom:20px}}
+.section-title{{font-size:15px;font-weight:bold;margin-bottom:8px}}
+.section-text{{font-size:15px;line-height:1.8}}
+.section-sub{{font-size:13px;color:#888;margin-top:2px}}
+.material{{font-size:14px;padding:4px 0}}
+.material.original{{font-weight:bold}}
+.btn-row{{display:flex;flex-direction:column;gap:10px;margin-top:24px}}
+.btn-primary{{height:44px;line-height:44px;background:#8b7e6a;color:#fff;border-radius:22px;font-size:15px;border:none;text-align:center;cursor:pointer}}
+.btn-outline{{height:44px;line-height:44px;background:#fff;color:#8b7e6a;border:2px solid #8b7e6a;border-radius:22px;font-size:15px;text-align:center;cursor:pointer}}
+.btn-done{{height:44px;line-height:44px;background:#27ae60;color:#fff;border-radius:22px;font-size:15px;border:none;text-align:center;cursor:pointer}}
+.loading{{text-align:center;padding:60px;color:#999}}
+.error{{text-align:center;padding:60px;color:#e74c3c}}
 </style>
 </head>
 <body>
@@ -140,7 +140,7 @@ function renderCityList(cities) {
     if(filtered.length===0) html += '<div style="text-align:center;padding:40px;color:#999">未找到匹配城市</div>';
     for(var i=0;i<filtered.length;i++) {
       var c=filtered[i], sel=selectedCity===c?' style="border-color:#8b7e6a;background:#f5f0eb"':'';
-      html += '<div class="persona-card"'+sel+' onclick="selectCity(\''+c+'\')">'+cityLabel(c)+(selectedCity===c?' ✓':'')+'</div>';
+      html += '<div class="persona-card"'+sel+' onclick="selectCity(''+c+'')">'+cityLabel(c)+(selectedCity===c?' ✓':'')+'</div>';
     }
   } else {
     html += '<div style="font-size:13px;color:#999;margin-bottom:8px">热门城市</div>';
@@ -148,12 +148,12 @@ function renderCityList(cities) {
       var c=HOT_CITIES[i];
       if(cities.indexOf(c)<0) continue;
       var sel=selectedCity===c?' style="border-color:#8b7e6a;background:#f5f0eb"':'';
-      html += '<div class="persona-card"'+sel+' onclick="selectCity(\''+c+'\')">'+cityLabel(c)+(selectedCity===c?' ✓':'')+'</div>';
+      html += '<div class="persona-card"'+sel+' onclick="selectCity(''+c+'')">'+cityLabel(c)+(selectedCity===c?' ✓':'')+'</div>';
     }
     html += '<div style="font-size:13px;color:#999;margin:16px 0 8px">全部城市('+cities.length+'个)</div>';
     for(var i=0;i<cities.length;i++) {
       var c=cities[i], sel=selectedCity===c?' style="border-color:#8b7e6a;background:#f5f0eb"':'';
-      html += '<div class="persona-card"'+sel+' onclick="selectCity(\''+c+'\')">'+cityLabel(c)+(selectedCity===c?' ✓':'')+'</div>';
+      html += '<div class="persona-card"'+sel+' onclick="selectCity(''+c+'')">'+cityLabel(c)+(selectedCity===c?' ✓':'')+'</div>';
     }
   }
   document.getElementById('cityList').innerHTML = html;
@@ -183,7 +183,7 @@ function goPersona() {
     var extra = '';
     if(ids[i]==='urban_resident') extra = '<div style="font-size:12px;color:#e67e22;margin-top:4px">农民/务农人员请选此项</div>';
     if(ids[i]==='active_worker') extra = '<div style="font-size:12px;color:#e67e22;margin-top:4px">含农民工/灵活就业参保人员</div>';
-    html += '<div class="persona-card" onclick="startQuiz(\''+ids[i]+'\')"><div class="name">'+names[i]+'</div><div class="desc">'+descs[i]+'</div>'+extra+'</div>';
+    html += '<div class="persona-card" onclick="startQuiz(''+ids[i]+'')"><div class="name">'+names[i]+'</div><div class="desc">'+descs[i]+'</div>'+extra+'</div>';
   }
   document.getElementById('personaList').innerHTML = html;
 }
@@ -263,7 +263,7 @@ function pickAnswer(el) {
 }
 
 function nextQuiz(){currentQuiz++;renderQuiz()}
-function prevQuiz(){if(currentQuiz>0){currentQuiz--;renderQuiz()}
+function prevQuiz(){if(currentQuiz>0){currentQuiz--;renderQuiz()}}
 
 async function submitQuiz(){
   document.getElementById('quizContent').innerHTML='<div class="loading">生成中...</div>';
@@ -293,7 +293,7 @@ async function renderTimeline(){
     html+='<div class="phase"><div class="phase-head"><span class="phase-icon">'+(icons[phase.phase]||'📌')+'</span><div><div class="phase-title">'+phase.title+'</div><div class="phase-time">'+(labels[phase.phase]||phase.phase)+'</div></div></div>';
     for(var i=0;i<phase.procedures.length;i++){
       var p=phase.procedures[i], done=completed.has(p.id);
-      html+='<div class="proc-card'+(done?' done':'')+'" onclick="openDetail(\''+p.id+'\')"><span class="urgency '+p.urgency+'"></span><div class="proc-info"><div class="proc-name">'+(done?'✅ ':'')+p.name+'</div><div class="proc-where">📍 '+(p.where.resolved||p.where.name)+'</div></div><span class="proc-check">'+(done?'✅':'○')+'</span></div>';
+      html+='<div class="proc-card'+(done?' done':'')+'" onclick="openDetail(''+p.id+'')"><span class="urgency '+p.urgency+'"></span><div class="proc-info"><div class="proc-name">'+(done?'✅ ':'')+p.name+'</div><div class="proc-where">📍 '+(p.where.resolved||p.where.name)+'</div></div><span class="proc-check">'+(done?'✅':'○')+'</span></div>';
     }
     html+='</div>';
   }
@@ -322,9 +322,9 @@ function openDetail(procId){
   if(proc.output) html+='<div class="section"><div class="section-title">📤 办完后会得到</div><div class="section-text" style="color:#27ae60">'+proc.output+'</div></div>';
   if(proc.notes) html+='<div class="section"><div class="section-title">⚠️ 注意事项</div><div class="section-text" style="color:#e67e22;font-size:14px">'+proc.notes+'</div></div>';
   html+='<div class="btn-row">';
-  html+='<button class="btn-done" onclick="toggleDone(\''+proc.id+'\')">'+(completed.has(proc.id)?'撤销完成':'标记为已完成')+'</button>';
-  html+='<button class="btn-outline" onclick="showPage(\'timeline\',\'\');renderTimeline()">返回清单</button>';
-  html+='<button class="btn-primary" onclick="alert(\'PDF生成需微信环境，当前为模拟预览\')">生成授权委托书</button>';
+  html+='<button class="btn-done" onclick="toggleDone(''+proc.id+'')">'+(completed.has(proc.id)?'撤销完成':'标记为已完成')+'</button>';
+  html+='<button class="btn-outline" onclick="showPage('timeline','');renderTimeline()">返回清单</button>';
+  html+='<button class="btn-primary" onclick="alert('PDF生成需微信环境，当前为模拟预览')">生成授权委托书</button>';
   html+='</div>';
   document.getElementById('detailContent').innerHTML=html;
 }

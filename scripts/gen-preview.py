@@ -2,7 +2,7 @@
 """Regenerate preview.html with clean ASCII-safe JavaScript."""
 import json
 
-js = r'''
+js = '''
 const API = 'http://localhost:3000';
 var personas = [], selectedCity = 'hangzhou', selectedPersona = '', answers = {}, currentQuiz = 0, questions = [], guideResult = null, completed = new Set(), allCities = [];
 
