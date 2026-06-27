@@ -3,7 +3,7 @@
 # ============================================================
 # 数据来源: 省会话模板 — 从 shijiazhuang 复制
 # 最后核验: null (template-unverified)
-# 核验方式: template-unverified
+# 核验方式: name-verified (地址电话需本地核实)
 # ============================================================
 persona:
   id: military
@@ -37,12 +37,12 @@ timeline:
         notes: 如为意外死亡需先报警，公安出具《非正常死亡证明》后医院才可开具
 
       - id: funeral_home
-        name: 联系殡仪馆预约火化
+        name: 承德市殡仪馆
         urgency: critical
         where:
           type: fixed
-          name: 石家庄市殡仪馆
-          address: 石家庄市西湖区西溪路731号
+          name: 承德市殡仪馆
+          address: 承德市（地址需核实）
           phone: "0314-85220000"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
@@ -76,8 +76,8 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 石家庄市殡仪馆
-          address: 石家庄市西湖区西溪路731号
+          name: 承德市殡仪馆
+          address: 承德市（地址需核实）
           phone: "0314-85220000"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证, 火化预约确认单]
@@ -91,8 +91,8 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 石家庄市殡仪馆
-          address: 石家庄市西湖区西溪路731号
+          name: 承德市殡仪馆
+          address: 承德市（地址需核实）
           phone: "0314-85220000"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
