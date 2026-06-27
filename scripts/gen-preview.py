@@ -1,111 +1,8 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>丧亲行政事务导航</title>
-<style>
-*{{margin:0;padding:0;box-sizing:border-box}}
-body{{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#e8e0d5;display:flex;justify-content:center;align-items:center;min-height:100vh}}
-.phone{{width:390px;height:844px;background:#f5f0eb;border-radius:36px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3);position:relative;display:flex;flex-direction:column}}
-.status-bar{{height:44px;background:#f5f0eb;display:flex;align-items:center;justify-content:center;font-size:13px;color:#333;flex-shrink:0}}
-.nav-bar{{height:44px;background:#f5f0eb;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:bold;border-bottom:1px solid #e8e0d5;flex-shrink:0}}
-.content{{flex:1;overflow-y:auto;padding:0;-webkit-overflow-scrolling:touch}}
-.page{{display:none;min-height:100%}}
-.page.active{{display:block}}
-.home{{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 32px;text-align:center;min-height:100%}}
-.home .emoji{{font-size:64px;margin-bottom:32px}}
-.home .hero{{font-size:17px;line-height:2;color:#555;white-space:pre-line;margin-bottom:48px}}
-.home .btn{{width:240px;height:48px;line-height:48px;background:#8b7e6a;color:#fff;border-radius:24px;font-size:17px;border:none;text-align:center;cursor:pointer}}
-.persona-page{{padding:24px 20px}}
-.persona-page .title{{font-size:20px;font-weight:bold;margin-bottom:4px}}
-.persona-page .subtitle{{font-size:14px;color:#999;margin-bottom:24px}}
-.persona-card{{background:#fff;border-radius:12px;padding:16px 20px;margin-bottom:10px;border:2px solid #e8e0d5;cursor:pointer}}
-.persona-card:hover{{border-color:#8b7e6a}}
-.persona-card .name{{font-size:17px;font-weight:bold}}
-.persona-card .desc{{font-size:13px;color:#888;margin-top:4px}}
-.quiz-page{{padding:32px 20px;display:flex;flex-direction:column;min-height:100%}}
-.progress{{height:4px;background:#e0d8cc;border-radius:2px;margin-bottom:8px}}
-.progress-fill{{height:100%;background:#8b7e6a;border-radius:2px;transition:width .3s}}
-.progress-text{{font-size:12px;color:#999;text-align:center;margin-bottom:40px}}
-.question{{font-size:19px;line-height:1.8;margin-bottom:32px}}
-.option{{background:#fff;border:2px solid #ddd;border-radius:10px;padding:18px;font-size:16px;text-align:center;margin-bottom:12px;cursor:pointer}}
-.option.selected{{border-color:#8b7e6a;background:#f5f0eb;color:#8b7e6a}}
-.next-btn{{margin-top:auto;width:100%;height:48px;line-height:48px;background:#8b7e6a;color:#fff;border-radius:24px;font-size:16px;border:none;cursor:pointer}}
-.next-btn:disabled{{background:#ccc;cursor:not-allowed}}
-.timeline-page{{padding:16px}}
-.timeline-header{{padding:20px 12px}}
-.timeline-header .pname{{font-size:20px;font-weight:bold}}
-.timeline-header .psummary{{font-size:14px;color:#888;margin-top:4px}}
-.phase{{margin-bottom:16px}}
-.phase-head{{display:flex;align-items:center;gap:10px;padding:8px 4px}}
-.phase-icon{{font-size:28px}}
-.phase-title{{font-size:16px;font-weight:bold}}
-.phase-time{{font-size:12px;color:#999}}
-.proc-card{{display:flex;justify-content:space-between;align-items:center;padding:14px;background:#fff;border-radius:10px;margin-bottom:8px;border-left:4px solid #ccc;cursor:pointer}}
-.proc-card.done{{opacity:.5}}
-.proc-card .urgency{{width:8px;height:8px;border-radius:50%;margin-right:10px;flex-shrink:0}}
-.proc-card .urgency.critical{{background:#e74c3c}}
-.proc-card .urgency.high{{background:#f39c12}}
-.proc-card .urgency.normal{{background:#95a5a6}}
-.proc-info{{flex:1}}
-.proc-name{{font-size:15px}}
-.proc-where{{font-size:12px;color:#999;margin-top:2px}}
-.proc-check{{font-size:24px;color:#8b7e6a}}
-.detail-page{{padding:20px}}
-.detail-name{{font-size:22px;font-weight:bold;margin-bottom:4px}}
-.badge{{display:inline-block;font-size:12px;padding:2px 12px;border-radius:10px;margin-bottom:16px}}
-.badge.critical{{background:#fde8e8;color:#e74c3c}}
-.badge.high{{background:#fef3e2;color:#f39c12}}
-.badge.normal{{background:#e8e8e8;color:#888}}
-.section{{margin-bottom:20px}}
-.section-title{{font-size:15px;font-weight:bold;margin-bottom:8px}}
-.section-text{{font-size:15px;line-height:1.8}}
-.section-sub{{font-size:13px;color:#888;margin-top:2px}}
-.material{{font-size:14px;padding:4px 0}}
-.material.original{{font-weight:bold}}
-.btn-row{{display:flex;flex-direction:column;gap:10px;margin-top:24px}}
-.btn-primary{{height:44px;line-height:44px;background:#8b7e6a;color:#fff;border-radius:22px;font-size:15px;border:none;text-align:center;cursor:pointer}}
-.btn-outline{{height:44px;line-height:44px;background:#fff;color:#8b7e6a;border:2px solid #8b7e6a;border-radius:22px;font-size:15px;text-align:center;cursor:pointer}}
-.btn-done{{height:44px;line-height:44px;background:#27ae60;color:#fff;border-radius:22px;font-size:15px;border:none;text-align:center;cursor:pointer}}
-.loading{{text-align:center;padding:60px;color:#999}}
-.error{{text-align:center;padding:60px;color:#e74c3c}}
-</style>
-</head>
-<body>
-<div class="phone">
-<div class="status-bar">9:41</div>
-<div class="nav-bar" id="navTitle">丧亲行政事务导航</div>
-<div class="content" id="content">
-<div class="page active" id="page-home">
-<div class="home">
-<div class="emoji">&#x1F56F;</div>
-<div class="hero">我们知道这会是一段艰难的时光。
-接下来你需要跑很多手续，
-我们来帮你逐个理清。</div>
-<button class="btn" onclick="goCity()">开始办理</button>
-<div class="footer">本服务完全免费 - 信息仅供参考</div>
-</div></div>
-<div class="page" id="page-city">
-<div class="persona-page">
-<div class="title">选择所在城市</div>
-<div class="subtitle" id="cityDetect">搜索或选择你的城市</div>
-<div style="margin-bottom:16px"><input id="citySearch" type="text" placeholder="搜索城市（如：杭州、北京）" style="width:100%;padding:14px;font-size:16px;border:2px solid #e8e0d5;border-radius:10px;background:#fff;outline:none" oninput="renderCityList(allCities)"></div>
-<div id="cityList" style="max-height:400px;overflow-y:auto"></div>
-</div></div>
-<div class="page" id="page-persona">
-<div class="persona-page">
-<div class="title">请选择逝者身份类型</div>
-<div class="subtitle" id="personaCity"></div>
-<div id="personaList"></div>
-</div></div>
-<div class="page" id="page-quiz"><div class="quiz-page" id="quizContent"></div></div>
-<div class="page" id="page-timeline"><div class="timeline-page" id="timelineContent"></div></div>
-<div class="page" id="page-detail"><div class="detail-page" id="detailContent"></div></div>
-</div></div>
-<script src="city-labels.js"></script>
-<script>
+#!/usr/bin/env python3
+"""Regenerate preview.html with clean ASCII-safe JavaScript."""
+import json
 
+js = r'''
 const API = 'http://localhost:3000';
 var personas = [], selectedCity = 'hangzhou', selectedPersona = '', answers = {}, currentQuiz = 0, questions = [], guideResult = null, completed = new Set(), allCities = [];
 
@@ -333,7 +230,120 @@ function toggleDone(id){
   if(completed.has(id)) completed.delete(id); else completed.add(id);
   openDetail(id);
 }
+'''
 
-</script>
-</body>
-</html>
+html_template = '''<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>丧亲行政事务导航</title>
+<style>
+*{{margin:0;padding:0;box-sizing:border-box}}
+body{{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#e8e0d5;display:flex;justify-content:center;align-items:center;min-height:100vh}}
+.phone{{width:390px;height:844px;background:#f5f0eb;border-radius:36px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3);position:relative;display:flex;flex-direction:column}}
+.status-bar{{height:44px;background:#f5f0eb;display:flex;align-items:center;justify-content:center;font-size:13px;color:#333;flex-shrink:0}}
+.nav-bar{{height:44px;background:#f5f0eb;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:bold;border-bottom:1px solid #e8e0d5;flex-shrink:0}}
+.content{{flex:1;overflow-y:auto;padding:0;-webkit-overflow-scrolling:touch}}
+.page{{display:none;min-height:100%}}
+.page.active{{display:block}}
+.home{{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 32px;text-align:center;min-height:100%}}
+.home .emoji{{font-size:64px;margin-bottom:32px}}
+.home .hero{{font-size:17px;line-height:2;color:#555;white-space:pre-line;margin-bottom:48px}}
+.home .btn{{width:240px;height:48px;line-height:48px;background:#8b7e6a;color:#fff;border-radius:24px;font-size:17px;border:none;text-align:center;cursor:pointer}}
+.persona-page{{padding:24px 20px}}
+.persona-page .title{{font-size:20px;font-weight:bold;margin-bottom:4px}}
+.persona-page .subtitle{{font-size:14px;color:#999;margin-bottom:24px}}
+.persona-card{{background:#fff;border-radius:12px;padding:16px 20px;margin-bottom:10px;border:2px solid #e8e0d5;cursor:pointer}}
+.persona-card:hover{{border-color:#8b7e6a}}
+.persona-card .name{{font-size:17px;font-weight:bold}}
+.persona-card .desc{{font-size:13px;color:#888;margin-top:4px}}
+.quiz-page{{padding:32px 20px;display:flex;flex-direction:column;min-height:100%}}
+.progress{{height:4px;background:#e0d8cc;border-radius:2px;margin-bottom:8px}}
+.progress-fill{{height:100%;background:#8b7e6a;border-radius:2px;transition:width .3s}}
+.progress-text{{font-size:12px;color:#999;text-align:center;margin-bottom:40px}}
+.question{{font-size:19px;line-height:1.8;margin-bottom:32px}}
+.option{{background:#fff;border:2px solid #ddd;border-radius:10px;padding:18px;font-size:16px;text-align:center;margin-bottom:12px;cursor:pointer}}
+.option.selected{{border-color:#8b7e6a;background:#f5f0eb;color:#8b7e6a}}
+.next-btn{{margin-top:auto;width:100%;height:48px;line-height:48px;background:#8b7e6a;color:#fff;border-radius:24px;font-size:16px;border:none;cursor:pointer}}
+.next-btn:disabled{{background:#ccc;cursor:not-allowed}}
+.timeline-page{{padding:16px}}
+.timeline-header{{padding:20px 12px}}
+.timeline-header .pname{{font-size:20px;font-weight:bold}}
+.timeline-header .psummary{{font-size:14px;color:#888;margin-top:4px}}
+.phase{{margin-bottom:16px}}
+.phase-head{{display:flex;align-items:center;gap:10px;padding:8px 4px}}
+.phase-icon{{font-size:28px}}
+.phase-title{{font-size:16px;font-weight:bold}}
+.phase-time{{font-size:12px;color:#999}}
+.proc-card{{display:flex;justify-content:space-between;align-items:center;padding:14px;background:#fff;border-radius:10px;margin-bottom:8px;border-left:4px solid #ccc;cursor:pointer}}
+.proc-card.done{{opacity:.5}}
+.proc-card .urgency{{width:8px;height:8px;border-radius:50%;margin-right:10px;flex-shrink:0}}
+.proc-card .urgency.critical{{background:#e74c3c}}
+.proc-card .urgency.high{{background:#f39c12}}
+.proc-card .urgency.normal{{background:#95a5a6}}
+.proc-info{{flex:1}}
+.proc-name{{font-size:15px}}
+.proc-where{{font-size:12px;color:#999;margin-top:2px}}
+.proc-check{{font-size:24px;color:#8b7e6a}}
+.detail-page{{padding:20px}}
+.detail-name{{font-size:22px;font-weight:bold;margin-bottom:4px}}
+.badge{{display:inline-block;font-size:12px;padding:2px 12px;border-radius:10px;margin-bottom:16px}}
+.badge.critical{{background:#fde8e8;color:#e74c3c}}
+.badge.high{{background:#fef3e2;color:#f39c12}}
+.badge.normal{{background:#e8e8e8;color:#888}}
+.section{{margin-bottom:20px}}
+.section-title{{font-size:15px;font-weight:bold;margin-bottom:8px}}
+.section-text{{font-size:15px;line-height:1.8}}
+.section-sub{{font-size:13px;color:#888;margin-top:2px}}
+.material{{font-size:14px;padding:4px 0}}
+.material.original{{font-weight:bold}}
+.btn-row{{display:flex;flex-direction:column;gap:10px;margin-top:24px}}
+.btn-primary{{height:44px;line-height:44px;background:#8b7e6a;color:#fff;border-radius:22px;font-size:15px;border:none;text-align:center;cursor:pointer}}
+.btn-outline{{height:44px;line-height:44px;background:#fff;color:#8b7e6a;border:2px solid #8b7e6a;border-radius:22px;font-size:15px;text-align:center;cursor:pointer}}
+.btn-done{{height:44px;line-height:44px;background:#27ae60;color:#fff;border-radius:22px;font-size:15px;border:none;text-align:center;cursor:pointer}}
+.loading{{text-align:center;padding:60px;color:#999}}
+.error{{text-align:center;padding:60px;color:#e74c3c}}
+</style>
+</head>
+<body>
+<div class="phone">
+<div class="status-bar">9:41</div>
+<div class="nav-bar" id="navTitle">丧亲行政事务导航</div>
+<div class="content" id="content">
+<div class="page active" id="page-home">
+<div class="home">
+<div class="emoji">&#x1F56F;</div>
+<div class="hero">我们知道这会是一段艰难的时光。
+接下来你需要跑很多手续，
+我们来帮你逐个理清。</div>
+<button class="btn" onclick="goCity()">开始办理</button>
+<div class="footer">本服务完全免费 - 信息仅供参考</div>
+</div></div>
+<div class="page" id="page-city">
+<div class="persona-page">
+<div class="title">选择所在城市</div>
+<div class="subtitle" id="cityDetect">搜索或选择你的城市</div>
+<div style="margin-bottom:16px"><input id="citySearch" type="text" placeholder="搜索城市（如：杭州、北京）" style="width:100%;padding:14px;font-size:16px;border:2px solid #e8e0d5;border-radius:10px;background:#fff;outline:none" oninput="renderCityList(allCities)"></div>
+<div id="cityList" style="max-height:400px;overflow-y:auto"></div>
+</div></div>
+<div class="page" id="page-persona">
+<div class="persona-page">
+<div class="title">请选择逝者身份类型</div>
+<div class="subtitle" id="personaCity"></div>
+<div id="personaList"></div>
+</div></div>
+<div class="page" id="page-quiz"><div class="quiz-page" id="quizContent"></div></div>
+<div class="page" id="page-timeline"><div class="timeline-page" id="timelineContent"></div></div>
+<div class="page" id="page-detail"><div class="detail-page" id="detailContent"></div></div>
+</div></div>
+<script src="city-labels.js"></script>
+<script>
+'''
+
+with open('web/pages/preview.html', 'w', encoding='utf-8') as f:
+    f.write(html_template)
+    f.write(js)
+    f.write('\n</script>\n</body>\n</html>')
+
+print('Done - preview.html regenerated with clean ASCII-safe JS')
