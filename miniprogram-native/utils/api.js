@@ -14,6 +14,7 @@ function request(url, method, data) {
 }
 
 module.exports = {
+  BASE: BASE,
   getPersonas(city) { return request('/api/personas?city=' + (city || 'hangzhou')) },
   getGuide(persona_id, city, answers) { return request('/api/guide', 'POST', { persona_id, city, answers }) },
   getChecklistPdf(persona_id, city, answers) {

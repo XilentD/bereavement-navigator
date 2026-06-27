@@ -95,7 +95,7 @@ Page({
         app.globalData.guideResult = res
         wx.hideLoading()
         wx.navigateTo({ url: '/pages/timeline/timeline' })
-      }).catch(function() { wx.hideLoading(); wx.showToast({ title: '网络错误', icon: 'none' }) })
+      }).catch(function(e) { wx.hideLoading(); wx.showModal({ title: '请求失败', content: (e&&e.errMsg||'未知错误')+'\nURL: '+require('../../utils/api.js').BASE, showCancel:false }) })
     } else {
       var qidx = this.data.qidx + 1
       var q = this.qs[qidx]
