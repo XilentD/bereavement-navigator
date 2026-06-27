@@ -5,335 +5,283 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>丧亲行政事务导航</title>
 <style>
-*{{margin:0;padding:0;box-sizing:border-box}}
-body{{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#e8e0d5;display:flex;justify-content:center;align-items:center;min-height:100vh}}
-.phone{{width:390px;height:844px;background:#f5f0eb;border-radius:36px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3);position:relative;display:flex;flex-direction:column}}
-.status-bar{{height:44px;background:#f5f0eb;display:flex;align-items:center;justify-content:center;font-size:13px;color:#333;flex-shrink:0}}
-.nav-bar{{height:44px;background:#f5f0eb;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:bold;border-bottom:1px solid #e8e0d5;flex-shrink:0}}
-.content{{flex:1;overflow-y:auto;padding:0;-webkit-overflow-scrolling:touch}}
-.page{{display:none;min-height:100%}}
-.page.active{{display:block}}
-.home{{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 32px;text-align:center;min-height:100%}}
-.home .emoji{{font-size:64px;margin-bottom:32px}}
-.home .hero{{font-size:17px;line-height:2;color:#555;white-space:pre-line;margin-bottom:48px}}
-.home .btn{{width:240px;height:48px;line-height:48px;background:#8b7e6a;color:#fff;border-radius:24px;font-size:17px;border:none;text-align:center;cursor:pointer}}
-.persona-page{{padding:24px 20px}}
-.persona-page .title{{font-size:20px;font-weight:bold;margin-bottom:4px}}
-.persona-page .subtitle{{font-size:14px;color:#999;margin-bottom:24px}}
-.persona-card{{background:#fff;border-radius:12px;padding:16px 20px;margin-bottom:10px;border:2px solid #e8e0d5;cursor:pointer}}
-.persona-card:hover{{border-color:#8b7e6a}}
-.persona-card .name{{font-size:17px;font-weight:bold}}
-.persona-card .desc{{font-size:13px;color:#888;margin-top:4px}}
-.quiz-page{{padding:32px 20px;display:flex;flex-direction:column;min-height:100%}}
-.progress{{height:4px;background:#e0d8cc;border-radius:2px;margin-bottom:8px}}
-.progress-fill{{height:100%;background:#8b7e6a;border-radius:2px;transition:width .3s}}
-.progress-text{{font-size:12px;color:#999;text-align:center;margin-bottom:40px}}
-.question{{font-size:19px;line-height:1.8;margin-bottom:32px}}
-.option{{background:#fff;border:2px solid #ddd;border-radius:10px;padding:18px;font-size:16px;text-align:center;margin-bottom:12px;cursor:pointer}}
-.option.selected{{border-color:#8b7e6a;background:#f5f0eb;color:#8b7e6a}}
-.next-btn{{margin-top:auto;width:100%;height:48px;line-height:48px;background:#8b7e6a;color:#fff;border-radius:24px;font-size:16px;border:none;cursor:pointer}}
-.next-btn:disabled{{background:#ccc;cursor:not-allowed}}
-.timeline-page{{padding:16px}}
-.timeline-header{{padding:20px 12px}}
-.timeline-header .pname{{font-size:20px;font-weight:bold}}
-.timeline-header .psummary{{font-size:14px;color:#888;margin-top:4px}}
-.phase{{margin-bottom:16px}}
-.phase-head{{display:flex;align-items:center;gap:10px;padding:8px 4px}}
-.phase-icon{{font-size:28px}}
-.phase-title{{font-size:16px;font-weight:bold}}
-.phase-time{{font-size:12px;color:#999}}
-.proc-card{{display:flex;justify-content:space-between;align-items:center;padding:14px;background:#fff;border-radius:10px;margin-bottom:8px;border-left:4px solid #ccc;cursor:pointer}}
-.proc-card.done{{opacity:.5}}
-.proc-card .urgency{{width:8px;height:8px;border-radius:50%;margin-right:10px;flex-shrink:0}}
-.proc-card .urgency.critical{{background:#e74c3c}}
-.proc-card .urgency.high{{background:#f39c12}}
-.proc-card .urgency.normal{{background:#95a5a6}}
-.proc-info{{flex:1}}
-.proc-name{{font-size:15px}}
-.proc-where{{font-size:12px;color:#999;margin-top:2px}}
-.proc-check{{font-size:24px;color:#8b7e6a}}
-.detail-page{{padding:20px}}
-.detail-name{{font-size:22px;font-weight:bold;margin-bottom:4px}}
-.badge{{display:inline-block;font-size:12px;padding:2px 12px;border-radius:10px;margin-bottom:16px}}
-.badge.critical{{background:#fde8e8;color:#e74c3c}}
-.badge.high{{background:#fef3e2;color:#f39c12}}
-.badge.normal{{background:#e8e8e8;color:#888}}
-.section{{margin-bottom:20px}}
-.section-title{{font-size:15px;font-weight:bold;margin-bottom:8px}}
-.section-text{{font-size:15px;line-height:1.8}}
-.section-sub{{font-size:13px;color:#888;margin-top:2px}}
-.material{{font-size:14px;padding:4px 0}}
-.material.original{{font-weight:bold}}
-.btn-row{{display:flex;flex-direction:column;gap:10px;margin-top:24px}}
-.btn-primary{{height:44px;line-height:44px;background:#8b7e6a;color:#fff;border-radius:22px;font-size:15px;border:none;text-align:center;cursor:pointer}}
-.btn-outline{{height:44px;line-height:44px;background:#fff;color:#8b7e6a;border:2px solid #8b7e6a;border-radius:22px;font-size:15px;text-align:center;cursor:pointer}}
-.btn-done{{height:44px;line-height:44px;background:#27ae60;color:#fff;border-radius:22px;font-size:15px;border:none;text-align:center;cursor:pointer}}
-.loading{{text-align:center;padding:60px;color:#999}}
-.error{{text-align:center;padding:60px;color:#e74c3c}}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#e8e0d5;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.phone{width:390px;height:844px;background:#f5f0eb;border-radius:36px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3);display:flex;flex-direction:column}
+.bar{height:44px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:bold;border-bottom:1px solid #e8e0d5;flex-shrink:0}
+.main{flex:1;overflow-y:auto}
+.pg{display:none;min-height:100%}
+.pg.on{display:block}
+.hm{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 32px;text-align:center;min-height:100%}
+.hm .em{font-size:64px;margin-bottom:32px}
+.hm .tx{font-size:17px;line-height:2;color:#555;white-space:pre-line;margin-bottom:48px}
+.btn{display:block;width:240px;height:48px;line-height:48px;background:#8b7e6a;color:#fff;border-radius:24px;font-size:17px;border:none;text-align:center;cursor:pointer;margin:0 auto}
+.card{background:#fff;border-radius:12px;padding:16px 20px;margin-bottom:10px;border:2px solid #e8e0d5;cursor:pointer}
+.card:hover{border-color:#8b7e6a}
+.card .nm{font-size:17px;font-weight:bold}
+.card .ds{font-size:13px;color:#888;margin-top:4px}
+.card .nt{font-size:12px;color:#e67e22;margin-top:4px}
+.inp{width:100%;padding:14px;font-size:16px;border:2px solid #e8e0d5;border-radius:10px;background:#fff;outline:none;margin-bottom:16px}
+.lbl{font-size:20px;font-weight:bold;margin-bottom:4px}
+.sublbl{font-size:14px;color:#999;margin-bottom:24px}
+.qp{padding:32px 20px;display:flex;flex-direction:column;min-height:100%}
+.prog{height:4px;background:#e0d8cc;border-radius:2px;margin-bottom:8px}
+.progf{height:100%;background:#8b7e6a;border-radius:2px;transition:width .3s}
+.ptxt{font-size:12px;color:#999;text-align:center;margin-bottom:40px}
+.qt{font-size:19px;line-height:1.8;margin-bottom:32px}
+.opt{background:#fff;border:2px solid #ddd;border-radius:10px;padding:18px;font-size:16px;text-align:center;margin-bottom:12px;cursor:pointer}
+.opt.sel{border-color:#8b7e6a;background:#f5f0eb;color:#8b7e6a}
+.nb{margin-top:auto;width:100%;height:48px;line-height:48px;background:#8b7e6a;color:#fff;border-radius:24px;font-size:16px;border:none;cursor:pointer}
+.nb:disabled{background:#ccc}
+.nb2{flex:1;height:48px;line-height:48px;background:#fff;color:#8b7e6a;border:2px solid #8b7e6a;border-radius:24px;font-size:16px;cursor:pointer}
+.rw{display:flex;gap:10px}
+.tp{padding:16px}
+.th{padding:20px 12px}
+.th .pn{font-size:20px;font-weight:bold}
+.th .ps{font-size:14px;color:#888;margin-top:4px}
+.ph{margin-bottom:16px}
+.phd{display:flex;align-items:center;gap:10px;padding:8px 4px}
+.pi{font-size:28px}
+.pn2{font-size:16px;font-weight:bold}
+.pt2{font-size:12px;color:#999}
+.pc{display:flex;justify-content:space-between;align-items:center;padding:14px;background:#fff;border-radius:10px;margin-bottom:8px;border-left:4px solid #ccc;cursor:pointer}
+.pc.dn{opacity:.5}
+.ud{width:8px;height:8px;border-radius:50%;margin-right:10px;flex-shrink:0}
+.ud.cr{background:#e74c3c}
+.ud.hi{background:#f39c12}
+.ud.no{background:#95a5a6}
+.pi2{flex:1}
+.pn3{font-size:15px}
+.pw{font-size:12px;color:#999;margin-top:2px}
+.ck{font-size:24px;color:#8b7e6a}
+.dp{padding:20px}
+.dn2{font-size:22px;font-weight:bold;margin-bottom:4px}
+.bd{display:inline-block;font-size:12px;padding:2px 12px;border-radius:10px;margin-bottom:16px}
+.bd.cr{background:#fde8e8;color:#e74c3c}
+.bd.hi{background:#fef3e2;color:#f39c12}
+.bd.no{background:#e8e8e8;color:#888}
+.sec{margin-bottom:20px}
+.st{font-size:15px;font-weight:bold;margin-bottom:8px}
+.sv{font-size:15px;line-height:1.8}
+.ss{font-size:13px;color:#888;margin-top:2px}
+.mt{font-size:14px;padding:4px 0}
+.mt.og{font-weight:bold}
+.btc{display:flex;flex-direction:column;gap:10px;margin-top:24px}
+.bt1{height:44px;line-height:44px;background:#8b7e6a;color:#fff;border-radius:22px;font-size:15px;border:none;text-align:center;cursor:pointer;width:100%}
+.bt2{height:44px;line-height:44px;background:#fff;color:#8b7e6a;border:2px solid #8b7e6a;border-radius:22px;font-size:15px;text-align:center;cursor:pointer;width:100%}
+.bt3{height:44px;line-height:44px;background:#27ae60;color:#fff;border-radius:22px;font-size:15px;border:none;text-align:center;cursor:pointer;width:100%}
+.ld{text-align:center;padding:60px;color:#999}
+.er{text-align:center;padding:60px;color:#e74c3c}
+.ban{background:#d4edda;border:1px solid #28a745;border-radius:10px;padding:14px;margin:0 12px 16px;font-size:14px;color:#155724;line-height:1.6}
+.ban2{background:#fff3cd;border:1px solid #ffc107;border-radius:10px;padding:14px;margin:0 12px 16px;font-size:14px;color:#856404;line-height:1.6}
 </style>
 </head>
 <body>
 <div class="phone">
-<div class="status-bar">9:41</div>
-<div class="nav-bar" id="navTitle">丧亲行政事务导航</div>
-<div class="content" id="content">
-<div class="page active" id="page-home">
-<div class="home">
-<div class="emoji">&#x1F56F;</div>
-<div class="hero">我们知道这会是一段艰难的时光。
+<div class="bar" id="navTitle">丧亲行政事务导航</div>
+<div class="main" id="main">
+
+<div class="pg on" id="pg-home">
+<div class="hm">
+<div class="em">🕯️</div>
+<div class="tx">我们知道这会是一段艰难的时光。
 接下来你需要跑很多手续，
 我们来帮你逐个理清。</div>
 <button class="btn" onclick="goCity()">开始办理</button>
-<div class="footer">本服务完全免费 - 信息仅供参考</div>
-</div></div>
-<div class="page" id="page-city">
-<div class="persona-page">
-<div class="title">选择所在城市</div>
-<div class="subtitle" id="cityDetect">搜索或选择你的城市</div>
-<div style="margin-bottom:16px"><input id="citySearch" type="text" placeholder="搜索城市（如：杭州、北京）" style="width:100%;padding:14px;font-size:16px;border:2px solid #e8e0d5;border-radius:10px;background:#fff;outline:none" oninput="renderCityList(allCities)"></div>
+<div style="position:absolute;bottom:24px;left:0;right:0;color:#bbb;font-size:12px;text-align:center">本服务完全免费 · 信息仅供参考</div>
+</div>
+</div>
+
+<div class="pg" id="pg-city">
+<div style="padding:24px 20px">
+<div class="lbl">选择所在城市</div>
+<div class="sublbl" id="cityDetect">搜索或选择你的城市</div>
+<input class="inp" id="citySearch" type="text" placeholder="搜索城市（如：杭州、北京）" oninput="renderCities()">
 <div id="cityList" style="max-height:400px;overflow-y:auto"></div>
-</div></div>
-<div class="page" id="page-persona">
-<div class="persona-page">
-<div class="title">请选择逝者身份类型</div>
-<div class="subtitle" id="personaCity"></div>
+</div>
+</div>
+
+<div class="pg" id="pg-persona">
+<div style="padding:24px 20px">
+<div class="lbl">请选择逝者身份类型</div>
+<div class="sublbl" id="personaCity"></div>
 <div id="personaList"></div>
+</div>
+</div>
+
+<div class="pg" id="pg-quiz">
+<div class="qp" id="quizContent"></div>
+</div>
+
+<div class="pg" id="pg-timeline">
+<div class="tp" id="timelineContent"></div>
+</div>
+
+<div class="pg" id="pg-detail">
+<div class="dp" id="detailContent"></div>
+</div>
+
 </div></div>
-<div class="page" id="page-quiz"><div class="quiz-page" id="quizContent"></div></div>
-<div class="page" id="page-timeline"><div class="timeline-page" id="timelineContent"></div></div>
-<div class="page" id="page-detail"><div class="detail-page" id="detailContent"></div></div>
-</div></div>
+
 <script src="city-labels.js"></script>
 <script>
+var API='http://localhost:3000';
+var selectedCity='hangzhou',selectedPersona='',answers={},currentQuiz=0,questions=[],guideResult=null,completed=new Set(),allCities=[];
 
-const API = 'http://localhost:3000';
-var personas = [], selectedCity = 'hangzhou', selectedPersona = '', answers = {}, currentQuiz = 0, questions = [], guideResult = null, completed = new Set(), allCities = [];
+function L(s){return CITY_LABELS[s]||s}
+function show(id,t){var ps=document.querySelectorAll('.pg');for(var i=0;i<ps.length;i++)ps[i].classList.remove('on');document.getElementById('pg-'+id).classList.add('on');document.getElementById('navTitle').textContent=t||'丧亲行政事务导航'}
 
-function cityLabel(slug) { return CITY_LABELS[slug] || slug; }
+function goCity(){show('city','选择城市');allCities=Object.keys(CITY_LABELS);renderCities()}
 
-function showPage(id, title) {
-  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
-  document.getElementById('page-'+id).classList.add('active');
-  document.getElementById('navTitle').textContent = title || '丧亲行政事务导航';
-}
+var HOT=['beijing','shanghai','guangzhou','shenzhen','chengdu','hangzhou','wuhan','chongqing','nanjing','tianjin'];
 
-function goCity() {
-  showPage('city', '选择城市');
-  allCities = Object.keys(CITY_LABELS);
-  renderCityList(allCities);
-}
-
-var HOT_CITIES = ['beijing','shanghai','guangzhou','shenzhen','chengdu','hangzhou','wuhan','chongqing','nanjing','tianjin'];
-
-function renderCityList(cities) {
-  var q = (document.getElementById('citySearch').value || '').toLowerCase().trim();
-  var filtered = q ? cities.filter(function(c){return c.indexOf(q)>=0 || (cityLabel(c)||'').indexOf(q)>=0}) : [];
-  var html = '';
-  if (q) {
-    filtered.sort(function(a,b){
-      if(a===q) return -1; if(b===q) return 1;
-      if(a.indexOf(q)===0 && b.indexOf(q)!==0) return -1;
-      if(b.indexOf(q)===0 && a.indexOf(q)!==0) return 1;
-      return a.localeCompare(b);
-    });
-    html += '<div style="font-size:13px;color:#999;margin-bottom:8px">搜索结果('+filtered.length+'个)</div>';
-    if(filtered.length===0) html += '<div style="text-align:center;padding:40px;color:#999">未找到匹配城市</div>';
-    for(var i=0;i<filtered.length;i++) {
-      var c=filtered[i], sel=selectedCity===c?' style="border-color:#8b7e6a;background:#f5f0eb"':'';
-      html += '<div class="persona-card"'+sel+' onclick="selectCity(''+c+'')">'+cityLabel(c)+(selectedCity===c?' ✓':'')+'</div>';
-    }
-  } else {
-    html += '<div style="font-size:13px;color:#999;margin-bottom:8px">热门城市</div>';
-    for(var i=0;i<HOT_CITIES.length;i++) {
-      var c=HOT_CITIES[i];
-      if(cities.indexOf(c)<0) continue;
-      var sel=selectedCity===c?' style="border-color:#8b7e6a;background:#f5f0eb"':'';
-      html += '<div class="persona-card"'+sel+' onclick="selectCity(''+c+'')">'+cityLabel(c)+(selectedCity===c?' ✓':'')+'</div>';
-    }
-    html += '<div style="font-size:13px;color:#999;margin:16px 0 8px">全部城市('+cities.length+'个)</div>';
-    for(var i=0;i<cities.length;i++) {
-      var c=cities[i], sel=selectedCity===c?' style="border-color:#8b7e6a;background:#f5f0eb"':'';
-      html += '<div class="persona-card"'+sel+' onclick="selectCity(''+c+'')">'+cityLabel(c)+(selectedCity===c?' ✓':'')+'</div>';
-    }
+function renderCities(){
+  var q=document.getElementById('citySearch').value.toLowerCase().trim();
+  var h='';
+  if(q){
+    var f=allCities.filter(function(c){return c.indexOf(q)>=0||L(c).indexOf(q)>=0});
+    f.sort(function(a,b){if(a===q)return -1;if(b===q)return 1;return a.localeCompare(b)});
+    h+='<div style="font-size:13px;color:#999;margin-bottom:8px">搜索结果('+f.length+'个)</div>';
+    if(!f.length)h+='<div style="text-align:center;padding:40px;color:#999">未找到匹配城市</div>';
+    for(var i=0;i<f.length;i++){var c=f[i];h+='<div class="card" style="'+(selectedCity===c?'border-color:#8b7e6a;background:#f5f0eb':'')+'" onclick="pickCity(\''+c+'\')">'+L(c)+(selectedCity===c?' ✓':'')+'</div>'}
+  }else{
+    h+='<div style="font-size:13px;color:#999;margin-bottom:8px">热门城市</div>';
+    for(var i=0;i<HOT.length;i++){var c=HOT[i];if(allCities.indexOf(c)<0)continue;h+='<div class="card" style="'+(selectedCity===c?'border-color:#8b7e6a;background:#f5f0eb':'')+'" onclick="pickCity(\''+c+'\')">'+L(c)+(selectedCity===c?' ✓':'')+'</div>'}
+    h+='<div style="font-size:13px;color:#999;margin:16px 0 8px">全部城市('+allCities.length+'个)</div>';
+    for(var i=0;i<allCities.length;i++){var c=allCities[i];h+='<div class="card" style="'+(selectedCity===c?'border-color:#8b7e6a;background:#f5f0eb':'')+'" onclick="pickCity(\''+c+'\')">'+L(c)+(selectedCity===c?' ✓':'')+'</div>'}
   }
-  document.getElementById('cityList').innerHTML = html;
+  document.getElementById('cityList').innerHTML=h;
 }
 
-function selectCity(slug) {
-  selectedCity = slug;
-  document.getElementById('cityDetect').textContent = '已选择: '+cityLabel(slug);
-  renderCityList(allCities);
-  setTimeout(function(){ goPersona(); }, 200);
-}
+function pickCity(s){selectedCity=s;document.getElementById('cityDetect').textContent='已选择: '+L(s);renderCities();setTimeout(function(){goPersona()},200)}
 
-function goPersona() {
-  showPage('persona', '选择身份');
-  document.getElementById('personaCity').textContent = cityLabel(selectedCity);
-  var ids = ['retired_worker','active_worker','urban_resident','civil_servant','military'];
-  var names = ['退休企业职工','在职企业职工','城乡居民(含农民)','公务员','军人'];
-  var descs = [
-    '参加城镇职工养老保险已办理退休的企业人员',
-    '参加城镇职工养老保险的在职企业职工',
-    '未参加职工养老保险的城乡居民、农民、务农人员',
-    '在编公务员、事业单位人员',
-    '现役军人、退役军人、军队离退休人员'
-  ];
-  var html = '';
-  for(var i=0;i<ids.length;i++) {
-    var extra = '';
-    if(ids[i]==='urban_resident') extra = '<div style="font-size:12px;color:#e67e22;margin-top:4px">农民/务农人员请选此项</div>';
-    if(ids[i]==='active_worker') extra = '<div style="font-size:12px;color:#e67e22;margin-top:4px">含农民工/灵活就业参保人员</div>';
-    html += '<div class="persona-card" onclick="startQuiz(''+ids[i]+'')"><div class="name">'+names[i]+'</div><div class="desc">'+descs[i]+'</div>'+extra+'</div>';
+function goPersona(){
+  show('persona','选择身份');
+  document.getElementById('personaCity').textContent='📍 '+L(selectedCity);
+  var ids=['retired_worker','active_worker','urban_resident','civil_servant','military'];
+  var ns=['退休企业职工','在职企业职工','城乡居民(含农民)','公务员','军人'];
+  var ds=['参加城镇职工养老保险已退休的企业人员','参加城镇职工养老保险的在职职工','未参加职工养老保险的城乡居民、农民、务农人员','在编公务员、事业单位人员','现役军人、退役军人、军队离退休人员'];
+  var h='';
+  for(var i=0;i<ids.length;i++){
+    var xt='';
+    if(ids[i]==='urban_resident')xt='<div class="nt">⚠️ 农民/务农人员请选此项</div>';
+    if(ids[i]==='active_worker')xt='<div class="nt">含农民工/灵活就业参保人员</div>';
+    h+='<div class="card" onclick="startQuiz(\''+ids[i]+'\')"><div class="nm">'+ns[i]+'</div><div class="ds">'+ds[i]+'</div>'+xt+'</div>';
   }
-  document.getElementById('personaList').innerHTML = html;
+  document.getElementById('personaList').innerHTML=h;
 }
 
-var Q = {
-  retired_worker: [
-    {k:'death_location', t:'逝者是在哪里离世的?', o:[{l:'医院',v:'at_hospital'},{l:'家中',v:'at_home'},{l:'意外/其他地点',v:'accident'}]},
-    {k:'has_real_estate', t:'逝者名下是否有房产?', o:[{l:'有',v:true},{l:'没有',v:false}]},
-    {k:'has_commercial_insurance', t:'逝者是否购买了商业保险?', o:[{l:'有',v:true},{l:'没有',v:false}]},
-    {k:'has_will', t:'逝者是否留有遗嘱?', o:[{l:'有',v:true},{l:'没有',v:false}]},
-    {k:'has_social_security', t:function(){return '逝者是否在'+cityLabel(selectedCity)+'缴纳社保?';}, o:[{l:'是',v:true},{l:'否',v:false}]},
+var QS={
+  retired_worker:[
+    {k:'death_location',t:'逝者是在哪里离世的？',o:[{l:'医院',v:'at_hospital'},{l:'家中',v:'at_home'},{l:'意外/其他地点',v:'accident'}]},
+    {k:'has_real_estate',t:'逝者名下是否有房产？',o:[{l:'有',v:true},{l:'没有',v:false}]},
+    {k:'has_commercial_insurance',t:'逝者是否购买了商业保险？',o:[{l:'有',v:true},{l:'没有',v:false}]},
+    {k:'has_will',t:'逝者是否留有遗嘱？',o:[{l:'有',v:true},{l:'没有',v:false}]},
+    {k:'has_social_security',t:function(){return '逝者是否在'+L(selectedCity)+'缴纳社保？'},o:[{l:'是',v:true},{l:'否',v:false}]}
   ],
-  active_worker: [
-    {k:'death_location', t:'逝者是在哪里离世的?', o:[{l:'医院',v:'at_hospital'},{l:'家中',v:'at_home'},{l:'意外/其他地点',v:'accident'}]},
-    {k:'has_work_injury', t:'是否因工作原因导致死亡?', o:[{l:'是(工亡)',v:true},{l:'否',v:false}]},
-    {k:'has_real_estate', t:'逝者名下是否有房产?', o:[{l:'有',v:true},{l:'没有',v:false}]},
-    {k:'has_commercial_insurance', t:'逝者是否购买了商业保险?', o:[{l:'有',v:true},{l:'没有',v:false}]},
-    {k:'has_will', t:'逝者是否留有遗嘱?', o:[{l:'有',v:true},{l:'没有',v:false}]},
+  active_worker:[
+    {k:'death_location',t:'逝者是在哪里离世的？',o:[{l:'医院',v:'at_hospital'},{l:'家中',v:'at_home'},{l:'意外/其他地点',v:'accident'}]},
+    {k:'has_work_injury',t:'是否因工作原因导致死亡？',o:[{l:'是(工亡)',v:true},{l:'否',v:false}]},
+    {k:'has_real_estate',t:'逝者名下是否有房产？',o:[{l:'有',v:true},{l:'没有',v:false}]},
+    {k:'has_commercial_insurance',t:'逝者是否购买了商业保险？',o:[{l:'有',v:true},{l:'没有',v:false}]},
+    {k:'has_will',t:'逝者是否留有遗嘱？',o:[{l:'有',v:true},{l:'没有',v:false}]}
   ],
-  urban_resident: [
-    {k:'death_location', t:'逝者是在哪里离世的?', o:[{l:'医院',v:'at_hospital'},{l:'家中',v:'at_home'},{l:'意外/其他地点',v:'accident'}]},
-    {k:'has_rural_house', t:'逝者是否有农村宅基地及房屋?', o:[{l:'有',v:true},{l:'没有',v:false}]},
-    {k:'has_real_estate', t:'逝者名下是否有城镇房产?', o:[{l:'有',v:true},{l:'没有',v:false}]},
-    {k:'has_commercial_insurance', t:'逝者是否购买了商业保险?', o:[{l:'有',v:true},{l:'没有',v:false}]},
-    {k:'has_will', t:'逝者是否留有遗嘱?', o:[{l:'有',v:true},{l:'没有',v:false}]},
+  urban_resident:[
+    {k:'death_location',t:'逝者是在哪里离世的？',o:[{l:'医院',v:'at_hospital'},{l:'家中',v:'at_home'},{l:'意外/其他地点',v:'accident'}]},
+    {k:'has_rural_house',t:'逝者是否有农村宅基地及房屋？',o:[{l:'有',v:true},{l:'没有',v:false}]},
+    {k:'has_real_estate',t:'逝者名下是否有城镇房产？',o:[{l:'有',v:true},{l:'没有',v:false}]},
+    {k:'has_commercial_insurance',t:'逝者是否购买了商业保险？',o:[{l:'有',v:true},{l:'没有',v:false}]},
+    {k:'has_will',t:'逝者是否留有遗嘱？',o:[{l:'有',v:true},{l:'没有',v:false}]}
   ],
-  civil_servant: [
-    {k:'death_location', t:'逝者是在哪里离世的?', o:[{l:'医院',v:'at_hospital'},{l:'家中',v:'at_home'},{l:'意外/其他地点',v:'accident'}]},
-    {k:'has_real_estate', t:'逝者名下是否有房产?', o:[{l:'有',v:true},{l:'没有',v:false}]},
-    {k:'has_commercial_insurance', t:'逝者是否购买了商业保险?', o:[{l:'有',v:true},{l:'没有',v:false}]},
-    {k:'has_will', t:'逝者是否留有遗嘱?', o:[{l:'有',v:true},{l:'没有',v:false}]},
+  civil_servant:[
+    {k:'death_location',t:'逝者是在哪里离世的？',o:[{l:'医院',v:'at_hospital'},{l:'家中',v:'at_home'},{l:'意外/其他地点',v:'accident'}]},
+    {k:'has_real_estate',t:'逝者名下是否有房产？',o:[{l:'有',v:true},{l:'没有',v:false}]},
+    {k:'has_commercial_insurance',t:'逝者是否购买了商业保险？',o:[{l:'有',v:true},{l:'没有',v:false}]},
+    {k:'has_will',t:'逝者是否留有遗嘱？',o:[{l:'有',v:true},{l:'没有',v:false}]}
   ],
-  military: [
-    {k:'death_location', t:'逝者是在哪里离世的?', o:[{l:'医院',v:'at_hospital'},{l:'家中',v:'at_home'},{l:'意外/其他地点',v:'accident'}]},
-    {k:'military_type', t:'逝者服役状态?', o:[{l:'现役军人',v:'active_duty'},{l:'退役军人',v:'retired'}]},
-    {k:'is_martyr_case', t:'是否涉及烈士评定?', o:[{l:'是',v:true},{l:'否',v:false}]},
-    {k:'has_real_estate', t:'逝者名下是否有房产?', o:[{l:'有',v:true},{l:'没有',v:false}]},
-    {k:'has_commercial_insurance', t:'逝者是否购买了商业保险?', o:[{l:'有',v:true},{l:'没有',v:false}]},
-    {k:'has_will', t:'逝者是否留有遗嘱?', o:[{l:'有',v:true},{l:'没有',v:false}]},
-  ],
+  military:[
+    {k:'death_location',t:'逝者是在哪里离世的？',o:[{l:'医院',v:'at_hospital'},{l:'家中',v:'at_home'},{l:'意外/其他地点',v:'accident'}]},
+    {k:'military_type',t:'逝者服役状态？',o:[{l:'现役军人',v:'active_duty'},{l:'退役军人',v:'retired'}]},
+    {k:'is_martyr_case',t:'是否涉及烈士评定？',o:[{l:'是',v:true},{l:'否',v:false}]},
+    {k:'has_real_estate',t:'逝者名下是否有房产？',o:[{l:'有',v:true},{l:'没有',v:false}]},
+    {k:'has_commercial_insurance',t:'逝者是否购买了商业保险？',o:[{l:'有',v:true},{l:'没有',v:false}]},
+    {k:'has_will',t:'逝者是否留有遗嘱？',o:[{l:'有',v:true},{l:'没有',v:false}]}
+  ]
 };
 
-function startQuiz(personaId) {
-  selectedPersona = personaId; answers = {}; currentQuiz = 0;
-  questions = Q[personaId] || Q.retired_worker;
-  showPage('quiz', '');
-  renderQuiz();
+function startQuiz(id){selectedPersona=id;answers={};currentQuiz=0;questions=QS[id]||QS.retired_worker;show('quiz','');renderQuiz()}
+
+function renderQuiz(){
+  var q=questions[currentQuiz],isLast=currentQuiz>=questions.length-1,has=answers[q.k]!==undefined;
+  var h='<div class="prog"><div class="progf" style="width:'+((currentQuiz+1)/questions.length*100)+'%"></div></div>';
+  h+='<div class="ptxt">'+(currentQuiz+1)+' / '+questions.length+'</div>';
+  h+='<div class="qt">'+(typeof q.t==='function'?q.t():q.t)+'</div>';
+  for(var i=0;i<q.o.length;i++){var o=q.o[i];h+='<div class="opt'+(answers[q.k]===o.v?' sel':'')+'" data-k="'+q.k+'" data-v="'+encodeURIComponent(JSON.stringify(o.v))+'" onclick="pick(this)">'+o.l+'</div>'}
+  h+='<div class="rw">';
+  if(currentQuiz>0)h+='<button class="nb2" onclick="prevQ()">上一题</button>';
+  h+='<button class="nb"'+(has?'':' disabled')+' onclick="'+(isLast?'submitQuiz()':'nextQ()')+'">'+(isLast?'生成清单':'下一题')+'</button>';
+  h+='</div>';
+  document.getElementById('quizContent').innerHTML=h;
 }
 
-function renderQuiz() {
-  var q = questions[currentQuiz];
-  var isLast = currentQuiz >= questions.length - 1;
-  var hasAnswer = answers[q.k] !== undefined;
-  var html = '<div class="progress"><div class="progress-fill" style="width:'+((currentQuiz+1)/questions.length*100)+'%"></div></div>';
-  html += '<div class="progress-text">'+(currentQuiz+1)+' / '+questions.length+'</div>';
-  html += '<div class="question">'+(typeof q.t==='function'?q.t():q.t)+'</div>';
-  for(var i=0;i<q.o.length;i++) {
-    var o=q.o[i], sel=answers[q.k]===o.v?' selected':'';
-    html += '<div class="option'+sel+'" data-k="'+q.k+'" data-v="'+encodeURIComponent(JSON.stringify(o.v))+'" onclick="pickAnswer(this)">'+o.l+'</div>';
-  }
-  html += '<div style="display:flex;gap:10px">';
-  if(currentQuiz>0) html += '<button class="next-btn" style="flex:1;background:#fff;color:#8b7e6a;border:2px solid #8b7e6a" onclick="prevQuiz()">上一题</button>';
-  html += '<button class="next-btn"'+(hasAnswer?'':' disabled')+' onclick="'+(isLast?'submitQuiz()':'nextQuiz()')+'"'+(currentQuiz>0?' style="flex:1"':'')+'>'+(isLast?'生成清单':'下一题')+'</button>';
-  html += '</div>';
-  document.getElementById('quizContent').innerHTML = html;
-}
-
-function pickAnswer(el) {
-  var key=el.dataset.k, value=JSON.parse(decodeURIComponent(el.dataset.v));
-  answers[key]=value;
-  var opts=el.parentElement.querySelectorAll('.option');
-  for(var i=0;i<opts.length;i++) opts[i].classList.remove('selected');
-  el.classList.add('selected');
-  setTimeout(function(){
-    if(currentQuiz>=questions.length-1) submitQuiz(); else nextQuiz();
-  },200);
-}
-
-function nextQuiz(){currentQuiz++;renderQuiz()}
-function prevQuiz(){if(currentQuiz>0){currentQuiz--;renderQuiz()}}
+function pick(el){var k=el.dataset.k,v=JSON.parse(decodeURIComponent(el.dataset.v));answers[k]=v;var ops=el.parentElement.querySelectorAll('.opt');for(var i=0;i<ops.length;i++)ops[i].classList.remove('sel');el.classList.add('sel');setTimeout(function(){if(currentQuiz>=questions.length-1)submitQuiz();else nextQ()},200)}
+function nextQ(){currentQuiz++;renderQuiz()}
+function prevQ(){if(currentQuiz>0){currentQuiz--;renderQuiz()}}
 
 async function submitQuiz(){
-  document.getElementById('quizContent').innerHTML='<div class="loading">生成中...</div>';
+  document.getElementById('quizContent').innerHTML='<div class="ld">正在生成清单...</div>';
   try{
     var res=await fetch(API+'/api/guide',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({persona_id:selectedPersona,city:selectedCity,answers:answers})});
-    guideResult=await res.json();
-    showPage('timeline','办理清单');
-    renderTimeline();
-  }catch(e){document.getElementById('quizContent').innerHTML='<div class="error">网络错误，请重试</div>'}
+    guideResult=await res.json();show('timeline','办理清单');renderTimeline();
+  }catch(e){document.getElementById('quizContent').innerHTML='<div class="er">网络错误，请重试</div>'}
 }
 
-function getDataQuality(city){
-  var FULL={hangzhou:1,beijing:1,shanghai:1,guangzhou:1,shenzhen:1,tianjin:1,chongqing:1,chengdu:1,wuhan:1,nanjing:1,xian:1,zhengzhou:1,changsha:1,jinan:1,qingdao:1,dalian:1,xiamen:1,hefei:1,shenyang:1,harbin:1,changchun:1,taiyuan:1,shijiazhuang:1,fuzhou:1,nanchang:1,kunming:1,guiyang:1,nanning:1,hohhot:1,lanzhou:1,yinchuan:1,xining:1,urumqi:1,lhasa:1,suzhou:1,haikou:1,ningbo:1,wenzhou:1,jiaxing:1,huzhou:1,shaoxing:1,jinhua:1,quzhou:1,zhoushan:1,taizhou_zj:1,lishui:1,zhuzhou:1,xiangtan:1,hengyang:1,shaoyang:1,yueyang:1,changde:1,zhangjiajie:1,yiyang:1,chenzhou:1,yongzhou:1,huaihua:1,loudi:1,wuhu:1,bengbu:1,huainan:1,maanshan:1,huaibei:1,tongling:1,anqing:1,huangshan:1,chuzhou:1,fuyang:1,suzhou_ah:1,luan:1,bozhou:1,chizhou:1,xuancheng:1,mianyang:1,deyang:1,zigong:1,panzhihua:1,luzhou:1,guangyuan:1,suining:1,neijiang:1,leshan:1,nanchong:1,meishan:1,yibin:1,guangan:1,dazhou:1,yaan:1,bazhong:1,ziyang:1,jiujiang:1,jingdezhen:1,pingxiang:1,xinyu:1,yingtan:1,ganzhou:1,jian:1,yichun_jx:1,fuzhou_jx:1,shangrao:1,qujing:1,yuxi:1,baoshan:1,zhaotong:1,lijiang:1,puer:1,lincang:1,xianyang:1,baoji:1,weinan:1,yanan:1,hanzhong:1,yulin_sx:1,ankang:1,shangluo:1,jilin:1,siping:1,liaoyuan:1,tonghua:1,baishan:1,songyuan:1,baicheng:1,qiqihar:1,jixi:1,hegang:1,shuangyashan:1,daqing:1,yichun:1,jiamusi:1,qitaihe:1,mudanjiang:1,heihe:1,suihua:1,liuzhou:1,guilin:1,wuzhou:1,beihai:1,fangchenggang:1,qinzhou:1,guigang:1,yulin_gx:1,baise:1,hezhou:1,hechi:1,laibin:1,chongzuo:1,luoyang:1,kaifeng:1,pingdingshan:1,anyang:1,hebi:1,xinxiang:1,jiaozuo:1,puyang:1,xuchang:1,luohe:1,sanmenxia:1,nanyang:1,shangqiu:1,xinyang:1,zhoukou:1,zhumadian:1,baotou:1,chifeng:1,tongliao:1,ordos:1,hulunbuir:1,bayannur:1,wulanchabu:1,datong:1,yangquan:1,changzhi:1,jincheng:1,jinzhong:1,yuncheng:1,xinzhou:1,linfen:1,lvliang:1,zhuhai:1,shantou:1,foshan:1,shaoguan:1,zhanjiang:1,zhaoqing:1,jiangmen:1,maoming:1,huizhou:1,meizhou:1,shanwei:1,heyuan:1,yangjiang:1,qingyuan:1,dongguan:1,zhongshan:1,chaozhou:1,jieyang:1,yunfu:1,haidong:1};
-  return FULL[city]?'full':'name';
-}
+var VF={hangzhou:1,beijing:1,shanghai:1,guangzhou:1,shenzhen:1,tianjin:1,chongqing:1,chengdu:1,wuhan:1,nanjing:1,xian:1,zhengzhou:1,changsha:1,jinan:1,qingdao:1,dalian:1,xiamen:1,hefei:1,shenyang:1,harbin:1,changchun:1,taiyuan:1,shijiazhuang:1,fuzhou:1,nanchang:1,kunming:1,guiyang:1,nanning:1,hohhot:1,lanzhou:1,yinchuan:1,xining:1,urumqi:1,lhasa:1,suzhou:1,haikou:1,ningbo:1,wenzhou:1,jiaxing:1,huzhou:1,shaoxing:1,jinhua:1,quzhou:1,zhoushan:1,taizhou_zj:1,lishui:1,zhuzhou:1,xiangtan:1,hengyang:1,shaoyang:1,yueyang:1,changde:1,zhangjiajie:1,yiyang:1,chenzhou:1,yongzhou:1,huaihua:1,loudi:1,wuhu:1,bengbu:1,huainan:1,maanshan:1,huaibei:1,tongling:1,anqing:1,huangshan:1,chuzhou:1,fuyang:1,suzhou_ah:1,luan:1,bozhou:1,chizhou:1,xuancheng:1,mianyang:1,deyang:1,zigong:1,panzhihua:1,luzhou:1,guangyuan:1,suining:1,neijiang:1,leshan:1,nanchong:1,meishan:1,yibin:1,guangan:1,dazhou:1,yaan:1,bazhong:1,ziyang:1,jiujiang:1,jingdezhen:1,pingxiang:1,xinyu:1,yingtan:1,ganzhou:1,jian:1,yichun_jx:1,fuzhou_jx:1,shangrao:1,qujing:1,yuxi:1,baoshan:1,zhaotong:1,lijiang:1,puer:1,lincang:1,xianyang:1,baoji:1,weinan:1,yanan:1,hanzhong:1,yulin_sx:1,ankang:1,shangluo:1,jilin:1,siping:1,liaoyuan:1,tonghua:1,baishan:1,songyuan:1,baicheng:1,qiqihar:1,jixi:1,hegang:1,shuangyashan:1,daqing:1,yichun:1,jiamusi:1,qitaihe:1,mudanjiang:1,heihe:1,suihua:1,liuzhou:1,guilin:1,wuzhou:1,beihai:1,fangchenggang:1,qinzhou:1,guigang:1,yulin_gx:1,baise:1,hezhou:1,hechi:1,laibin:1,chongzuo:1,luoyang:1,kaifeng:1,pingdingshan:1,anyang:1,hebi:1,xinxiang:1,jiaozuo:1,puyang:1,xuchang:1,luohe:1,sanmenxia:1,nanyang:1,shangqiu:1,xinyang:1,zhoukou:1,zhumadian:1,baotou:1,chifeng:1,tongliao:1,ordos:1,hulunbuir:1,bayannur:1,wulanchabu:1,datong:1,yangquan:1,changzhi:1,jincheng:1,jinzhong:1,yuncheng:1,xinzhou:1,linfen:1,lvliang:1,zhuhai:1,shantou:1,foshan:1,shaoguan:1,zhanjiang:1,zhaoqing:1,jiangmen:1,maoming:1,huizhou:1,meizhou:1,shanwei:1,heyuan:1,yangjiang:1,qingyuan:1,dongguan:1,zhongshan:1,chaozhou:1,jieyang:1,yunfu:1,haidong:1};
 
 async function renderTimeline(){
-  var g=guideResult, icons={'24h':'⚠️','3d':'🕯️','7d':'📋','30d':'💰','90d':'🏠','long':'📝'};
-  var labels={'24h':'24小时内','3d':'1-3天','7d':'3-7天','30d':'7-30天','90d':'30-90天','long':'长期'};
-  var q=await getDataQuality(selectedCity);
-  var banner=q==='full'?
-    '<div style="background:#d4edda;border:1px solid #28a745;border-radius:10px;padding:14px;margin:0 12px 16px;font-size:14px;color:#155724;line-height:1.6">✅ 数据完整：殡仪馆名称/地址/电话均来自省级民政厅官网名录，已逐城核实。</div>':
-    '<div style="background:#fff3cd;border:1px solid #ffc107;border-radius:10px;padding:14px;margin:0 12px 16px;font-size:14px;color:#856404;line-height:1.6">⚠️ 数据提示：殡仪馆名称正确，但具体地址和电话可能需要核实。<br>建议办理前拨打<b>'+cityLabel(selectedCity)+'12345</b>或当地民政局电话确认。</div>';
-  var html='<div class="timeline-header"><div class="pname">'+g.persona.name+'</div><div class="psummary">'+g.summary.total_procedures+'项 · '+g.summary.critical_count+'项紧急 · 预计'+g.summary.estimated_days_min+'天</div></div>'+banner;
+  var g=guideResult,ic={'24h':'⚠️','3d':'🕯️','7d':'📋','30d':'💰','90d':'🏠','long':'📝'};
+  var lb={'24h':'24小时内','3d':'1-3天','7d':'3-7天','30d':'7-30天','90d':'30-90天','long':'长期'};
+  var q=VF[selectedCity]?'full':'name';
+  var bn=q==='full'?'<div class="ban">✅ 数据完整：殡仪馆名称/地址/电话均来自省级民政厅官网名录，已逐城核实。</div>':'<div class="ban2">⚠️ 殡仪馆名称正确，但具体地址电话可能需要核实。建议拨打 <b>'+L(selectedCity)+'12345</b> 确认。</div>';
+  var h='<div class="th"><div class="pn">'+g.persona.name+'</div><div class="ps">共 '+g.summary.total_procedures+' 项 · '+g.summary.critical_count+' 项紧急 · 预计 '+g.summary.estimated_days_min+' 天</div></div>'+bn;
   for(var pi=0;pi<g.timeline.length;pi++){
-    var phase=g.timeline[pi];
-    html+='<div class="phase"><div class="phase-head"><span class="phase-icon">'+(icons[phase.phase]||'📌')+'</span><div><div class="phase-title">'+phase.title+'</div><div class="phase-time">'+(labels[phase.phase]||phase.phase)+'</div></div></div>';
-    for(var i=0;i<phase.procedures.length;i++){
-      var p=phase.procedures[i], done=completed.has(p.id);
-      html+='<div class="proc-card'+(done?' done':'')+'" onclick="openDetail(''+p.id+'')"><span class="urgency '+p.urgency+'"></span><div class="proc-info"><div class="proc-name">'+(done?'✅ ':'')+p.name+'</div><div class="proc-where">📍 '+(p.where.resolved||p.where.name)+'</div></div><span class="proc-check">'+(done?'✅':'○')+'</span></div>';
+    var ph=g.timeline[pi];
+    h+='<div class="ph"><div class="phd"><span class="pi">'+(ic[ph.phase]||'📌')+'</span><div><div class="pn2">'+ph.title+'</div><div class="pt2">'+(lb[ph.phase]||ph.phase)+'</div></div></div>';
+    for(var i=0;i<ph.procedures.length;i++){
+      var p=ph.procedures[i],dn=completed.has(p.id);
+      h+='<div class="pc'+(dn?' dn':'')+'" onclick="openDt(\''+p.id+'\')"><span class="ud '+(p.urgency==='critical'?'cr':p.urgency==='high'?'hi':'no')+'"></span><div class="pi2"><div class="pn3">'+(dn?'✅ ':'')+p.name+'</div><div class="pw">📍 '+(p.where.resolved||p.where.name)+'</div></div><span class="ck">'+(dn?'✅':'○')+'</span></div>';
     }
-    html+='</div>';
+    h+='</div>';
   }
-  document.getElementById('timelineContent').innerHTML=html;
+  document.getElementById('timelineContent').innerHTML=h;
 }
 
-function openDetail(procId){
-  var proc=null;
-  for(var pi=0;pi<guideResult.timeline.length;pi++){
-    var found=guideResult.timeline[pi].procedures.find(function(p){return p.id===procId});
-    if(found){proc=found;break}
-  }
-  if(!proc)return;
-  showPage('detail','');
-  var w=proc.where;
-  var html='<div class="detail-name">'+proc.name+'</div>';
-  html+='<span class="badge '+proc.urgency+'">'+(proc.urgency==='critical'?'紧急':proc.urgency==='high'?'重要':'正常')+'</span>';
-  html+='<div class="section"><div class="section-title">📍 办理地点</div><div class="section-text">'+(w.resolved||w.name)+'</div>';
-  if(w.address) html+='<div class="section-sub">'+w.address+'</div>';
-  if(w.phone) html+='<div class="section-sub">📞 '+w.phone+'</div>';
-  html+='</div>';
-  html+='<div class="section"><div class="section-title">📋 需要携带的材料</div>';
-  for(var i=0;i<proc.need.originals.length;i++) html+='<div class="material original">☐ '+proc.need.originals[i]+'(原件)</div>';
-  for(var i=0;i<(proc.need.copies||[]).length;i++) html+='<div class="material">☐ '+proc.need.copies[i].doc+' 复印件×'+proc.need.copies[i].count+'</div>';
-  html+='</div>';
-  if(proc.output) html+='<div class="section"><div class="section-title">📤 办完后会得到</div><div class="section-text" style="color:#27ae60">'+proc.output+'</div></div>';
-  if(proc.notes) html+='<div class="section"><div class="section-title">⚠️ 注意事项</div><div class="section-text" style="color:#e67e22;font-size:14px">'+proc.notes+'</div></div>';
-  html+='<div class="btn-row">';
-  html+='<button class="btn-done" onclick="toggleDone(''+proc.id+'')">'+(completed.has(proc.id)?'撤销完成':'标记为已完成')+'</button>';
-  html+='<button class="btn-outline" onclick="showPage('timeline','');renderTimeline()">返回清单</button>';
-  html+='<button class="btn-primary" onclick="alert('PDF生成需微信环境，当前为模拟预览')">生成授权委托书</button>';
-  html+='</div>';
-  document.getElementById('detailContent').innerHTML=html;
+function openDt(pid){
+  var p=null;
+  for(var pi=0;pi<guideResult.timeline.length;pi++){var f=guideResult.timeline[pi].procedures.find(function(x){return x.id===pid});if(f){p=f;break}}
+  if(!p)return;
+  show('detail','');
+  var w=p.where;
+  var h='<div class="dn2">'+p.name+'</div>';
+  h+='<span class="bd '+(p.urgency==='critical'?'cr':p.urgency==='high'?'hi':'no')+'">'+(p.urgency==='critical'?'紧急':p.urgency==='high'?'重要':'正常')+'</span>';
+  h+='<div class="sec"><div class="st">📍 办理地点</div><div class="sv">'+(w.resolved||w.name)+'</div>';
+  if(w.address)h+='<div class="ss">'+w.address+'</div>';
+  if(w.phone)h+='<div class="ss">📞 '+w.phone+'</div>';
+  h+='</div>';
+  h+='<div class="sec"><div class="st">📋 需要携带的材料</div>';
+  for(var i=0;i<p.need.originals.length;i++)h+='<div class="mt og">☐ '+p.need.originals[i]+'（原件）</div>';
+  for(var i=0;i<(p.need.copies||[]).length;i++)h+='<div class="mt">☐ '+p.need.copies[i].doc+' 复印件×'+p.need.copies[i].count+'</div>';
+  h+='</div>';
+  if(p.output)h+='<div class="sec"><div class="st">📤 办完后会得到</div><div class="sv" style="color:#27ae60">'+p.output+'</div></div>';
+  if(p.notes)h+='<div class="sec"><div class="st">⚠️ 注意事项</div><div class="sv" style="color:#e67e22;font-size:14px">'+p.notes+'</div></div>';
+  h+='<div class="btc">';
+  h+='<button class="bt3" onclick="toggleDone(\''+p.id+'\')">'+(completed.has(p.id)?'撤销完成':'标记为已完成')+'</button>';
+  h+='<button class="bt2" onclick="show(\'timeline\',\'\');renderTimeline()">返回清单</button>';
+  h+='</div>';
+  document.getElementById('detailContent').innerHTML=h;
 }
 
-function toggleDone(id){
-  if(completed.has(id)) completed.delete(id); else completed.add(id);
-  openDetail(id);
-}
-
+function toggleDone(id){if(completed.has(id))completed.delete(id);else completed.add(id);openDt(id)}
 </script>
 </body>
 </html>
