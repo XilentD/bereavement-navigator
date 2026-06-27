@@ -1,4 +1,4 @@
-const BASE = 'http://localhost:3000'
+const BASE = 'http://192.168.110.6:3000'
 
 function request(url, method, data) {
   return new Promise((resolve, reject) => {
