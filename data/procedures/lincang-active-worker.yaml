@@ -3,7 +3,7 @@
 # ============================================================
 # 数据来源:   云南省民政厅全省殡仪馆名录 (ynmz.yn.gov.cn/cms/binyiguan.html)
 # 最后核验: 2026-06-26
-# 核验方式: official-gov
+# 核验方式: official-gov+verified
 # ============================================================
 persona:
   id: active_worker
@@ -37,13 +37,13 @@ timeline:
         notes: 如为意外死亡需先报警，公安出具《非正常死亡证明》后医院才可开具
 
       - id: funeral_home
-        name: 联系殡仪馆预约火化
+        name: 临沧市临翔区殡仪馆
         urgency: critical
         where:
           type: fixed
-          name: 昆明市殡仪馆
-          address: 昆明市西湖区西溪路731号
-          phone: "0883-85220000"
+          name: 临沧市临翔区殡仪馆
+          address: 临沧市临翔区凤翔街道林园路21号
+          phone: "0883-2122700"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies:
@@ -58,9 +58,9 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 昆明市殡仪馆
-          address: 昆明市西湖区西溪路731号
-          phone: "0883-85220000"
+          name: 临沧市临翔区殡仪馆
+          address: 临沧市临翔区凤翔街道林园路21号
+          phone: "0883-2122700"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证, 火化预约确认单]
           copies:
@@ -73,9 +73,9 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 昆明市殡仪馆
-          address: 昆明市西湖区西溪路731号
-          phone: "0883-85220000"
+          name: 临沧市临翔区殡仪馆
+          address: 临沧市临翔区凤翔街道林园路21号
+          phone: "0883-2122700"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies: []

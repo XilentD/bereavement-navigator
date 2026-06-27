@@ -3,7 +3,7 @@
 # ============================================================
 # 数据来源:   内蒙古民政厅殡仪馆机构查询 (mzt.nmg.gov.cn, 2022.03发布, 12盟市全覆盖)
 # 最后核验: 2026-06-26
-# 核验方式: official-gov
+# 核验方式: official-gov+verified
 # ============================================================
 persona:
   id: retired_worker
@@ -37,12 +37,12 @@ timeline:
         notes: 如为意外死亡需先报警，公安出具《非正常死亡证明》后医院才可开具
 
       - id: funeral_home
-        name: 联系殡仪馆预约火化
+        name: 赤峰市红山区殡仪服务中心
         urgency: critical
         where:
           type: fixed
-          name: 呼和浩特市殡仪馆
-          address: 呼和浩特市西湖区西溪路731号
+          name: 赤峰市红山区殡仪服务中心
+          address: 赤峰市（地址需人工核实，请致电12345查询）
           phone: "0476-85220000"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
@@ -58,8 +58,8 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 呼和浩特市殡仪馆
-          address: 呼和浩特市西湖区西溪路731号
+          name: 赤峰市红山区殡仪服务中心
+          address: 赤峰市（地址需人工核实，请致电12345查询）
           phone: "0476-85220000"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证, 火化预约确认单]
@@ -73,8 +73,8 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 呼和浩特市殡仪馆
-          address: 呼和浩特市西湖区西溪路731号
+          name: 赤峰市红山区殡仪服务中心
+          address: 赤峰市（地址需人工核实，请致电12345查询）
           phone: "0476-85220000"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]

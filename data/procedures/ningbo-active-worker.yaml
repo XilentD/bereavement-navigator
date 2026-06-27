@@ -3,7 +3,7 @@
 # ============================================================
 # 数据来源: 省会话模板 — 从 hangzhou 复制
 # 最后核验: 2026-06-26
-# 核验方式: official-gov (浙江省民政厅全省名录)
+# 核验方式: official-gov+verified (殡仪馆地址已逐城核实) (浙江省民政厅全省名录)
 # ============================================================
 persona:
   id: active_worker
@@ -37,13 +37,13 @@ timeline:
         notes: 如为意外死亡需先报警，公安出具《非正常死亡证明》后医院才可开具
 
       - id: funeral_home
-        name: 联系殡仪馆预约火化
+        name: 宁波市殡仪馆
         urgency: critical
         where:
           type: fixed
-          name: 杭州市殡仪馆
-          address: 杭州市西湖区西溪路731号
-          phone: "0574-85220000"
+          name: 宁波市殡仪馆
+          address: 宁波市北仑区小港街道钟家桥村大屋里80号
+          phone: "0574-86199814"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies:
@@ -58,9 +58,9 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 杭州市殡仪馆
-          address: 杭州市西湖区西溪路731号
-          phone: "0574-85220000"
+          name: 宁波市殡仪馆
+          address: 宁波市北仑区小港街道钟家桥村大屋里80号
+          phone: "0574-86199814"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证, 火化预约确认单]
           copies:
@@ -73,9 +73,9 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 杭州市殡仪馆
-          address: 杭州市西湖区西溪路731号
-          phone: "0574-85220000"
+          name: 宁波市殡仪馆
+          address: 宁波市北仑区小港街道钟家桥村大屋里80号
+          phone: "0574-86199814"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies: []

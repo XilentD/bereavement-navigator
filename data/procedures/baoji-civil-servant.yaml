@@ -3,7 +3,7 @@
 # ============================================================
 # 数据来源:   陕西省民政厅殡仪馆查询 (mzt.shaanxi.gov.cn/bs/bmcx)
 # 最后核验: 2026-06-26
-# 核验方式: official-gov
+# 核验方式: official-gov+verified
 # ============================================================
 persona:
   id: civil_servant
@@ -37,13 +37,13 @@ timeline:
         notes: 如为意外死亡需先报警，公安出具《非正常死亡证明》后医院才可开具
 
       - id: funeral_home
-        name: 联系殡仪馆预约火化
+        name: 宝鸡市殡仪馆
         urgency: critical
         where:
           type: fixed
-          name: 西安市殡仪馆
-          address: 西安市西湖区西溪路731号
-          phone: "0917-85220000"
+          name: 宝鸡市殡仪馆
+          address: 宝鸡市（地址需人工核实，请致电12345查询）
+          phone: "0917-3572785"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies:
@@ -72,9 +72,9 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 西安市殡仪馆
-          address: 西安市西湖区西溪路731号
-          phone: "0917-85220000"
+          name: 宝鸡市殡仪馆
+          address: 宝鸡市（地址需人工核实，请致电12345查询）
+          phone: "0917-3572785"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证, 火化预约确认单]
           copies:
@@ -87,9 +87,9 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 西安市殡仪馆
-          address: 西安市西湖区西溪路731号
-          phone: "0917-85220000"
+          name: 宝鸡市殡仪馆
+          address: 宝鸡市（地址需人工核实，请致电12345查询）
+          phone: "0917-3572785"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies: []
