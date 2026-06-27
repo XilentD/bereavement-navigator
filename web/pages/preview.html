@@ -276,12 +276,55 @@ function openDt(pid){
   if(p.notes)h+='<div class="sec"><div class="st">⚠️ 注意事项</div><div class="sv" style="color:#e67e22;font-size:14px">'+p.notes+'</div></div>';
   h+='<div class="btc">';
   h+='<button class="bt3" onclick="toggleDone(\''+p.id+'\')">'+(completed.has(p.id)?'撤销完成':'标记为已完成')+'</button>';
+  h+='<button class="bt1" onclick="genPDF()">📄 下载材料清单PDF</button>';
+  h+='<button class="bt1" style="background:#5b4f3a" onclick="genLetter()">📝 生成授权委托书</button>';
   h+='<button class="bt2" onclick="show(\'timeline\',\'\');renderTimeline()">返回清单</button>';
+  h+='<div style="margin-top:12px;text-align:center"><a href="#" onclick="showFeedback();return false" style="color:#999;font-size:13px">⚠️ 信息有误？反馈给我们</a></div>';
   h+='</div>';
   document.getElementById('detailContent').innerHTML=h;
 }
 
 function toggleDone(id){if(completed.has(id))completed.delete(id);else completed.add(id);openDt(id)}
+
+// PDF generation
+async function genPDF(){
+  var btn=event.target; btn.textContent='生成中...'; btn.disabled=true;
+  try{
+    var res=await fetch(API+'/api/pdf/checklist',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({persona_id:sp,city:sc,answers:ans})});
+    if(!res.ok){alert('PDF生成失败');return}
+    var blob=await res.blob();
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');a.href=url;a.download='材料清单_'+L(sc)+'.pdf';a.click();
+    URL.revokeObjectURL(url);
+  }catch(e){alert('PDF生成失败: '+e.message)}
+  btn.textContent='📄 下载材料清单PDF'; btn.disabled=false;
+}
+
+async function genLetter(){
+  var name=prompt('请输入代办人姓名：');
+  if(!name)return;
+  var id=prompt('请输入代办人身份证号：');
+  if(!id)return;
+  var rel=prompt('代办人与逝者关系（如：子女、配偶）：');
+  if(!rel)return;
+  var btn=event.target; btn.textContent='生成中...'; btn.disabled=true;
+  try{
+    var res=await fetch(API+'/api/pdf/delegation-letter',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({principalName:name,principalId:id,agentName:name,agentId:id,relationship:rel,deceasedName:'逝者',deceasedId:'',deathDate:'',persona_id:sp,city:sc,answers:ans})});
+    if(!res.ok){alert('委托书生成失败');return}
+    var blob=await res.blob();
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');a.href=url;a.download='授权委托书_'+L(sc)+'.pdf';a.click();
+    URL.revokeObjectURL(url);
+  }catch(e){alert('生成失败: '+e.message)}
+  btn.textContent='📝 生成授权委托书'; btn.disabled=false;
+}
+
+// Feedback
+function showFeedback(){
+  var msg=prompt('请描述问题（如：地址错误、电话打不通、流程变更等）：\n\n我们会尽快核实修正。');
+  if(!msg)return;
+  fetch(API+'/api/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({city:sc,persona:sp,message:msg,time:new Date().toISOString()})}).then(function(){alert('感谢反馈！我们会尽快核实。')}).catch(function(){alert('提交失败，请稍后重试')});
+}
 </script>
 </body>
 </html>

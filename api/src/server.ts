@@ -23,6 +23,40 @@ export async function buildApp(opts = {}) {
   await app.register(personasRoutes, config);
   await app.register(pdfRoutes, config);
 
+  // Feedback endpoint — community data verification
+  app.post('/api/feedback', async (request, reply) => {
+    const fs = await import('node:fs');
+    const path = await import('node:path');
+    const body = request.body as any;
+    const entry = {
+      ...body,
+      receivedAt: new Date().toISOString(),
+    };
+    const dir = path.join(import.meta.dirname, '..', '..', '.cache', 'feedback');
+    fs.mkdirSync(dir, { recursive: true });
+    const filename = `feedback-${Date.now()}.json`;
+    fs.writeFileSync(path.join(dir, filename), JSON.stringify(entry, null, 2), 'utf-8');
+    return { ok: true, message: '反馈已收到，感谢！' };
+  });
+
+  // List feedback (simple admin view)
+  app.get('/api/feedback', async (_req, reply) => {
+    const fs = await import('node:fs');
+    const path = await import('node:path');
+    const dir = path.join(import.meta.dirname, '..', '..', '.cache', 'feedback');
+    try {
+      const files = fs.readdirSync(dir).filter((f: string) => f.endsWith('.json')).sort().reverse();
+      const items = files.slice(0, 50).map((f: string) => {
+        try {
+          return JSON.parse(fs.readFileSync(path.join(dir, f), 'utf-8'));
+        } catch { return null; }
+      }).filter(Boolean);
+      return { count: files.length, items };
+    } catch {
+      return { count: 0, items: [] };
+    }
+  });
+
   // Serve static files from web/pages/
   app.get('/province-data.js', async (_req, reply) => {
     const fs = await import('node:fs');
