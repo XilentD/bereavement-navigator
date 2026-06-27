@@ -125,7 +125,7 @@ body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;backgr
 
 <script src="city-labels.js"></script>
 <script>
-var API='http://localhost:3000';
+var API=window.location.protocol+'//'+window.location.hostname+':3000';
 var selectedCity='hangzhou',selectedPersona='',answers={},currentQuiz=0,questions=[],guideResult=null,completed=new Set(),allCities=[];
 
 function L(s){return CITY_LABELS[s]||s}
