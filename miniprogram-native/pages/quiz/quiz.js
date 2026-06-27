@@ -51,6 +51,13 @@ Page({
     const val = e.currentTarget.dataset.val
     const answers = { ...this.data.answers, [key]: val }
     this.setData({ answers })
+    // Auto-advance after short delay
+    setTimeout(() => {
+      if (this.data.isLast) { this.next() } else {
+        const qidx = this.data.qidx + 1
+        this.setData({ qidx, question: this.data.questions[qidx], isLast: qidx === this.data.questions.length - 1 })
+      }
+    }, 250)
   },
   prev() {
     if (this.data.qidx > 0) {
