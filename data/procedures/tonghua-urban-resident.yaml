@@ -2,7 +2,7 @@ persona:
   id: urban-resident
   city: tonghua
   name: 城乡居民
-  description: 在杭州市参加城乡居民养老保险或未参加职工养老保险的城乡居民
+  description: 参加城乡居民养老保险或未参加职工养老保险的城乡居民
   assumptions:
     - 逝者未参加城镇职工养老保险
     - 逝者有配偶或一名成年子女可代办
@@ -39,7 +39,7 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 杭州市殡仪馆
+          name: 当地殡仪馆
           address: 通化市（地址需人工核实，请致电12345查询）
           phone: '0435-3613648'
         need:
@@ -61,7 +61,7 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 杭州市殡仪馆
+          name: 当地殡仪馆
           address: 通化市（地址需人工核实，请致电12345查询）
           phone: '0435-3613648'
         need:
@@ -81,7 +81,7 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 杭州市殡仪馆
+          name: 当地殡仪馆
           address: 通化市（地址需人工核实，请致电12345查询）
           phone: '0435-3613648'
         need:

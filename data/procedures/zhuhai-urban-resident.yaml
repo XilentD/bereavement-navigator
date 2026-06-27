@@ -2,7 +2,7 @@ persona:
   id: urban-resident
   city: zhuhai
   name: 城乡居民
-  description: 在杭州市参加城乡居民养老保险或未参加职工养老保险的城乡居民
+  description: 参加城乡居民养老保险或未参加职工养老保险的城乡居民
   assumptions:
     - 逝者未参加城镇职工养老保险
     - 逝者有配偶或一名成年子女可代办
@@ -39,7 +39,7 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 杭州市殡仪馆
+          name: 当地殡仪馆
           address: 请致电当地殡仪馆核实
           phone: '0756-87744444'
         need:
@@ -61,7 +61,7 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 杭州市殡仪馆
+          name: 当地殡仪馆
           address: 请致电当地殡仪馆核实
           phone: '0756-87744444'
         need:
@@ -81,7 +81,7 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 杭州市殡仪馆
+          name: 当地殡仪馆
           address: 请致电当地殡仪馆核实
           phone: '0756-87744444'
         need:

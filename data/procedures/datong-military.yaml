@@ -2,7 +2,7 @@ persona:
   id: military
   city: datong
   name: 军人（现役/退役军人）
-  description: 在杭州市居住的现役军人或退役军人
+  description: 居住的现役军人或退役军人
   assumptions:
     - 逝者为现役军人或已退役的退伍军人
     - 逝者有配偶或一名成年子女可代办
@@ -39,7 +39,7 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 杭州市殡仪馆
+          name: 当地殡仪馆
           address: 大同市（地址需人工核实，请致电12345查询）
           phone: '0352-7914444'
         need:
@@ -61,7 +61,7 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 杭州市殡仪馆
+          name: 当地殡仪馆
           address: 大同市（地址需人工核实，请致电12345查询）
           phone: '0352-7914444'
         need:
@@ -81,7 +81,7 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 杭州市殡仪馆
+          name: 当地殡仪馆
           address: 大同市（地址需人工核实，请致电12345查询）
           phone: '0352-7914444'
         need:

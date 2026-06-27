@@ -2,9 +2,9 @@ persona:
   id: retired-worker
   city: jiaozuo
   name: 退休企业职工
-  description: 在杭州市参加城镇职工养老保险并已办理退休的企业退休人员
+  description: 参加城镇职工养老保险并已办理退休的企业退休人员
   assumptions:
-    - 逝者在杭州缴纳社保满15年
+    - 逝者缴纳社保满15年
     - 逝者有配偶或一名成年子女可代办
 
 timeline:

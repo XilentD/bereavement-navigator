@@ -2,9 +2,9 @@ persona:
   id: civil-servant
   city: tonghua
   name: 公务员
-  description: 在杭州市机关事业单位工作的在编公务员
+  description: 在机关事业单位工作的在编公务员
   assumptions:
-    - 逝者为杭州市在编公务员
+    - 逝者为在编公务员
     - 逝者有配偶或一名成年子女可代办
 
 timeline:
@@ -39,7 +39,7 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 杭州市殡仪馆
+          name: 当地殡仪馆
           address: 通化市（地址需人工核实，请致电12345查询）
           phone: '0435-3613648'
         need:
@@ -61,7 +61,7 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 杭州市殡仪馆
+          name: 当地殡仪馆
           address: 通化市（地址需人工核实，请致电12345查询）
           phone: '0435-3613648'
         need:
@@ -81,7 +81,7 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 杭州市殡仪馆
+          name: 当地殡仪馆
           address: 通化市（地址需人工核实，请致电12345查询）
           phone: '0435-3613648'
         need:

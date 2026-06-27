@@ -2,9 +2,9 @@ persona:
   id: civil-servant
   city: jian
   name: 公务员
-  description: 在杭州市机关事业单位工作的在编公务员
+  description: 在机关事业单位工作的在编公务员
   assumptions:
-    - 逝者为杭州市在编公务员
+    - 逝者为在编公务员
     - 逝者有配偶或一名成年子女可代办
 
 timeline:
