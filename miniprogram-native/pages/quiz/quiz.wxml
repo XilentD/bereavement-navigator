@@ -1,14 +1,10 @@
 <view class="qp">
-  <view>DEBUG: q={{qidx}} n={{questions.length}} pid={{pid}}</view>
-  <block wx:if="{{question}}">
-  <view class="prog"><view class="progf" style="width:{{(qidx+1)/questions.length*100}}%"></view></view>
-  <view class="ptxt">第 {{qidx+1}} / {{questions.length}} 题</view>
-  <view class="qt">{{question.text}}</view>
-  <view wx:for="{{question.options}}" wx:key="value" class="opt {{answers[question.key]===item.value?'sel':''}}" bindtap="pick" data-key="{{question.key}}" data-val="{{item.value}}">{{item.label}}</view>
+  <view class="prog"><view class="progf" style="width:{{percent}}%"></view></view>
+  <view class="ptxt">第 {{qidx+1}} / {{total}} 题</view>
+  <view class="qt">{{qtext}}</view>
+  <view wx:for="{{options}}" wx:key="value" class="opt {{selVal===item.value?'sel':''}}" bindtap="pick" data-val="{{item.value}}">{{item.label}}</view>
   <view class="btc">
     <button wx:if="{{qidx>0}}" class="bt2" bindtap="prev">← 上一题</button>
-    <button class="bt1" disabled="{{answers[question.key]===undefined}}" bindtap="next">{{isLast?'生成清单':'下一题 →'}}</button>
+    <button class="bt1" bindtap="next" disabled="{{selVal===undefined}}">{{isLast?'生成清单':'下一题 →'}}</button>
   </view>
-  </block>
-  <view wx:else class="empty">加载中...</view>
 </view>
