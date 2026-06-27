@@ -14,4 +14,8 @@
       <text class="ck">{{completed[p.id]?'✅':'○'}}</text>
     </view>
   </view>
+  <view class="btc">
+    <button class="bt1" bindtap="downloadPDF">📄 下载材料清单PDF</button>
+    <button class="bt2" bindtap="goHome">返回首页</button>
+  </view>
 </view>

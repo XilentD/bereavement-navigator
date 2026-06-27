@@ -18,5 +18,20 @@ Page({
   openDetail(e) {
     const pid = e.currentTarget.dataset.id
     wx.navigateTo({ url: '/pages/detail/detail?pid=' + pid })
+  },
+  downloadPDF() {
+    wx.showLoading({ title: '生成PDF...' })
+    const api = require('../../utils/api.js')
+    api.getChecklistPdf(app.globalData.selectedPersona, app.globalData.selectedCity, app.globalData.answers).then(res => {
+      wx.hideLoading()
+      // PDF is returned as binary — for now show a message
+      wx.showModal({ title: 'PDF生成', content: '请在Web端下载PDF：http://localhost:3000/preview', showCancel: false })
+    }).catch(() => {
+      wx.hideLoading()
+      wx.showToast({ title: '生成失败', icon: 'none' })
+    })
+  },
+  goHome() {
+    wx.navigateBack({ delta: 10 })
   }
 })

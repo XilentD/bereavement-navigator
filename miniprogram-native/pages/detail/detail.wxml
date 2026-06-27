@@ -18,6 +18,9 @@
 
   <view class="btc">
     <button class="bt3" bindtap="toggleDone">{{completed?'撤销完成':'标记为已完成'}}</button>
+    <button class="bt1" bindtap="downloadPDF">📄 下载材料清单PDF</button>
+    <button class="bt1" style="background:#5b4f3a" bindtap="genLetter">📝 生成授权委托书</button>
     <button class="bt2" bindtap="goBack">返回清单</button>
+    <view class="feedback" bindtap="showFeedback">⚠️ 信息有误？反馈给我们</view>
   </view>
 </view>

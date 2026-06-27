@@ -17,3 +17,6 @@
 .pn3{font-size:30rpx}
 .pw{font-size:24rpx;color:#999;margin-top:4rpx}
 .ck{font-size:40rpx;color:#8b7e6a}
+.btc{display:flex;flex-direction:column;gap:16rpx;padding:32rpx;margin-top:32rpx}
+.bt1{width:100%;height:80rpx;line-height:80rpx;background:#8b7e6a;color:#fff;border-radius:40rpx;font-size:28rpx;border:none}
+.bt2{width:100%;height:80rpx;line-height:80rpx;background:#fff;color:#8b7e6a;border:2rpx solid #8b7e6a;border-radius:40rpx;font-size:28rpx}

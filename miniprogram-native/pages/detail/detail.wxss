@@ -11,4 +11,6 @@
 .mt{font-size:28rpx;padding:6rpx 0}.mt.og{font-weight:bold}
 .btc{display:flex;flex-direction:column;gap:16rpx;margin-top:40rpx}
 .bt3{width:100%;height:80rpx;line-height:80rpx;background:#27ae60;color:#fff;border-radius:40rpx;font-size:28rpx;border:none}
+.bt1{width:100%;height:80rpx;line-height:80rpx;background:#8b7e6a;color:#fff;border-radius:40rpx;font-size:28rpx;border:none}
 .bt2{width:100%;height:80rpx;line-height:80rpx;background:#fff;color:#8b7e6a;border:2rpx solid #8b7e6a;border-radius:40rpx;font-size:28rpx}
+.feedback{text-align:center;color:#999;font-size:24rpx;margin-top:16rpx;padding:12rpx}
