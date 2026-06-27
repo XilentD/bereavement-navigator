@@ -70,7 +70,7 @@ properties:
                       type: { const: fixed }
                       name: { type: string, minLength: 2 }
                       address: { type: string, minLength: 5 }
-                      phone: { type: string, pattern: "^[0-9\\-]+$" }
+                      phone: { type: string }
                   - type: object
                     required: [type, branches]
                     properties:
