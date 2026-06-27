@@ -31,6 +31,10 @@ body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;backgr
 .qt{font-size:19px;line-height:1.8;margin-bottom:32px}
 .opt{background:#fff;border:2px solid #ddd;border-radius:10px;padding:18px;font-size:16px;text-align:center;margin-bottom:12px;cursor:pointer}
 .opt.sel{border-color:#8b7e6a;background:#f5f0eb;color:#8b7e6a}
+.nb{margin-top:auto;width:100%;height:48px;line-height:48px;background:#8b7e6a;color:#fff;border-radius:24px;font-size:16px;border:none;cursor:pointer}
+.nb:disabled{background:#ccc}
+.nb2{flex:1;height:48px;line-height:48px;background:#fff;color:#8b7e6a;border:2px solid #8b7e6a;border-radius:24px;font-size:16px;cursor:pointer}
+.rw{display:flex;gap:10px}
 .tp{padding:16px}
 .th{padding:20px 12px}
 .th .pn{font-size:20px;font-weight:bold}
@@ -64,7 +68,6 @@ body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;backgr
 .mt.og{font-weight:bold}
 .btc{display:flex;flex-direction:column;gap:10px;margin-top:24px}
 .bt1{height:44px;line-height:44px;background:#8b7e6a;color:#fff;border-radius:22px;font-size:15px;border:none;text-align:center;cursor:pointer;width:100%}
-.bt1:disabled{background:#ccc}
 .bt2{height:44px;line-height:44px;background:#fff;color:#8b7e6a;border:2px solid #8b7e6a;border-radius:22px;font-size:15px;text-align:center;cursor:pointer;width:100%}
 .bt3{height:44px;line-height:44px;background:#27ae60;color:#fff;border-radius:22px;font-size:15px;border:none;text-align:center;cursor:pointer;width:100%}
 .ld{text-align:center;padding:60px;color:#999}
@@ -121,10 +124,8 @@ body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;backgr
 </div></div>
 
 <script src="city-labels.js"></script>
-<script src="province-data.js"></script>
 <script>
 var API='http://localhost:3000';
-var selectedProvince='';
 var selectedCity='hangzhou',selectedPersona='',answers={},currentQuiz=0,questions=[],guideResult=null,completed=new Set(),allCities=[];
 
 function L(s){return CITY_LABELS[s]||s}
@@ -134,30 +135,20 @@ function goCity(){show('city','选择城市');allCities=Object.keys(CITY_LABELS)
 
 var HOT=['beijing','shanghai','guangzhou','shenzhen','chengdu','hangzhou','wuhan','chongqing','nanjing','tianjin'];
 
-var PROV_ORDER=['北京','天津','上海','重庆','河北','山西','内蒙古','辽宁','吉林','黑龙江','江苏','浙江','安徽','福建','江西','山东','河南','湖北','湖南','广东','广西','海南','四川','贵州','云南','西藏','陕西','甘肃','青海','宁夏','新疆'];
-
 function renderCities(){
   var q=document.getElementById('citySearch').value.toLowerCase().trim();
   var h='';
   if(q){
-    // Search mode — search across all cities
     var f=allCities.filter(function(c){return c.indexOf(q)>=0||L(c).indexOf(q)>=0});
     f.sort(function(a,b){if(a===q)return -1;if(b===q)return 1;return a.localeCompare(b)});
     h+='<div style="font-size:13px;color:#999;margin-bottom:8px">搜索结果('+f.length+'个)</div>';
     if(!f.length)h+='<div style="text-align:center;padding:40px;color:#999">未找到匹配城市</div>';
     for(var i=0;i<f.length;i++){var c=f[i];h+='<div class="card" style="'+(selectedCity===c?'border-color:#8b7e6a;background:#f5f0eb':'')+'" onclick="pickCity(\''+c+'\')">'+L(c)+(selectedCity===c?' ✓':'')+'</div>'}
-  }else if(selectedProvince){
-    // Province drill-down — show cities in this province
-    var cities=PROVINCES[selectedProvince]||[];
-    h+='<div class="card" style="border-color:#8b7e6a;background:#f5f0eb" onclick="selectedProvince=\'\';renderCities()">← 返回省份列表</div>';
-    h+='<div style="font-size:13px;color:#999;margin:8px 0">'+selectedProvince+' ('+cities.length+'个城市)</div>';
-    for(var i=0;i<cities.length;i++){var c=cities[i];h+='<div class="card" style="'+(selectedCity===c?'border-color:#8b7e6a;background:#f5f0eb':'')+'" onclick="pickCity(\''+c+'\')">'+L(c)+(selectedCity===c?' ✓':'')+'</div>'}
   }else{
-    // Province list — with hot cities on top
     h+='<div style="font-size:13px;color:#999;margin-bottom:8px">热门城市</div>';
     for(var i=0;i<HOT.length;i++){var c=HOT[i];if(allCities.indexOf(c)<0)continue;h+='<div class="card" style="'+(selectedCity===c?'border-color:#8b7e6a;background:#f5f0eb':'')+'" onclick="pickCity(\''+c+'\')">'+L(c)+(selectedCity===c?' ✓':'')+'</div>'}
-    h+='<div style="font-size:13px;color:#999;margin:16px 0 8px">按省份选择</div>';
-    for(var i=0;i<PROV_ORDER.length;i++){var p=PROV_ORDER[i];h+='<div class="card" onclick="selectedProvince=\''+p+'\';renderCities()"><div class="nm">'+p+'</div><div class="ds">'+(PROVINCES[p]||[]).length+'个城市</div></div>'}
+    h+='<div style="font-size:13px;color:#999;margin:16px 0 8px">全部城市('+allCities.length+'个)</div>';
+    for(var i=0;i<allCities.length;i++){var c=allCities[i];h+='<div class="card" style="'+(selectedCity===c?'border-color:#8b7e6a;background:#f5f0eb':'')+'" onclick="pickCity(\''+c+'\')">'+L(c)+(selectedCity===c?' ✓':'')+'</div>'}
   }
   document.getElementById('cityList').innerHTML=h;
 }
@@ -226,9 +217,9 @@ function renderQuiz(){
   h+='<div class="ptxt">'+(currentQuiz+1)+' / '+questions.length+'</div>';
   h+='<div class="qt">'+(typeof q.t==='function'?q.t():q.t)+'</div>';
   for(var i=0;i<q.o.length;i++){var o=q.o[i];h+='<div class="opt'+(answers[q.k]===o.v?' sel':'')+'" data-k="'+q.k+'" data-v="'+encodeURIComponent(JSON.stringify(o.v))+'" onclick="pick(this)">'+o.l+'</div>'}
-  h+='<div class="btc">';
-  if(currentQuiz>0)h+='<button class="bt2" onclick="prevQ()">← 上一题</button>';
-  h+='<button class="bt1"'+(has?'':' disabled')+' onclick="'+(isLast?'submitQuiz()':'nextQ()')+'">'+(isLast?'生成清单':'下一题 →')+'</button>';
+  h+='<div class="rw">';
+  if(currentQuiz>0)h+='<button class="nb2" onclick="prevQ()">上一题</button>';
+  h+='<button class="nb"'+(has?'':' disabled')+' onclick="'+(isLast?'submitQuiz()':'nextQ()')+'">'+(isLast?'生成清单':'下一题')+'</button>';
   h+='</div>';
   document.getElementById('quizContent').innerHTML=h;
 }
