@@ -167,42 +167,42 @@ function pickCity(s){selectedCity=s;document.getElementById('cityDetect').textCo
 function goPersona(){
   show('persona','选择身份');
   document.getElementById('personaCity').textContent='📍 '+L(selectedCity);
-  var ids=['retired_worker','active_worker','urban_resident','civil_servant','military'];
+  var ids=['retired-worker','active-worker','urban-resident','civil-servant','military'];
   var ns=['退休企业职工','在职企业职工','城乡居民(含农民)','公务员','军人'];
   var ds=['参加城镇职工养老保险已退休的企业人员','参加城镇职工养老保险的在职职工','未参加职工养老保险的城乡居民、农民、务农人员','在编公务员、事业单位人员','现役军人、退役军人、军队离退休人员'];
   var h='';
   for(var i=0;i<ids.length;i++){
     var xt='';
-    if(ids[i]==='urban_resident')xt='<div class="nt">⚠️ 农民/务农人员请选此项</div>';
-    if(ids[i]==='active_worker')xt='<div class="nt">含农民工/灵活就业参保人员</div>';
+    if(ids[i]==='urban-resident')xt='<div class="nt">⚠️ 农民/务农人员请选此项</div>';
+    if(ids[i]==='active-worker')xt='<div class="nt">含农民工/灵活就业参保人员</div>';
     h+='<div class="card" onclick="startQuiz(\''+ids[i]+'\')"><div class="nm">'+ns[i]+'</div><div class="ds">'+ds[i]+'</div>'+xt+'</div>';
   }
   document.getElementById('personaList').innerHTML=h;
 }
 
 var QS={
-  retired_worker:[
+  retired-worker:[
     {k:'death_location',t:'逝者是在哪里离世的？',o:[{l:'医院',v:'at_hospital'},{l:'家中',v:'at_home'},{l:'意外/其他地点',v:'accident'}]},
     {k:'has_real_estate',t:'逝者名下是否有房产？',o:[{l:'有',v:true},{l:'没有',v:false}]},
     {k:'has_commercial_insurance',t:'逝者是否购买了商业保险？',o:[{l:'有',v:true},{l:'没有',v:false}]},
     {k:'has_will',t:'逝者是否留有遗嘱？',o:[{l:'有',v:true},{l:'没有',v:false}]},
     {k:'has_social_security',t:function(){return '逝者是否在'+L(selectedCity)+'缴纳社保？'},o:[{l:'是',v:true},{l:'否',v:false}]}
   ],
-  active_worker:[
+  active-worker:[
     {k:'death_location',t:'逝者是在哪里离世的？',o:[{l:'医院',v:'at_hospital'},{l:'家中',v:'at_home'},{l:'意外/其他地点',v:'accident'}]},
     {k:'has_work_injury',t:'是否因工作原因导致死亡？',o:[{l:'是(工亡)',v:true},{l:'否',v:false}]},
     {k:'has_real_estate',t:'逝者名下是否有房产？',o:[{l:'有',v:true},{l:'没有',v:false}]},
     {k:'has_commercial_insurance',t:'逝者是否购买了商业保险？',o:[{l:'有',v:true},{l:'没有',v:false}]},
     {k:'has_will',t:'逝者是否留有遗嘱？',o:[{l:'有',v:true},{l:'没有',v:false}]}
   ],
-  urban_resident:[
+  urban-resident:[
     {k:'death_location',t:'逝者是在哪里离世的？',o:[{l:'医院',v:'at_hospital'},{l:'家中',v:'at_home'},{l:'意外/其他地点',v:'accident'}]},
     {k:'has_rural_house',t:'逝者是否有农村宅基地及房屋？',o:[{l:'有',v:true},{l:'没有',v:false}]},
     {k:'has_real_estate',t:'逝者名下是否有城镇房产？',o:[{l:'有',v:true},{l:'没有',v:false}]},
     {k:'has_commercial_insurance',t:'逝者是否购买了商业保险？',o:[{l:'有',v:true},{l:'没有',v:false}]},
     {k:'has_will',t:'逝者是否留有遗嘱？',o:[{l:'有',v:true},{l:'没有',v:false}]}
   ],
-  civil_servant:[
+  civil-servant:[
     {k:'death_location',t:'逝者是在哪里离世的？',o:[{l:'医院',v:'at_hospital'},{l:'家中',v:'at_home'},{l:'意外/其他地点',v:'accident'}]},
     {k:'has_real_estate',t:'逝者名下是否有房产？',o:[{l:'有',v:true},{l:'没有',v:false}]},
     {k:'has_commercial_insurance',t:'逝者是否购买了商业保险？',o:[{l:'有',v:true},{l:'没有',v:false}]},
@@ -218,7 +218,7 @@ var QS={
   ]
 };
 
-function startQuiz(id){selectedPersona=id;answers={};currentQuiz=0;questions=QS[id]||QS.retired_worker;show('quiz','');renderQuiz()}
+function startQuiz(id){selectedPersona=id;answers={};currentQuiz=0;questions=QS[id]||QS.retired-worker;show('quiz','');renderQuiz()}
 
 function renderQuiz(){
   var q=questions[currentQuiz],isLast=currentQuiz>=questions.length-1,has=answers[q.k]!==undefined;
