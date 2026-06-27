@@ -7,7 +7,6 @@
     "pages/timeline/timeline",
     "pages/detail/detail"
   ],
-  "lazyCodeLoading": "requiredComponents",
   "window": {
     "navigationBarBackgroundColor": "#f5f0eb",
     "navigationBarTextStyle": "black",
