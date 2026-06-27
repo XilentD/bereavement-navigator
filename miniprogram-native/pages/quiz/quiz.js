@@ -51,7 +51,7 @@ Page({
       wx.showToast({ title: '题目加载失败', icon: 'none' })
       return
     }
-    this.setData({ questions, qidx: 0, question: questions[0], isLast: questions.length === 1, answers: app.globalData.answers || {} })
+    this.setData({ pid, questions, qidx: 0, question: questions[0], isLast: questions.length === 1, answers: app.globalData.answers || {} })
   },
   pick(e) {
     const key = e.currentTarget.dataset.key

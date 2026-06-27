@@ -1,4 +1,5 @@
 <view class="qp">
+  <view>DEBUG: q={{qidx}} n={{questions.length}} pid={{pid}}</view>
   <block wx:if="{{question}}">
   <view class="prog"><view class="progf" style="width:{{(qidx+1)/questions.length*100}}%"></view></view>
   <view class="ptxt">第 {{qidx+1}} / {{questions.length}} 题</view>
