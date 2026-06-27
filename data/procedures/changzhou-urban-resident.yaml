@@ -2,7 +2,7 @@ persona:
   id: urban-resident
   city: changzhou
   name: 城乡居民
-  description: 参加城乡居民养老保险或未参加职工养老保险的城乡居民
+  description: 在杭州市参加城乡居民养老保险或未参加职工养老保险的城乡居民
   assumptions:
     - 逝者未参加城镇职工养老保险
     - 逝者有配偶或一名成年子女可代办
@@ -40,8 +40,8 @@ timeline:
         where:
           type: fixed
           name: 常州市殡仪馆
-          address: 请致电当地殡仪馆确认地址
-          phone: '请致电当地殡仪馆'
+          address: 请致电当地殡仪馆核实
+          phone: '请致电核实'
         need:
           originals:
             - 死亡医学证明
@@ -62,8 +62,8 @@ timeline:
         where:
           type: fixed
           name: 常州市殡仪馆
-          address: 请致电当地殡仪馆确认地址
-          phone: '请致电当地殡仪馆'
+          address: 请致电当地殡仪馆核实
+          phone: '请致电核实'
         need:
           originals:
             - 死亡医学证明
@@ -82,8 +82,8 @@ timeline:
         where:
           type: fixed
           name: 常州市殡仪馆
-          address: 请致电当地殡仪馆确认地址
-          phone: '请致电当地殡仪馆'
+          address: 请致电当地殡仪馆核实
+          phone: '请致电核实'
         need:
           originals:
             - 死亡医学证明
@@ -103,7 +103,7 @@ timeline:
           type: fixed
           name: 逝者户籍所在地派出所
           address: 请联系逝者户籍地派出所确认
-          phone: '请致电12345'
+          phone: '12345'
         need:
           originals:
             - 死亡医学证明
@@ -133,8 +133,8 @@ timeline:
         where:
           type: fixed
           name: 当地社会保险管理服务中心
-          address: 请联系当地社保中心或拨打12333查询
-          phone: '请致电当地社保中心或拨打12333'
+          address: 请拨打12333查询
+          phone: '12333'
         need:
           originals:
             - 死亡医学证明
@@ -164,7 +164,7 @@ timeline:
         where:
           type: fixed
           name: 当地不动产登记中心
-          address: 请联系当地不动产登记中心或拨打12345查询
+          address: 请拨打12345查询
           phone: '请致电当地不动产登记中心'
         need:
           originals:
@@ -194,7 +194,7 @@ timeline:
           type: fixed
           name: 各银行网点
           address: 联系逝者开户银行预约办理
-          phone: '请致电12345'
+          phone: '12345'
         need:
           originals:
             - 死亡公证书
@@ -220,7 +220,7 @@ timeline:
         where:
           type: fixed
           name: 当地公证处
-          address: 请联系当地公证处或拨打12345查询
+          address: 请拨打12345查询
           phone: '请致电当地公证处'
         need:
           originals:
@@ -247,7 +247,7 @@ timeline:
           type: fixed
           name: 各相关机构
           address: 根据逝者持有账户联系对应机构
-          phone: '请致电12345'
+          phone: '12345'
         need:
           originals:
             - 户口注销证明
