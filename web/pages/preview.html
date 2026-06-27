@@ -134,7 +134,7 @@ var selectedCity='hangzhou',selectedPersona='',answers={},currentQuiz=0,question
 function L(s){return CITY_LABELS[s]||s}
 function show(id,t){var ps=document.querySelectorAll('.pg');for(var i=0;i<ps.length;i++)ps[i].classList.remove('on');document.getElementById('pg-'+id).classList.add('on');document.getElementById('navTitle').textContent=t||'丧亲行政事务导航'}
 
-function goCity(){show('city','选择城市');allCities=Object.keys(CITY_LABELS);renderCities()}
+function goCity(){try{show('city','选择城市');allCities=Object.keys(CITY_LABELS);renderCities()}catch(e){document.getElementById('debugInfo').textContent='ERROR: '+e.message}}
 
 var HOT=['beijing','shanghai','guangzhou','shenzhen','chengdu','hangzhou','wuhan','chongqing','nanjing','tianjin'];
 
