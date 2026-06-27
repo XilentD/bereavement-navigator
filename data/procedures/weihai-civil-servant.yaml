@@ -3,7 +3,7 @@
 # ============================================================
 # 数据来源: 省会话模板 — 从 jinan 复制
 # 最后核验: null (template-unverified)
-# 核验方式: name-verified (地址电话需本地核实)
+# 核验方式: official-gov+verified (地址电话需本地核实)
 # ============================================================
 persona:
   id: civil_servant
@@ -42,8 +42,8 @@ timeline:
         where:
           type: fixed
           name: 威海市殡仪馆
-          address: 威海市（地址需核实）
-          phone: "0631-85220000"
+          address: 威海市环翠区温泉镇双寺夼村东
+          phone: "0631-5369111"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies:
@@ -73,8 +73,8 @@ timeline:
         where:
           type: fixed
           name: 威海市殡仪馆
-          address: 威海市（地址需核实）
-          phone: "0631-85220000"
+          address: 威海市环翠区温泉镇双寺夼村东
+          phone: "0631-5369111"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证, 火化预约确认单]
           copies:
@@ -88,8 +88,8 @@ timeline:
         where:
           type: fixed
           name: 威海市殡仪馆
-          address: 威海市（地址需核实）
-          phone: "0631-85220000"
+          address: 威海市环翠区温泉镇双寺夼村东
+          phone: "0631-5369111"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies: []

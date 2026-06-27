@@ -3,7 +3,7 @@
 # ============================================================
 # 数据来源: 省会话模板 — 从 jinan 复制
 # 最后核验: null (template-unverified)
-# 核验方式: name-verified (地址电话需本地核实)
+# 核验方式: official-gov+verified (地址电话需本地核实)
 # ============================================================
 persona:
   id: civil_servant
@@ -37,13 +37,13 @@ timeline:
         notes: 如为意外死亡需先报警，公安出具《非正常死亡证明》后医院才可开具
 
       - id: funeral_home
-        name: 济宁市殡仪馆
+        name: 济宁市任城区殡葬服务中心
         urgency: critical
         where:
           type: fixed
-          name: 济宁市殡仪馆
-          address: 济宁市（地址需核实）
-          phone: "0537-85220000"
+          name: 济宁市任城区殡葬服务中心
+          address: 济宁市任城区南张街道文郑村西北
+          phone: "0537-7902121"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies:
@@ -72,9 +72,9 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 济宁市殡仪馆
-          address: 济宁市（地址需核实）
-          phone: "0537-85220000"
+          name: 济宁市任城区殡葬服务中心
+          address: 济宁市任城区南张街道文郑村西北
+          phone: "0537-7902121"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证, 火化预约确认单]
           copies:
@@ -87,9 +87,9 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 济宁市殡仪馆
-          address: 济宁市（地址需核实）
-          phone: "0537-85220000"
+          name: 济宁市任城区殡葬服务中心
+          address: 济宁市任城区南张街道文郑村西北
+          phone: "0537-7902121"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies: []
