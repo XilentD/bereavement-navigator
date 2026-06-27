@@ -24,6 +24,13 @@ export async function buildApp(opts = {}) {
   await app.register(pdfRoutes, config);
 
   // Serve static files from web/pages/
+  app.get('/province-data.js', async (_req, reply) => {
+    const fs = await import('node:fs');
+    const path = await import('node:path');
+    const js = fs.readFileSync(path.join(import.meta.dirname, '..', '..', 'web', 'pages', 'province-data.js'), 'utf-8');
+    reply.header('Content-Type', 'application/javascript; charset=utf-8');
+    return js;
+  });
   app.get('/city-labels.js', async (_req, reply) => {
     const fs = await import('node:fs');
     const path = await import('node:path');
