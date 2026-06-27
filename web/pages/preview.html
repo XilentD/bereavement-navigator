@@ -78,7 +78,7 @@ body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;backgr
 </head>
 <body>
 <div class="phone">
-<div class="bar" id="navTitle">丧亲行政事务导航</div>
+<div class="bar"><span id="navTitle">丧亲行政事务导航</span> <span id="debugInfo" style="font-size:10px;color:#e74c3c"></span></div>
 <div class="main" id="main">
 
 <div class="pg on" id="pg-home">
@@ -88,11 +88,10 @@ body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;backgr
 接下来你需要跑很多手续，
 我们来帮你逐个理清。</div>
 <button class="btn" id="startBtn">开始办理</button>
-<div style="font-size:10px;color:#ccc;margin-top:8px" id="debugInfo"></div>
 <script>
-document.getElementById('debugInfo').textContent='JS loaded v4';
+document.getElementById('debugInfo').textContent='JS v4';
 document.getElementById('startBtn').addEventListener('click',function(){
-  document.getElementById('debugInfo').textContent='clicked!';
+  document.getElementById('debugInfo').textContent='click';
   goCity();
 });
 </script>
@@ -140,7 +139,7 @@ var selectedCity='hangzhou',selectedPersona='',answers={},currentQuiz=0,question
 function L(s){return CITY_LABELS[s]||s}
 function show(id,t){var ps=document.querySelectorAll('.pg');for(var i=0;i<ps.length;i++)ps[i].classList.remove('on');document.getElementById('pg-'+id).classList.add('on');document.getElementById('navTitle').textContent=t||'丧亲行政事务导航'}
 
-function goCity(){try{show('city','选择城市');allCities=Object.keys(CITY_LABELS);renderCities()}catch(e){document.getElementById('debugInfo').textContent='ERROR: '+e.message}}
+function goCity(){try{var d=document.getElementById('debugInfo');d.textContent='step1';show('city','选择城市');d.textContent='step2';allCities=Object.keys(CITY_LABELS);d.textContent='step3 cities='+allCities.length;renderCities();d.textContent='step4 done'}catch(e){document.getElementById('debugInfo').textContent='ERROR: '+e.message}}
 
 var HOT=['beijing','shanghai','guangzhou','shenzhen','chengdu','hangzhou','wuhan','chongqing','nanjing','tianjin'];
 
