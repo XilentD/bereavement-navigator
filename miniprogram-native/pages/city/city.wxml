@@ -1,0 +1,16 @@
+<view class="page">
+  <input class="search" placeholder="搜索城市（如：杭州、北京）" bindinput="onSearch" value="{{query}}"/>
+  <scroll-view scroll-y class="list">
+    <block wx:if="{{query}}">
+      <view class="label">搜索结果({{filtered.length}}个)</view>
+      <view wx:if="{{filtered.length===0}}" class="empty">未找到匹配城市</view>
+      <view wx:for="{{filtered}}" wx:key="*this" class="card" bindtap="pickCity" data-city="{{item}}">{{labels[item]||item}}<text wx:if="{{item===selectedCity}}"> ✓</text></view>
+    </block>
+    <block wx:else>
+      <view class="label">热门城市</view>
+      <view wx:for="{{hot}}" wx:key="*this" class="card" bindtap="pickCity" data-city="{{item}}">{{labels[item]||item}}<text wx:if="{{item===selectedCity}}"> ✓</text></view>
+      <view class="label" style="margin-top:32rpx">全部城市({{cities.length}}个)</view>
+      <view wx:for="{{cities}}" wx:key="*this" class="card" bindtap="pickCity" data-city="{{item}}">{{labels[item]||item}}<text wx:if="{{item===selectedCity}}"> ✓</text></view>
+    </block>
+  </scroll-view>
+</view>

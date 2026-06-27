@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/city/city",
+    "pages/persona/persona",
+    "pages/quiz/quiz",
+    "pages/timeline/timeline",
+    "pages/detail/detail"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#f5f0eb",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "丧亲行政事务导航",
+    "backgroundColor": "#f5f0eb"
+  }
+}

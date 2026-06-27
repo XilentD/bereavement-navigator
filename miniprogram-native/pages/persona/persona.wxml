@@ -1,0 +1,10 @@
+<view class="page">
+  <view class="title">请选择逝者身份类型</view>
+  <view class="subtitle">📍 {{city}}</view>
+  <view class="card" wx:for="{{personas}}" wx:key="id" bindtap="startQuiz" data-id="{{item.id}}">
+    <view class="name">{{item.name}}</view>
+    <view class="desc">{{item.desc}}</view>
+    <view wx:if="{{item.id==='urban-resident'}}" class="hint">⚠️ 农民/务农人员请选此项</view>
+    <view wx:if="{{item.id==='active-worker'}}" class="hint">含农民工/灵活就业参保人员</view>
+  </view>
+</view>

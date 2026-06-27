@@ -1,0 +1,5 @@
+.home{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120rpx 64rpx;text-align:center;min-height:100vh}
+.emoji{font-size:128rpx;margin-bottom:64rpx}
+.hero{font-size:34rpx;line-height:2;color:#555;white-space:pre-line;margin-bottom:96rpx}
+.start-btn{width:480rpx;height:96rpx;line-height:96rpx;background:#8b7e6a;color:#fff;border-radius:48rpx;font-size:34rpx;border:none}
+.footer{position:fixed;bottom:48rpx;left:0;right:0;color:#bbb;font-size:24rpx;text-align:center}

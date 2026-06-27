@@ -1,0 +1,6 @@
+.page{padding:24rpx}
+.search{width:100%;padding:24rpx;font-size:32rpx;border:2rpx solid #e8e0d5;border-radius:16rpx;background:#fff;margin-bottom:16rpx}
+.list{max-height:1100rpx}
+.label{font-size:26rpx;color:#999;margin:16rpx 0 8rpx}
+.card{background:#fff;border-radius:20rpx;padding:24rpx 32rpx;margin-bottom:12rpx;border:2rpx solid #e8e0d5;font-size:30rpx}
+.empty{text-align:center;padding:80rpx;color:#999}

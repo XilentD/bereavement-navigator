@@ -1,0 +1,23 @@
+<view class="dp" wx:if="{{proc}}">
+  <view class="dn">{{proc.name}}</view>
+  <view class="bd {{proc.urgency}}">{{proc.urgency==='critical'?'紧急':proc.urgency==='high'?'重要':'正常'}}</view>
+
+  <view class="sec"><view class="st">📍 办理地点</view>
+    <view class="sv">{{proc.where.resolved||proc.where.name}}</view>
+    <view class="ss" wx:if="{{proc.where.address}}">{{proc.where.address}}</view>
+    <view class="ss" wx:if="{{proc.where.phone}}">📞 {{proc.where.phone}}</view>
+  </view>
+
+  <view class="sec"><view class="st">📋 需要携带的材料</view>
+    <view wx:for="{{proc.need.originals}}" wx:key="*this" class="mt og">☐ {{item}}（原件）</view>
+    <view wx:for="{{proc.need.copies}}" wx:key="doc" class="mt">☐ {{item.doc}} 复印件×{{item.count}}</view>
+  </view>
+
+  <view class="sec" wx:if="{{proc.output}}"><view class="st">📤 办完后会得到</view><view class="sv" style="color:#27ae60">{{proc.output}}</view></view>
+  <view class="sec" wx:if="{{proc.notes}}"><view class="st">⚠️ 注意事项</view><view class="sv" style="color:#e67e22;font-size:28rpx">{{proc.notes}}</view></view>
+
+  <view class="btc">
+    <button class="bt3" bindtap="toggleDone">{{completed?'撤销完成':'标记为已完成'}}</button>
+    <button class="bt2" bindtap="goBack">返回清单</button>
+  </view>
+</view>

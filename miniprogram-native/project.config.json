@@ -1,0 +1,15 @@
+{
+  "description": "丧亲行政事务导航",
+  "packOptions": { "ignore": [] },
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "postcss": true,
+    "minified": false
+  },
+  "compileType": "miniprogram",
+  "libVersion": "3.0.0",
+  "appid": "touristappid",
+  "projectname": "bereavement-navigator",
+  "condition": {}
+}

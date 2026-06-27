@@ -1,0 +1,17 @@
+<view class="tp">
+  <view class="th" wx:if="{{guide}}">
+    <view class="pn">{{guide.persona.name}}</view>
+    <view class="ps">共 {{guide.summary.total_procedures}} 项 · {{guide.summary.critical_count}} 项紧急 · 预计 {{guide.summary.estimated_days_min}} 天</view>
+  </view>
+  <view wx:for="{{guide.timeline}}" wx:key="phase" class="ph">
+    <view class="phd">
+      <text class="pi">{{icons[item.phase]||'📌'}}</text>
+      <view><view class="pn2">{{item.title}}</view><view class="pt2">{{labels[item.phase]||item.phase}}</view></view>
+    </view>
+    <view wx:for="{{item.procedures}}" wx:key="id" wx:for-item="p" class="pc {{completed[p.id]?'dn':''}}" bindtap="openDetail" data-id="{{p.id}}">
+      <view class="ud {{p.urgency}}"></view>
+      <view class="pi2"><view class="pn3">{{completed[p.id]?'✅ ':''}}{{p.name}}</view><view class="pw">📍 {{p.where.resolved||p.where.name}}</view></view>
+      <text class="ck">{{completed[p.id]?'✅':'○'}}</text>
+    </view>
+  </view>
+</view>

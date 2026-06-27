@@ -1,0 +1,6 @@
+<view class="home">
+  <view class="emoji">🕯️</view>
+  <view class="hero">我们知道这会是一段艰难的时光。接下来你需要跑很多手续，我们来帮你逐个理清。</view>
+  <button class="start-btn" bindtap="goCity">开始办理</button>
+  <view class="footer">本服务完全免费 · 信息仅供参考</view>
+</view>
