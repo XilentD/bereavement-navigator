@@ -30,9 +30,9 @@ Page({
   downloadPDF() {
     wx.showLoading({ title: '生成PDF...' })
     const api = require('../../utils/api.js')
-    api.getChecklistPdf(app.globalData.selectedPersona, app.globalData.selectedCity, app.globalData.answers).then(() => {
+    api.getChecklistPdf(app.globalData.selectedPersona, app.globalData.selectedCity, app.globalData.answers).then(path => {
       wx.hideLoading()
-      wx.showModal({ title: 'PDF生成', content: '请在Web端下载PDF：http://localhost:3000/preview', showCancel: false })
+      wx.openDocument({ filePath: path, fileType: 'pdf', showMenu: true })
     }).catch(() => { wx.hideLoading(); wx.showToast({ title: '生成失败', icon: 'none' }) })
   },
   genLetter() { wx.showModal({ title: '授权委托书', content: '此功能需在Web端使用：http://localhost:3000/preview', showCancel: false }) },
