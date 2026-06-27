@@ -2,9 +2,9 @@ persona:
   id: military
   city: anyang
   name: 军人（现役/退役军人）
-  description: 在杭州市居住的现役军人或退役军人
+  description: 居住的现役军人或退役军人
   assumptions:
-    - 逝者为现役军人或已退役的退伍军人
+    - 逝者为现役军人或退役军人
     - 逝者有配偶或一名成年子女可代办
 
 timeline:

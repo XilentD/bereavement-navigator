@@ -2,7 +2,7 @@ persona:
   id: urban-resident
   city: yongzhou
   name: 城乡居民
-  description: 在杭州市参加城乡居民养老保险或未参加职工养老保险的城乡居民
+  description: 参加城乡居民养老保险或未参加职工养老保险的城乡居民
   assumptions:
     - 逝者未参加城镇职工养老保险
     - 逝者有配偶或一名成年子女可代办
