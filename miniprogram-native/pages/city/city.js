@@ -8,7 +8,8 @@ Page({
   },
   onSearch(e) {
     const q = e.detail.value.toLowerCase().trim()
-    const filtered = q ? this.data.cities.filter(c => c.includes(q)) : []
+    const labels = this.data.labels
+    const filtered = q ? this.data.cities.filter(c => c.includes(q) || (labels[c]||'').includes(q)) : []
     this.setData({ query: q, filtered })
   },
   pickCity(e) {
