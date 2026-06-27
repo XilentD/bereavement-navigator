@@ -43,13 +43,13 @@ timeline:
         notes: 如为意外死亡需先报警，公安出具《非正常死亡证明》后医院才可开具
 
       - id: funeral_home
-        name: 联系殡仪馆预约火化
+        name: 济南市殡仪馆
         urgency: critical
         where:
           type: fixed
           name: 济南市殡仪馆
-          address: 济南市西湖区西溪路731号
-          phone: "0531-85220000"
+          address: 济南市天桥区粟山路25号
+          phone: "0531-85706384"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies:
@@ -65,8 +65,8 @@ timeline:
         where:
           type: fixed
           name: 济南市殡仪馆
-          address: 济南市西湖区西溪路731号
-          phone: "0531-85220000"
+          address: 济南市天桥区粟山路25号
+          phone: "0531-85706384"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证, 火化预约确认单]
           copies:
@@ -80,8 +80,8 @@ timeline:
         where:
           type: fixed
           name: 济南市殡仪馆
-          address: 济南市西湖区西溪路731号
-          phone: "0531-85220000"
+          address: 济南市天桥区粟山路25号
+          phone: "0531-85706384"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies: []

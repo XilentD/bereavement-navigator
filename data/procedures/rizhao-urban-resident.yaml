@@ -37,12 +37,12 @@ timeline:
         notes: 如为意外死亡需先报警，公安出具《非正常死亡证明》后医院才可开具
 
       - id: funeral_home
-        name: 日照市殡仪馆
+        name: 日照市殡葬服务中心
         urgency: critical
         where:
           type: fixed
-          name: 日照市殡仪馆
-          address: 日照市东港区山海路西延伸线18公里处北(南湖镇)
+          name: 日照市殡葬服务中心
+          address: 日照市东港区山海路西延伸线18公里处北
           phone: "0633-8261999"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
@@ -58,8 +58,8 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 日照市殡仪馆
-          address: 日照市东港区山海路西延伸线18公里处北(南湖镇)
+          name: 日照市殡葬服务中心
+          address: 日照市东港区山海路西延伸线18公里处北
           phone: "0633-8261999"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证, 火化预约确认单]
@@ -73,8 +73,8 @@ timeline:
         urgency: critical
         where:
           type: fixed
-          name: 日照市殡仪馆
-          address: 日照市东港区山海路西延伸线18公里处北(南湖镇)
+          name: 日照市殡葬服务中心
+          address: 日照市东港区山海路西延伸线18公里处北
           phone: "0633-8261999"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]

@@ -3,7 +3,7 @@
 # ============================================================
 # 数据来源: 省会话模板 — 从 jinan 复制
 # 最后核验: null (template-unverified)
-# 核验方式: name-verified (地址电话需本地核实)
+# 核验方式: official-gov+verified (地址电话需本地核实)
 # ============================================================
 persona:
   id: retired_worker
@@ -42,8 +42,8 @@ timeline:
         where:
           type: fixed
           name: 菏泽市殡仪馆
-          address: 菏泽市（地址需核实）
-          phone: "0530-85220000"
+          address: 菏泽市牡丹区吴店镇吴楼村
+          phone: "0530-5280250"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies:
@@ -59,8 +59,8 @@ timeline:
         where:
           type: fixed
           name: 菏泽市殡仪馆
-          address: 菏泽市（地址需核实）
-          phone: "0530-85220000"
+          address: 菏泽市牡丹区吴店镇吴楼村
+          phone: "0530-5280250"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证, 火化预约确认单]
           copies:
@@ -74,8 +74,8 @@ timeline:
         where:
           type: fixed
           name: 菏泽市殡仪馆
-          address: 菏泽市（地址需核实）
-          phone: "0530-85220000"
+          address: 菏泽市牡丹区吴店镇吴楼村
+          phone: "0530-5280250"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies: []

@@ -38,10 +38,12 @@ timeline:
 
       - id: funeral_home
         name: 威海市殡仪馆
+（威海市环翠区殡葬事务服务中心）
         urgency: critical
         where:
           type: fixed
           name: 威海市殡仪馆
+（威海市环翠区殡葬事务服务中心）
           address: 威海市环翠区温泉镇双寺夼村东
           phone: "0631-5369111"
         need:
@@ -73,6 +75,7 @@ timeline:
         where:
           type: fixed
           name: 威海市殡仪馆
+（威海市环翠区殡葬事务服务中心）
           address: 威海市环翠区温泉镇双寺夼村东
           phone: "0631-5369111"
         need:
@@ -88,6 +91,7 @@ timeline:
         where:
           type: fixed
           name: 威海市殡仪馆
+（威海市环翠区殡葬事务服务中心）
           address: 威海市环翠区温泉镇双寺夼村东
           phone: "0631-5369111"
         need:

@@ -42,8 +42,8 @@ timeline:
         where:
           type: fixed
           name: 临沂市殡仪馆
-          address: 临沂市兰山区戈九路与大山路交叉口东南380米
-          phone: "0539-96444"
+          address: 临沂市马厂湖驻地艾山东侧
+          phone: "0539-7952968"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies:
@@ -59,8 +59,8 @@ timeline:
         where:
           type: fixed
           name: 临沂市殡仪馆
-          address: 临沂市兰山区戈九路与大山路交叉口东南380米
-          phone: "0539-96444"
+          address: 临沂市马厂湖驻地艾山东侧
+          phone: "0539-7952968"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证, 火化预约确认单]
           copies:
@@ -74,8 +74,8 @@ timeline:
         where:
           type: fixed
           name: 临沂市殡仪馆
-          address: 临沂市兰山区戈九路与大山路交叉口东南380米
-          phone: "0539-96444"
+          address: 临沂市马厂湖驻地艾山东侧
+          phone: "0539-7952968"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies: []
