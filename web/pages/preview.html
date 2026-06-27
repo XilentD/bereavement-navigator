@@ -98,7 +98,7 @@ body { font-family: -apple-system,"PingFang SC","Microsoft YaHei",sans-serif; ba
         <div class="hero">我们知道这会是一段艰难的时光。
 接下来你需要跑很多手续，
 我们来帮你逐个理清。</div>
-        <button class="btn" onclick="goCity()">开始办理</button>
+        <button class="btn" onclick="console.log('clicked');goCity()">开始办理</button>
         <div class="footer">本服务完全免费 · 信息仅供参考</div>
       </div>
     </div>
@@ -156,18 +156,11 @@ let completed = new Set();
 let allCities = [];
 
 // Load cities from API + auto-detect from IP
-async function goCity() {
+function goCity() {
   showPage('city', '选择城市');
-  try {
-    const res = await fetch(API+'/api/personas');
-    const data = await res.json();
-    allCities = data.cities || [];
-    renderCityList(allCities);
-    // Auto-detect from IP (non-blocking, with timeout)
-    detectCity().catch(() => {});
-  } catch(e) {
-    document.getElementById('cityList').innerHTML = '<div class="error">加载城市列表失败: '+e.message+'</div>';
-  }
+  // Use pre-loaded CITY_LABELS directly — no API call needed
+  allCities = Object.keys(CITY_LABELS);
+  renderCityList(allCities);
 }
 
 async function detectCity() {
