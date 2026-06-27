@@ -132,8 +132,8 @@ timeline:
         urgency: high
         where:
           type: fixed
-          name: 杭州市社会保险管理服务中心
-          address: 杭州市上城区清吟街123号
+          name: 当地社会保险管理服务中心
+          address: 请联系当地社保中心或拨打12333查询
           phone: '0571-12333'
         need:
           originals:
@@ -163,8 +163,8 @@ timeline:
         urgency: normal
         where:
           type: fixed
-          name: 杭州市不动产登记中心
-          address: 杭州市上城区解放东路18号市民中心H楼
+          name: 当地不动产登记中心
+          address: 请联系当地不动产登记中心或拨打12345查询
           phone: '0571-87008100'
         need:
           originals:
@@ -219,8 +219,8 @@ timeline:
         urgency: normal
         where:
           type: fixed
-          name: 杭州市各公证处
-          address: 杭州市上城区望江东路332号（杭州市国立公证处）
+          name: 当地公证处
+          address: 请联系当地公证处或拨打12345查询
           phone: '0571-85020513'
         need:
           originals:
