@@ -33,7 +33,7 @@ describe('E2E Smoke Test', () => {
 
   const personas = [
     {
-      id: 'retired_worker',
+      id: 'retired-worker',
       answers: {
         death_location: 'at_hospital',
         has_real_estate: false,
@@ -43,7 +43,7 @@ describe('E2E Smoke Test', () => {
       },
     },
     {
-      id: 'active_worker',
+      id: 'active-worker',
       answers: {
         death_location: 'at_hospital',
         has_real_estate: false,
@@ -53,7 +53,7 @@ describe('E2E Smoke Test', () => {
       },
     },
     {
-      id: 'urban_resident',
+      id: 'urban-resident',
       answers: {
         death_location: 'at_hospital',
         has_real_estate: false,
@@ -63,7 +63,7 @@ describe('E2E Smoke Test', () => {
       },
     },
     {
-      id: 'civil_servant',
+      id: 'civil-servant',
       answers: {
         death_location: 'at_hospital',
         has_real_estate: false,
@@ -171,7 +171,7 @@ describe('E2E Smoke Test', () => {
         deceasedName: '逝者',
         deceasedId: '330100195001011234',
         deathDate: '2026-06-20',
-        persona_id: 'retired_worker',
+        persona_id: 'retired-worker',
         answers: {
           death_location: 'at_hospital',
           has_real_estate: false,

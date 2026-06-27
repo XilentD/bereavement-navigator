@@ -5,8 +5,8 @@ describe('ConfigLoader', () => {
   it('should load all YAML files from the data directory', () => {
     const config = loadConfig('../data');
     expect(config.size).toBeGreaterThanOrEqual(5);
-    expect(config.has('hangzhou:retired_worker')).toBe(true);
-    expect(config.has('hangzhou:active_worker')).toBe(true);
+    expect(config.has('hangzhou:retired-worker')).toBe(true);
+    expect(config.has('hangzhou:active-worker')).toBe(true);
   });
 
   it('should validate each loaded persona has required fields', () => {

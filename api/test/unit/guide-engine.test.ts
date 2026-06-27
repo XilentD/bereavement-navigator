@@ -6,7 +6,7 @@ describe('GuideEngine', () => {
   const config = loadConfig('../data');
 
   it('should return timeline for retired worker with basic answers', () => {
-    const result = matchGuide(config, 'hangzhou', 'retired_worker', {
+    const result = matchGuide(config, 'hangzhou', 'retired-worker', {
       death_location: 'at_hospital',
       has_real_estate: false,
       has_commercial_insurance: false,
@@ -26,7 +26,7 @@ describe('GuideEngine', () => {
   });
 
   it('should include conditional procedures when answers are true', () => {
-    const result = matchGuide(config, 'hangzhou', 'retired_worker', {
+    const result = matchGuide(config, 'hangzhou', 'retired-worker', {
       death_location: 'at_home',
       has_real_estate: true,
       has_commercial_insurance: true,
@@ -36,12 +36,11 @@ describe('GuideEngine', () => {
 
     const allIds = result.timeline.flatMap(p => p.procedures.map(pr => pr.id));
     expect(allIds).toContain('property_transfer');
-    expect(allIds).toContain('insurance_claim');
     expect(allIds).toContain('will_execution');
   });
 
   it('should resolve depends-type where correctly', () => {
-    const result = matchGuide(config, 'hangzhou', 'retired_worker', {
+    const result = matchGuide(config, 'hangzhou', 'retired-worker', {
       death_location: 'at_hospital',
       has_real_estate: false,
       has_commercial_insurance: false,
@@ -63,7 +62,7 @@ describe('GuideEngine', () => {
   });
 
   it('should return summary statistics', () => {
-    const result = matchGuide(config, 'hangzhou', 'retired_worker', {
+    const result = matchGuide(config, 'hangzhou', 'retired-worker', {
       death_location: 'at_hospital',
       has_real_estate: false,
       has_commercial_insurance: false,

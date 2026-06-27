@@ -1,0 +1,259 @@
+persona:
+  id: military
+  city: huangshi
+  name: 军人（现役/退役军人）
+  description: 在杭州市居住的现役军人或退役军人
+  assumptions:
+    - 逝者为现役军人或已退役的退伍军人
+    - 逝者有配偶或一名成年子女可代办
+
+timeline:
+  - phase: 24h
+    title: 立即办理（24小时内）
+    procedures:
+      - id: death_cert
+        name: 开具《死亡医学证明》
+        urgency: critical
+        where:
+          type: depends
+          branches:
+            -
+              when: at_hospital
+              name: 接诊医院
+            -
+              when: at_home
+              name: 社区卫生服务中心
+            -
+              when: accident
+              name: 公安派出所 + 120急救中心
+        need:
+          originals:
+            - 逝者身份证
+            - 代办人身份证
+          copies: []
+        output: 死亡医学证明（三联单）
+        notes: 如为意外死亡需先报警，公安出具《非正常死亡证明》后医院才可开具
+
+      - id: funeral_home
+        name: 联系殡仪馆预约火化
+        urgency: critical
+        where:
+          type: fixed
+          name: 黄石市殡仪馆
+          address: 杭州市西湖区西溪路731号
+          phone: '0714-85220000'
+        need:
+          originals:
+            - 死亡医学证明
+            - 逝者身份证
+            - 代办人身份证
+          copies:
+            -
+              doc: 死亡医学证明
+              count: 2
+        output: 火化预约确认单
+
+  - phase: 3d
+    title: 遗体告别与火化（1-3天）
+    procedures:
+      - id: cremation
+        name: 遗体火化
+        urgency: critical
+        where:
+          type: fixed
+          name: 黄石市殡仪馆
+          address: 杭州市西湖区西溪路731号
+          phone: '0714-85220000'
+        need:
+          originals:
+            - 死亡医学证明
+            - 逝者身份证
+            - 代办人身份证
+            - 火化预约确认单
+          copies:
+            -
+              doc: 死亡医学证明
+              count: 2
+        output: 火化完成凭证
+
+      - id: cremation_cert
+        name: 领取《火化证明》
+        urgency: critical
+        where:
+          type: fixed
+          name: 黄石市殡仪馆
+          address: 杭州市西湖区西溪路731号
+          phone: '0714-85220000'
+        need:
+          originals:
+            - 死亡医学证明
+            - 逝者身份证
+            - 代办人身份证
+          copies: []
+        output: 火化证明（多份）
+        notes: 建议领取5-8份原件，后续多项手续均需使用
+
+  - phase: 7d
+    title: 户籍注销（3-7天内）
+    procedures:
+      - id: hukou_cancel
+        name: 注销户口
+        urgency: high
+        where:
+          type: fixed
+          name: 逝者户籍所在地派出所
+          address: 请联系逝者户籍地派出所确认
+          phone: '0571-12345'
+        need:
+          originals:
+            - 死亡医学证明
+            - 火化证明
+            - 逝者户口本
+            - 逝者身份证
+            - 代办人身份证
+          copies:
+            -
+              doc: 死亡医学证明
+              count: 2
+            -
+              doc: 火化证明
+              count: 2
+            -
+              doc: 代办人身份证
+              count: 1
+        output: 户口注销证明
+        notes: 户口注销后身份证会被收回销毁，建议注销前复印逝者身份证5-10份备用
+
+  - phase: 30d
+    title: 社保与待遇结算（7-30天）
+    procedures:
+      - id: social_insurance
+        name: 社保/养老金结算
+        urgency: high
+        where:
+          type: fixed
+          name: 杭州市社会保险管理服务中心
+          address: 杭州市上城区清吟街123号
+          phone: '0571-12333'
+        need:
+          originals:
+            - 死亡医学证明
+            - 火化证明
+            - 户口注销证明
+            - 代办人身份证
+            - 逝者社保卡
+          copies:
+            -
+              doc: 死亡医学证明
+              count: 1
+            -
+              doc: 火化证明
+              count: 1
+            -
+              doc: 户口注销证明
+              count: 1
+        output: 社保结算凭证
+        notes: 包括养老金停发、个人账户清算、丧葬补助金、遗属抚恤金等
+
+  - phase: 90d
+    title: 资产处理（30-90天）
+    procedures:
+      - id: property_transfer
+        name: 房产继承过户
+        urgency: normal
+        where:
+          type: fixed
+          name: 杭州市不动产登记中心
+          address: 杭州市上城区解放东路18号市民中心H楼
+          phone: '0571-87008100'
+        need:
+          originals:
+            - 死亡公证书
+            - 户口注销证明
+            - 房产证
+            - 继承人身份证
+            - 户口本
+          copies:
+            -
+              doc: 死亡公证书
+              count: 2
+            -
+              doc: 户口注销证明
+              count: 1
+            -
+              doc: 继承人身份证
+              count: 2
+        output: 不动产权证书（继承后）
+        when:
+          has_real_estate: true
+
+      - id: bank_account
+        name: 银行存款/理财取出
+        urgency: normal
+        where:
+          type: fixed
+          name: 各银行网点
+          address: 联系逝者开户银行预约办理
+          phone: '0571-12345'
+        need:
+          originals:
+            - 死亡公证书
+            - 户口注销证明
+            - 逝者银行卡/存折
+            - 继承人身份证
+            - 户口本
+          copies:
+            -
+              doc: 死亡公证书
+              count: 1
+            -
+              doc: 户口注销证明
+              count: 1
+        output: 银行账户清算凭证
+
+  - phase: long
+    title: 后续事项（长期）
+    procedures:
+      - id: will_execution
+        name: 遗嘱执行与公证
+        urgency: normal
+        where:
+          type: fixed
+          name: 杭州市各公证处
+          address: 杭州市上城区望江东路332号（杭州市国立公证处）
+          phone: '0571-85020513'
+        need:
+          originals:
+            - 遗嘱原件
+            - 死亡医学证明
+            - 户口注销证明
+            - 继承人身份证
+            - 户口本
+          copies:
+            -
+              doc: 死亡医学证明
+              count: 1
+            -
+              doc: 户口注销证明
+              count: 1
+        output: 遗嘱公证文书
+        when:
+          has_will: true
+
+      - id: other_cleanup
+        name: 其他账户注销与处理
+        urgency: normal
+        where:
+          type: fixed
+          name: 各相关机构
+          address: 根据逝者持有账户联系对应机构
+          phone: '0571-12345'
+        need:
+          originals:
+            - 户口注销证明
+            - 代办人身份证
+          copies:
+            -
+              doc: 户口注销证明
+              count: 5
+        output: 各类注销/变更凭证

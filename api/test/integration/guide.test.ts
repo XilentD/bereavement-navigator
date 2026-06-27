@@ -27,7 +27,7 @@ describe('API Integration', () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        persona_id: 'retired_worker',
+        persona_id: 'retired-worker',
         city: 'hangzhou',
         answers: {
           death_location: 'at_hospital',

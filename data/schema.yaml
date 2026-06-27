@@ -13,7 +13,7 @@ properties:
     properties:
       id:
         type: string
-        pattern: "^[a-z_]+$"
+        pattern: "^[a-z][a-z0-9_-]*$"
       city:
         type: string
         pattern: "^[a-z][a-z0-9_]*$"
@@ -55,7 +55,7 @@ properties:
             properties:
               id:
                 type: string
-                pattern: "^[a-z_]+$"
+                pattern: "^[a-z][a-z0-9_-]*$"
               name:
                 type: string
                 minLength: 2

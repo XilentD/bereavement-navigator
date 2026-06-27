@@ -54,7 +54,7 @@ export async function buildApp(opts = {}) {
     const cities = [...new Set([...config.values()].map(p => p.persona.city))].sort();
     const verifiedCount = cities.filter(c => {
       // Check if this city has official-gov source
-      const p = config.get(`${c}:retired_worker`);
+      const p = config.get(`${c}:retired-worker`);
       return p !== undefined;
     }).length;
 
@@ -100,7 +100,7 @@ export async function buildApp(opts = {}) {
   <div class="card">
     <h3><span class="method">POST</span> /api/guide</h3>
     <p>生成按时间线排列的待办清单</p>
-    <code>{"persona_id":"retired_worker","city":"hangzhou","answers":{...}}</code>
+    <code>{"persona_id":"retired-worker","city":"hangzhou","answers":{...}}</code>
   </div>
 
   <div class="card">

@@ -59,7 +59,7 @@ describe('PDF Generator', () => {
 
     const guideResult: GuideResult = {
       persona: {
-        id: 'retired_worker',
+        id: 'retired-worker',
         name: '退休企业职工',
         description: '退休企业职工身后事办理指南',
         assumptions: ['有社保', '无房产'],
