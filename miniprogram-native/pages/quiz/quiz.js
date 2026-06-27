@@ -40,15 +40,26 @@ const QS = {
 }
 
 Page({
-  data: { questions: [], qidx: 0, question: {}, answers: {}, isLast: false },
+  data: { questions: [], qidx: 0, question: null, answers: {}, isLast: false },
   onLoad() {
     const pid = app.globalData.selectedPersona || 'retired-worker'
-    const questions = QS[pid] || QS['retired-worker']
+    let questions = QS[pid]
+    if (!questions) {
+      // Fallback: try without hyphen, or default to retired-worker
+      questions = QS['retired-worker']
+    }
+    if (!questions || !questions[0]) {
+      wx.showToast({ title: '题目加载失败', icon: 'none' })
+      return
+    }
     this.setData({ questions, qidx: 0, question: questions[0], isLast: questions.length === 1, answers: {} })
   },
   pick(e) {
     const key = e.currentTarget.dataset.key
-    const val = e.currentTarget.dataset.val
+    let val = e.currentTarget.dataset.val
+    // Convert string booleans back
+    if (val === 'true') val = true
+    if (val === 'false') val = false
     const answers = { ...this.data.answers, [key]: val }
     this.setData({ answers })
     // Auto-advance after short delay

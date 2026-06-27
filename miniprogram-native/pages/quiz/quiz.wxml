@@ -1,4 +1,5 @@
 <view class="qp">
+  <block wx:if="{{question}}">
   <view class="prog"><view class="progf" style="width:{{(qidx+1)/questions.length*100}}%"></view></view>
   <view class="ptxt">第 {{qidx+1}} / {{questions.length}} 题</view>
   <view class="qt">{{question.text}}</view>
@@ -7,4 +8,6 @@
     <button wx:if="{{qidx>0}}" class="bt2" bindtap="prev">← 上一题</button>
     <button class="bt1" disabled="{{answers[question.key]===undefined}}" bindtap="next">{{isLast?'生成清单':'下一题 →'}}</button>
   </view>
+  </block>
+  <view wx:else class="empty">加载中...</view>
 </view>

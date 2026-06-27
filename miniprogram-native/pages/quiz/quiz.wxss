@@ -8,4 +8,5 @@
 .btc{display:flex;flex-direction:column;gap:16rpx;margin-top:32rpx}
 .bt1{width:100%;height:88rpx;line-height:88rpx;background:#8b7e6a;color:#fff;border-radius:44rpx;font-size:30rpx;border:none}
 .bt1[disabled]{background:#ccc}
+.empty{text-align:center;padding:120rpx;color:#999}
 .bt2{width:100%;height:88rpx;line-height:88rpx;background:#fff;color:#8b7e6a;border:2rpx solid #8b7e6a;border-radius:44rpx;font-size:30rpx}
