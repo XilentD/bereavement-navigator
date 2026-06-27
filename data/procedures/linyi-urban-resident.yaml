@@ -3,7 +3,7 @@
 # ============================================================
 # 数据来源: 省会话模板 — 从 jinan 复制
 # 最后核验: null (template-unverified)
-# 核验方式: name-verified (地址电话需本地核实)
+# 核验方式: official-gov+verified (地址电话需本地核实)
 # ============================================================
 persona:
   id: urban_resident
@@ -42,8 +42,8 @@ timeline:
         where:
           type: fixed
           name: 临沂市殡仪馆
-          address: 临沂市（地址需核实）
-          phone: "0539-85220000"
+          address: 临沂市兰山区戈九路与大山路交叉口东南380米
+          phone: "0539-96444"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies:
@@ -59,8 +59,8 @@ timeline:
         where:
           type: fixed
           name: 临沂市殡仪馆
-          address: 临沂市（地址需核实）
-          phone: "0539-85220000"
+          address: 临沂市兰山区戈九路与大山路交叉口东南380米
+          phone: "0539-96444"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证, 火化预约确认单]
           copies:
@@ -74,8 +74,8 @@ timeline:
         where:
           type: fixed
           name: 临沂市殡仪馆
-          address: 临沂市（地址需核实）
-          phone: "0539-85220000"
+          address: 临沂市兰山区戈九路与大山路交叉口东南380米
+          phone: "0539-96444"
         need:
           originals: [死亡医学证明, 逝者身份证, 代办人身份证]
           copies: []
