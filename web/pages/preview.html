@@ -163,16 +163,18 @@ async function goCity() {
     const data = await res.json();
     allCities = data.cities || [];
     renderCityList(allCities);
-    // Auto-detect from IP
-    detectCity();
+    // Auto-detect from IP (non-blocking, with timeout)
+    detectCity().catch(() => {});
   } catch(e) {
-    document.getElementById('cityList').innerHTML = '<div class="error">加载城市列表失败</div>';
+    document.getElementById('cityList').innerHTML = '<div class="error">加载城市列表失败: '+e.message+'</div>';
   }
 }
 
 async function detectCity() {
   try {
-    const res = await fetch('https://ipapi.co/json/');
+    const controller = new AbortController();
+    setTimeout(() => controller.abort(), 5000);
+    const res = await fetch('https://ipapi.co/json/', { signal: controller.signal });
     const d = await res.json();
     if (d.city) {
       // Map English city name to our slugs
