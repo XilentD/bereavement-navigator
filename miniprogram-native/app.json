@@ -1,11 +1,18 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/city/city",
-    "pages/persona/persona",
-    "pages/quiz/quiz",
-    "pages/timeline/timeline",
-    "pages/detail/detail"
+    "pages/index/index"
+  ],
+  "subpackages": [
+    {
+      "root": "pages",
+      "pages": [
+        "city/city",
+        "persona/persona",
+        "quiz/quiz",
+        "timeline/timeline",
+        "detail/detail"
+      ]
+    }
   ],
   "lazyCodeLoading": "requiredComponents",
   "window": {
