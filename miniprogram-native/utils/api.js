@@ -34,8 +34,18 @@ module.exports = {
               const path = wx.env.USER_DATA_PATH + '/checklist.pdf'
               fs.writeFile({ filePath: path, data: res.data, success() { resolve(path) }, fail: reject })
             } else {
-              // Text fallback — return as string
-              const text = String.fromCharCode.apply(null, arr)
+              // Text fallback — decode UTF-8 manually since wx doesn't have TextDecoder
+              var text = ''
+              var i = 0
+              while (i < arr.length) {
+                var b = arr[i]
+                var cp
+                if (b < 0x80) { cp = b; i += 1 }
+                else if (b < 0xE0) { cp = ((b & 0x1F) << 6) | (arr[i+1] & 0x3F); i += 2 }
+                else if (b < 0xF0) { cp = ((b & 0x0F) << 12) | ((arr[i+1] & 0x3F) << 6) | (arr[i+2] & 0x3F); i += 3 }
+                else { cp = ((b & 0x07) << 18) | ((arr[i+1] & 0x3F) << 12) | ((arr[i+2] & 0x3F) << 6) | (arr[i+3] & 0x3F); i += 4 }
+                text += String.fromCodePoint(cp)
+              }
               resolve({ isText: true, text: text })
             }
           } else { reject(res) }

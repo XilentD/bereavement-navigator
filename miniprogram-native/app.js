@@ -1,6 +1,6 @@
 App({
   globalData: {
-    apiBase: 'http://localhost:3000',
+    apiBase: 'https://express-lprk-275723-8-1448202195.sh.run.tcloudbase.com',
     selectedCity: 'hangzhou',
     selectedPersona: '',
     answers: {},
