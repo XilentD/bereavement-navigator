@@ -35,7 +35,35 @@ Page({
       wx.openDocument({ filePath: path, fileType: 'pdf', showMenu: true })
     }).catch(() => { wx.hideLoading(); wx.showToast({ title: '生成失败', icon: 'none' }) })
   },
-  genLetter() { wx.showModal({ title: '授权委托书', content: '此功能需在Web端使用：http://localhost:3000/preview', showCancel: false }) },
+  genLetter() {
+    var that = this
+    wx.showModal({ title: '代办人信息', editable: true, placeholderText: '请输入代办人姓名', success: function(r1) {
+      if (!r1.confirm || !r1.content) return
+      var name = r1.content
+      wx.showModal({ title: '代办人身份证号', editable: true, placeholderText: '请输入身份证号', success: function(r2) {
+        if (!r2.confirm || !r2.content) return
+        var id = r2.content
+        wx.showModal({ title: '与逝者关系', editable: true, placeholderText: '如：子女、配偶', success: function(r3) {
+          if (!r3.confirm || !r3.content) return
+          wx.showLoading({ title: '生成中...' })
+          wx.request({
+            url: require('../../utils/api.js').BASE + '/api/pdf/delegation-letter',
+            method: 'POST', responseType: 'arraybuffer',
+            data: { principalName: name, principalId: id, agentName: name, agentId: id, relationship: r3.content, deceasedName: '逝者', deceasedId: '', deathDate: '', persona_id: app.globalData.selectedPersona, city: app.globalData.selectedCity, answers: app.globalData.answers },
+            success: function(res) {
+              wx.hideLoading()
+              if (res.statusCode === 200) {
+                var fs = wx.getFileSystemManager()
+                var path = wx.env.USER_DATA_PATH + '/delegation-letter.pdf'
+                fs.writeFile({ filePath: path, data: res.data, success: function() { wx.openDocument({ filePath: path, fileType: 'pdf', showMenu: true }) }, fail: function() { wx.showToast({ title: '保存失败', icon: 'none' }) } })
+              } else { wx.showToast({ title: '生成失败', icon: 'none' }) }
+            },
+            fail: function() { wx.hideLoading(); wx.showToast({ title: '生成失败', icon: 'none' }) }
+          })
+        }})
+      }})
+    }})
+  },
   showFeedback() {
     wx.showModal({
       title: '反馈问题',
