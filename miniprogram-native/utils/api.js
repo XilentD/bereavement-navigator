@@ -1,4 +1,4 @@
-const BASE = 'https://txkpnzzr.express-lprk.ektdecao.3kwdsc3h.com'
+const BASE = 'https://express-lprk-275723-8-1448202195.sh.run.tcloudbase.com'
 
 function request(url, method, data) {
   return new Promise((resolve, reject) => {

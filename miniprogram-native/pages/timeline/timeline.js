@@ -8,7 +8,20 @@ Page({
     completed: {}
   },
   onLoad() {
-    this.setData({ guide: app.globalData.guideResult })
+    var guide = app.globalData.guideResult
+    if (guide && guide.summary) {
+      this.setData({ guide: guide })
+    } else {
+      // Retry load from API if globalData is missing
+      wx.showLoading({ title: '加载中...' })
+      var api = require('../../utils/api.js')
+      var that = this
+      api.getGuide(app.globalData.selectedPersona, app.globalData.selectedCity, app.globalData.answers || {}).then(function(res) {
+        app.globalData.guideResult = res
+        that.setData({ guide: res })
+        wx.hideLoading()
+      }).catch(function() { wx.hideLoading(); wx.showToast({ title: '加载失败', icon: 'none' }) })
+    }
   },
   onShow() {
     // Refresh completed state
