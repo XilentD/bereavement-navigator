@@ -61,6 +61,19 @@ const cache = new Map<string, Map<string, PersonaConfig>>();
 export function loadConfig(dataDir: string): Map<string, PersonaConfig> {
   const resolvedDir = resolve(dataDir);
   if (cache.has(resolvedDir)) return cache.get(resolvedDir)!;
+
+  // Fast path: pre-compiled JSON (used in Docker/production)
+  const precompiledPath = join(resolvedDir, 'config.json');
+  if (existsSync(precompiledPath)) {
+    console.log('[ConfigLoader] Loading pre-compiled config.json...');
+    const raw = JSON.parse(readFileSync(precompiledPath, 'utf-8'));
+    const result = new Map<string, PersonaConfig>(Object.entries(raw));
+    cache.set(resolvedDir, result);
+    const cities = [...new Set([...result.values()].map(p => p.persona.city))];
+    console.log(`[ConfigLoader] Loaded ${result.size} persona configs across ${cities.length} cities`);
+    return result;
+  }
+
   const proceduresDir = join(resolvedDir, 'procedures');
   if (!existsSync(proceduresDir)) {
     throw new Error(`Procedures directory not found: ${proceduresDir}`);
