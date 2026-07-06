@@ -23,12 +23,13 @@ RUN apk add --no-cache \
 
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 ENV DATA_DIR=/app/data
+ENV PORT=80
 
 COPY --from=builder /app/dist/ ./dist/
 COPY --from=builder /app/node_modules/ ./node_modules/
 COPY data/ ./data/
 COPY web/ ./web/
 
-EXPOSE 3000
+EXPOSE 80
 
 CMD ["node", "dist/server.js"]
