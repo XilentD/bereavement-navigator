@@ -20,11 +20,16 @@ Page({
     wx.navigateTo({ url: '/pages/detail/detail?pid=' + pid })
   },
   downloadPDF() {
-    wx.showLoading({ title: '生成PDF...' })
+    wx.showLoading({ title: '生成中...' })
     const api = require('../../utils/api.js')
-    api.getChecklistPdf(app.globalData.selectedPersona, app.globalData.selectedCity, app.globalData.answers).then(path => {
+    api.getChecklistPdf(app.globalData.selectedPersona, app.globalData.selectedCity, app.globalData.answers).then(result => {
       wx.hideLoading()
-      wx.openDocument({ filePath: path, fileType: 'pdf', showMenu: true })
+      if (result.isText) {
+        // Text fallback — show in modal
+        wx.showModal({ title: '材料清单', content: result.text.slice(0, 2000), showCancel: false, confirmText: '关闭' })
+      } else {
+        wx.openDocument({ filePath: result, fileType: 'pdf', showMenu: true })
+      }
     }).catch(() => {
       wx.hideLoading()
       wx.showToast({ title: '生成失败', icon: 'none' })

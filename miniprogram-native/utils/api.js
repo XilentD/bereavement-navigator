@@ -26,9 +26,18 @@ module.exports = {
         responseType: 'arraybuffer',
         success(res) {
           if (res.statusCode === 200) {
-            const fs = wx.getFileSystemManager()
-            const path = wx.env.USER_DATA_PATH + '/checklist.pdf'
-            fs.writeFile({ filePath: path, data: res.data, success() { resolve(path) }, fail: reject })
+            // Check if it's a real PDF or text fallback
+            const arr = new Uint8Array(res.data)
+            const isPdf = arr[0] === 0x25 && arr[1] === 0x50 && arr[2] === 0x44 && arr[3] === 0x46 // %PDF
+            if (isPdf) {
+              const fs = wx.getFileSystemManager()
+              const path = wx.env.USER_DATA_PATH + '/checklist.pdf'
+              fs.writeFile({ filePath: path, data: res.data, success() { resolve(path) }, fail: reject })
+            } else {
+              // Text fallback — return as string
+              const text = String.fromCharCode.apply(null, arr)
+              resolve({ isText: true, text: text })
+            }
           } else { reject(res) }
         },
         fail: reject
