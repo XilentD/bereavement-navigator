@@ -15,7 +15,6 @@ export async function buildApp(opts = {}) {
     if (req.method === 'OPTIONS') { reply.status(200); return; }
   });
 
-  // DATA_DIR: ../data (dev from api/) or ./data (production after build)
   const dataDir = process.env.DATA_DIR || '../data';
   const config = loadConfig(dataDir);
 
