@@ -9,18 +9,20 @@ Page({
   },
   onLoad() {
     var guide = app.globalData.guideResult
+    var gd = 'p:'+(app.globalData.selectedPersona||'?')+' c:'+(app.globalData.selectedCity||'?')+' g:'+(guide?'Y':'N')
     if (guide && guide.summary) {
-      this.setData({ guide: guide })
+      this.setData({ guide: guide, debug: gd })
     } else {
-      // Retry load from API if globalData is missing
-      wx.showLoading({ title: '加载中...' })
+      this.setData({ debug: gd })
       var api = require('../../utils/api.js')
       var that = this
-      api.getGuide(app.globalData.selectedPersona, app.globalData.selectedCity, app.globalData.answers || {}).then(function(res) {
+      var pid = app.globalData.selectedPersona || 'retired-worker'
+      var city = app.globalData.selectedCity || 'hangzhou'
+      var ans = app.globalData.answers || {}
+      api.getGuide(pid, city, ans).then(function(res) {
         app.globalData.guideResult = res
-        that.setData({ guide: res })
-        wx.hideLoading()
-      }).catch(function() { wx.hideLoading(); wx.showToast({ title: '加载失败', icon: 'none' }) })
+        that.setData({ guide: res, debug: gd+' -> OK' })
+      }).catch(function(e) { that.setData({ debug: gd+' -> ERR:'+(e&&e.errMsg||'?') }) })
     }
   },
   onShow() {
