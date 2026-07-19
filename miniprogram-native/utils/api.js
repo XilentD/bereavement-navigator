@@ -1,4 +1,4 @@
-const BASE = 'https://express-lprk-275723-8-1448202195.sh.run.tcloudbase.com'
+const BASE = 'http://47.103.115.5:3000'
 
 function request(url, method, data) {
   return new Promise((resolve, reject) => {
