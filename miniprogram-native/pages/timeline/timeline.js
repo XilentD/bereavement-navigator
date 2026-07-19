@@ -9,20 +9,12 @@ Page({
   },
   onLoad() {
     var guide = app.globalData.guideResult
-    var gd = 'p:'+(app.globalData.selectedPersona||'?')+' c:'+(app.globalData.selectedCity||'?')+' g:'+(guide?'Y':'N')
     if (guide && guide.summary) {
-      this.setData({ guide: guide, debug: gd })
+      this.setData({ guide: guide })
     } else {
-      this.setData({ debug: gd })
-      var api = require('../../utils/api.js')
-      var that = this
-      var pid = app.globalData.selectedPersona || 'retired-worker'
-      var city = app.globalData.selectedCity || 'hangzhou'
-      var ans = app.globalData.answers || {}
-      api.getGuide(pid, city, ans).then(function(res) {
-        app.globalData.guideResult = res
-        that.setData({ guide: res, debug: gd+' S:'+JSON.stringify(res.summary).slice(0,60) })
-      }).catch(function(e) { that.setData({ debug: gd+' E:'+JSON.stringify(e).slice(0,100) }) })
+      // No valid data — go back to quiz
+      wx.showToast({ title: '请先完成答题', icon: 'none' })
+      setTimeout(function(){ wx.navigateBack() }, 1500)
     }
   },
   onShow() {
