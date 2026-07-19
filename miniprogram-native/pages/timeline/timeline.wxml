@@ -1,4 +1,5 @@
 <view class="tp">
+  <view wx:if="{{!guide}}" style="padding:80rpx;text-align:center;color:#999">加载中... v2</view>
   <view class="th" wx:if="{{guide}}">
     <view class="pn">{{guide.persona.name}}</view>
     <view class="ps">共 {{guide.summary.total_procedures}} 项 · {{guide.summary.critical_count}} 项紧急 · 预计 {{guide.summary.estimated_days_min}} 天</view>
