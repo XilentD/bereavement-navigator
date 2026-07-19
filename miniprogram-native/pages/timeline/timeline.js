@@ -21,7 +21,9 @@ Page({
       var ans = app.globalData.answers || {}
       api.getGuide(pid, city, ans).then(function(res) {
         app.globalData.guideResult = res
-        that.setData({ guide: res, debug: gd+' -> OK' })
+        var hasSummary = res && res.summary ? 'Y' : 'N'
+        var hasTimeline = res && res.timeline ? 'Y('+res.timeline.length+')' : 'N'
+        that.setData({ guide: res, debug: gd+' -> OK s:'+hasSummary+' t:'+hasTimeline })
       }).catch(function(e) { that.setData({ debug: gd+' -> ERR:'+(e&&e.errMsg||'?') }) })
     }
   },
