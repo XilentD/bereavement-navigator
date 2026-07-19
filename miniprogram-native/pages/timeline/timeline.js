@@ -21,8 +21,8 @@ Page({
       var ans = app.globalData.answers || {}
       api.getGuide(pid, city, ans).then(function(res) {
         app.globalData.guideResult = res
-        that.setData({ guide: res, debug: gd+' s:'+JSON.stringify(res.summary).slice(0,60)+' t:'+(res.timeline?res.timeline.length:0) })
-      }).catch(function(e) { that.setData({ debug: gd+' -> ERR:'+(e&&e.errMsg||'?') }) })
+        that.setData({ guide: res, debug: gd+' S:'+JSON.stringify(res.summary).slice(0,60) })
+      }).catch(function(e) { that.setData({ debug: gd+' E:'+JSON.stringify(e).slice(0,100) }) })
     }
   },
   onShow() {
