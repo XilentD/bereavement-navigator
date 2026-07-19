@@ -93,6 +93,8 @@ Page({
       var that = this
       api.getGuide(this.pid, app.globalData.selectedCity, ans).then(function(res) {
         app.globalData.guideResult = res
+        app.globalData.selectedPersona = that.pid
+        app.globalData.answers = ans
         wx.hideLoading()
         wx.navigateTo({ url: '/pages/timeline/timeline' })
       }).catch(function(e) { wx.hideLoading(); wx.showModal({ title: '请求失败', content: (e&&e.errMsg||'未知错误')+'\nURL: '+require('../../utils/api.js').BASE, showCancel:false }) })
